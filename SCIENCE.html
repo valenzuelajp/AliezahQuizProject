@@ -1,0 +1,2347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Aliezah Science Reviewer - Digestive & Respiratory Systems</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --pink: #ff6b9d;
+    --yellow: #ffd93d;
+    --blue: #4ecdc4;
+    --purple: #a855f7;
+    --orange: #ff9a3c;
+    --green: #06d6a0;
+    --red: #ff4757;
+    --bg: #fef9f0;
+    --white: #ffffff;
+    --dark: #2d2d2d;
+    --muted: #666666;
+    --card-shadow: 0 6px 0 rgba(0,0,0,0.12);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    font-family: 'Nunito', sans-serif;
+    min-height: 100vh;
+    background-image:
+      radial-gradient(circle at 10% 20%, rgba(255,107,157,0.12) 0%, transparent 40%),
+      radial-gradient(circle at 90% 80%, rgba(78,205,196,0.12) 0%, transparent 40%),
+      radial-gradient(circle at 50% 50%, rgba(255,217,61,0.08) 0%, transparent 60%);
+  }
+
+  .bg-shapes {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+  }
+
+  .shape {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.08;
+    animation: float 8s ease-in-out infinite;
+  }
+  .shape:nth-child(1) { width:80px;height:80px;background:var(--pink);top:8%;left:5%;animation-delay:0s; }
+  .shape:nth-child(2) { width:50px;height:50px;background:var(--yellow);top:20%;right:8%;animation-delay:1s;border-radius:8px;transform:rotate(20deg); }
+  .shape:nth-child(3) { width:60px;height:60px;background:var(--blue);bottom:25%;left:3%;animation-delay:2s; }
+  .shape:nth-child(4) { width:40px;height:40px;background:var(--purple);bottom:15%;right:5%;animation-delay:3s;border-radius:4px; }
+  .shape:nth-child(5) { width:35px;height:35px;background:var(--orange);top:55%;left:8%;animation-delay:1.5s; }
+
+  @keyframes float {
+    0%,100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-18px) rotate(10deg); }
+  }
+
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--white);
+    border-bottom: 3px solid var(--dark);
+    padding: 14px 18px 10px;
+    box-shadow: 0 3px 0 rgba(0,0,0,0.08);
+  }
+
+  .header-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+
+  .header-title {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.15rem;
+    color: var(--dark);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .header-title .dot {
+    width: 10px; height: 10px; border-radius: 50%;
+    background: var(--green);
+    display: inline-block;
+    animation: pulse 1.5s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%,100%{transform:scale(1);} 50%{transform:scale(1.3);}
+  }
+
+  .mode-badge-chip {
+    font-size: 0.75rem;
+    font-weight: 800;
+    background: #ede9fe;
+    color: #6d28d9;
+    border: 2px solid var(--dark);
+    padding: 2px 8px;
+    border-radius: 12px;
+    margin-left: 6px;
+  }
+
+  .score-chip {
+    background: var(--yellow);
+    border: 2px solid var(--dark);
+    border-radius: 20px;
+    padding: 4px 14px;
+    font-weight: 800;
+    font-size: 0.85rem;
+    color: var(--dark);
+    box-shadow: 2px 2px 0 var(--dark);
+  }
+
+  .sound-chip {
+    background: var(--white);
+    border: 2px solid var(--dark);
+    border-radius: 20px;
+    padding: 4px 10px;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 800;
+    font-size: 0.78rem;
+    color: var(--dark);
+    cursor: pointer;
+    box-shadow: 2px 2px 0 var(--dark);
+    transition: transform 0.1s, background 0.2s;
+  }
+  .sound-chip:active { transform: translateY(1px); }
+  .sound-chip.muted { background: #fee2e2; color: #991b1b; }
+
+  .progress-track {
+    height: 10px;
+    background: #f0e8d8;
+    border-radius: 10px;
+    border: 2px solid var(--dark);
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--green), var(--blue), var(--purple));
+    border-radius: 8px;
+    transition: width 0.5s cubic-bezier(.68,-0.55,.27,1.55);
+  }
+
+  main {
+    position: relative;
+    z-index: 1;
+    max-width: 540px;
+    margin: 0 auto;
+    padding: 20px 16px 40px;
+  }
+
+  .screen { display: none; }
+  .screen.active { display: block; }
+
+  .start-wrap {
+    text-align: center;
+    padding: 10px 0 20px;
+    animation: popIn 0.5s cubic-bezier(.68,-0.55,.27,1.55);
+  }
+
+  @keyframes popIn {
+    from { opacity:0; transform: scale(0.85); }
+    to { opacity:1; transform: scale(1); }
+  }
+
+  .big-emoji-row {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    font-size: 3rem;
+    margin-bottom: 10px;
+    animation: wiggle 2s ease-in-out infinite;
+  }
+
+  @keyframes wiggle {
+    0%,100%{transform:rotate(-3deg);} 50%{transform:rotate(3deg);}
+  }
+
+  .start-title {
+    font-family: 'Fredoka One', cursive;
+    font-size: 2.1rem;
+    color: var(--dark);
+    line-height: 1.25;
+    margin-bottom: 8px;
+  }
+
+  .start-title span.green { color: var(--green); }
+  .start-title span.blue { color: #0284c7; }
+
+  .start-sub {
+    color: var(--muted);
+    font-size: 0.92rem;
+    margin-bottom: 24px;
+    line-height: 1.55;
+    font-weight: 700;
+  }
+
+  /* Mode selection cards */
+  .mode-select-title {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.15rem;
+    color: var(--dark);
+    margin-bottom: 12px;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .version-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-bottom: 24px;
+  }
+
+  .version-card {
+    background: var(--white);
+    border: 3px solid var(--dark);
+    border-radius: 18px;
+    padding: 18px 14px;
+    box-shadow: var(--card-shadow);
+    cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.15s, border-color 0.2s;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .version-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 0 rgba(0,0,0,0.15);
+  }
+
+  .version-card.v-75 {
+    background: linear-gradient(135deg, #ffffff 0%, #ecfdf5 100%);
+    border-color: #059669;
+  }
+
+  .version-card.v-100 {
+    background: linear-gradient(135deg, #ffffff 0%, #f0f9ff 100%);
+    border-color: #0284c7;
+  }
+
+  .version-card .v-badge {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.8rem;
+    line-height: 1;
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .v-75 .v-badge { color: #059669; }
+  .v-100 .v-badge { color: #0284c7; }
+
+  .version-card .v-title {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1rem;
+    color: var(--dark);
+    margin-bottom: 4px;
+  }
+
+  .version-card .v-desc {
+    font-size: 0.75rem;
+    color: var(--muted);
+    font-weight: 700;
+    line-height: 1.35;
+  }
+
+  .version-card .v-btn-start {
+    margin-top: 12px;
+    padding: 8px 12px;
+    border-radius: 12px;
+    border: 2px solid var(--dark);
+    font-family: 'Fredoka One', cursive;
+    font-size: 0.85rem;
+    color: white;
+    box-shadow: 2px 2px 0 var(--dark);
+  }
+
+  .v-75 .v-btn-start { background: var(--green); }
+  .v-100 .v-btn-start { background: var(--blue); }
+
+  /* History System Styles */
+  .history-wrap {
+    background: var(--white);
+    border: 2.5px solid var(--dark);
+    border-radius: 16px;
+    padding: 16px;
+    box-shadow: var(--card-shadow);
+    margin-bottom: 24px;
+    text-align: left;
+  }
+
+  .history-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+  }
+
+  .history-header h3 {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1rem;
+    color: var(--dark);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .btn-clear-history {
+    background: #ffe4e6;
+    color: #be123c;
+    border: 2px solid var(--dark);
+    border-radius: 12px;
+    padding: 3px 10px;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 800;
+    font-size: 0.75rem;
+    cursor: pointer;
+    box-shadow: 2px 2px 0 var(--dark);
+    transition: transform 0.1s, background 0.2s;
+  }
+  .btn-clear-history:hover { background: #fecdd3; }
+  .btn-clear-history:active { transform: translateY(1px); }
+
+  .history-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-height: 220px;
+    overflow-y: auto;
+    padding-right: 4px;
+  }
+
+  .history-item {
+    background: #f8fafc;
+    border: 2px solid var(--dark);
+    border-radius: 12px;
+    padding: 10px 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .history-item-left {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .history-item-score {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1rem;
+    color: var(--dark);
+  }
+
+  .history-item-score span {
+    color: var(--green);
+  }
+
+  .history-item-date {
+    font-size: 0.72rem;
+    color: var(--muted);
+    font-weight: 700;
+  }
+
+  .history-badge {
+    font-family: 'Fredoka One', cursive;
+    font-size: 0.75rem;
+    padding: 3px 9px;
+    border-radius: 10px;
+    border: 1.5px solid var(--dark);
+  }
+
+  .history-badge.v-75 { background: #dcfce7; color: #15803d; }
+  .history-badge.v-100 { background: #e0f2fe; color: #0369a1; }
+
+  .history-empty {
+    font-size: 0.82rem;
+    color: var(--muted);
+    font-weight: 700;
+    text-align: center;
+    padding: 12px 0;
+  }
+
+  .cat-wrap {
+    background: var(--white);
+    border: 2.5px solid var(--dark);
+    border-radius: 16px;
+    padding: 16px;
+    box-shadow: var(--card-shadow);
+    margin-bottom: 24px;
+    text-align: left;
+  }
+
+  .cat-wrap h3 {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1rem;
+    margin-bottom: 10px;
+    color: var(--dark);
+  }
+
+  .cat-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .cat-tag {
+    font-size: 0.72rem;
+    font-weight: 800;
+    padding: 5px 11px;
+    border-radius: 20px;
+    border: 2px solid var(--dark);
+  }
+
+  .tag-digestive  { background: #ffe4e6; color: #be123c; }
+  .tag-respiratory{ background: #e0f2fe; color: #0369a1; }
+  .tag-accessory  { background: #f3e8ff; color: #6b21a8; }
+  .tag-airway     { background: #ccfbf1; color: #0f766e; }
+  .tag-disease    { background: #ffedd5; color: #c2410c; }
+  .tag-matter     { background: #dbeafe; color: #1d4ed8; }
+  .tag-process    { background: #dcfce7; color: #15803d; }
+  .tag-lab        { background: #fce7f3; color: #be185d; }
+  .tag-safety     { background: #fff3cd; color: #b45309; }
+
+  .btn {
+    display: block;
+    width: 100%;
+    padding: 16px;
+    border: 2.5px solid var(--dark);
+    border-radius: 14px;
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: transform 0.1s, box-shadow 0.1s;
+    letter-spacing: 0.03em;
+    box-shadow: var(--card-shadow);
+    text-align: center;
+  }
+
+  .btn:active { transform: translateY(3px); box-shadow: 0 2px 0 rgba(0,0,0,0.12); }
+
+  .btn-start   { background: var(--green); color: var(--white); }
+  .btn-next    { background: var(--blue); color: var(--white); margin-top: 16px; display: none; }
+  .btn-next.show { display: block; }
+
+  .q-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+  }
+
+  .q-badge {
+    font-family: 'Fredoka One', cursive;
+    font-size: 0.88rem;
+    padding: 5px 14px;
+    border-radius: 20px;
+    border: 2px solid var(--dark);
+    box-shadow: 2px 2px 0 var(--dark);
+  }
+
+  .cat-badge {
+    font-size: 0.7rem;
+    font-weight: 800;
+    padding: 4px 10px;
+    border-radius: 20px;
+    border: 2px solid var(--dark);
+  }
+
+  .q-card {
+    background: var(--white);
+    border: 2.5px solid var(--dark);
+    border-radius: 18px;
+    padding: 20px 18px;
+    margin-bottom: 16px;
+    box-shadow: var(--card-shadow);
+    animation: slideIn 0.35s cubic-bezier(.68,-0.55,.27,1.55);
+    position: relative;
+  }
+
+  @keyframes slideIn {
+    from { opacity:0; transform: translateY(20px) scale(0.97); }
+    to   { opacity:1; transform: translateY(0) scale(1); }
+  }
+
+  .diagram-container {
+    background: #f8fafc;
+    border: 2px solid var(--dark);
+    border-radius: 14px;
+    padding: 12px;
+    margin-bottom: 14px;
+    text-align: center;
+  }
+
+  .diagram-container svg {
+    max-width: 100%;
+    height: auto;
+    max-height: 250px;
+    display: block;
+    margin: 0 auto;
+  }
+
+  .q-text {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--dark);
+    line-height: 1.55;
+  }
+
+  .options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .opt-btn {
+    width: 100%;
+    background: var(--white);
+    border: 2.5px solid var(--dark);
+    border-radius: 14px;
+    padding: 13px 14px;
+    text-align: left;
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--dark);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    transition: transform 0.1s, box-shadow 0.1s, background 0.2s;
+    box-shadow: 3px 3px 0 rgba(0,0,0,0.1);
+  }
+
+  .opt-btn:not(:disabled):hover {
+    transform: translateY(-2px);
+    box-shadow: 3px 5px 0 rgba(0,0,0,0.15);
+  }
+
+  .opt-btn:active:not(:disabled) { transform: translateY(1px); box-shadow: 1px 1px 0 rgba(0,0,0,0.1); }
+
+  .opt-letter {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    background: var(--bg);
+    border: 2px solid var(--dark);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Fredoka One', cursive;
+    font-size: 0.85rem;
+    flex-shrink: 0;
+    transition: background 0.2s;
+  }
+
+  .opt-btn.correct { background: #dcfce7; border-color: var(--green); box-shadow: 3px 3px 0 rgba(6,214,160,0.3); }
+  .opt-btn.correct .opt-letter { background: var(--green); color: white; border-color: var(--green); }
+
+  .opt-btn.wrong { background: #ffe4e6; border-color: var(--red); box-shadow: 3px 3px 0 rgba(255,71,87,0.2); }
+  .opt-btn.wrong .opt-letter { background: var(--red); color: white; border-color: var(--red); }
+
+  .opt-btn:disabled { cursor: default; }
+
+  .feedback {
+    display: none;
+    border: 2.5px solid var(--dark);
+    border-radius: 14px;
+    padding: 14px;
+    margin-top: 14px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    line-height: 1.55;
+    animation: popIn 0.3s cubic-bezier(.68,-0.55,.27,1.55);
+  }
+  .feedback.show { display: block; }
+  .feedback strong { font-family: 'Fredoka One', cursive; font-size: 1rem; display: block; margin-bottom: 4px; }
+  .feedback.fb-correct { background: #f0fdf4; border-color: var(--green); color: #166534; }
+  .feedback.fb-wrong   { background: #fff1f2; border-color: var(--red);   color: #9f1239; }
+
+  .results-wrap {
+    text-align: center;
+    animation: popIn 0.5s cubic-bezier(.68,-0.55,.27,1.55);
+  }
+
+  .trophy-emoji {
+    font-size: 4rem;
+    display: block;
+    margin: 10px 0 6px;
+    animation: bounce 1s ease-in-out infinite;
+  }
+
+  @keyframes bounce {
+    0%,100%{transform:translateY(0);} 50%{transform:translateY(-12px);}
+  }
+
+  .result-title {
+    font-family: 'Fredoka One', cursive;
+    font-size: 2rem;
+    color: var(--dark);
+    margin-bottom: 4px;
+  }
+
+  .result-tagline {
+    color: var(--muted);
+    font-size: 0.88rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    line-height: 1.5;
+  }
+
+  .score-big-card {
+    background: var(--white);
+    border: 3px solid var(--dark);
+    border-radius: 20px;
+    padding: 20px 30px;
+    box-shadow: 5px 5px 0 var(--dark);
+    margin-bottom: 18px;
+    display: inline-block;
+    min-width: 180px;
+  }
+
+  .score-big-card .score-num {
+    font-family: 'Fredoka One', cursive;
+    font-size: 3.4rem;
+    line-height: 1;
+    color: var(--green);
+  }
+
+  .score-big-card .score-out {
+    font-size: 0.85rem;
+    color: var(--muted);
+    font-weight: 700;
+    margin-top: 4px;
+  }
+
+  .breakdown-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-bottom: 22px;
+  }
+
+  .bd-card {
+    background: var(--white);
+    border: 2.5px solid var(--dark);
+    border-radius: 14px;
+    padding: 12px 8px;
+    box-shadow: 3px 3px 0 var(--dark);
+    text-align: center;
+  }
+
+  .bd-card .bd-num {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.5rem;
+    display: block;
+    line-height: 1;
+  }
+
+  .bd-card.c .bd-num { color: var(--green); }
+  .bd-card.w .bd-num { color: var(--red); }
+  .bd-card.p .bd-num { color: var(--purple); }
+  .bd-card .bd-label { font-size: 0.7rem; color: var(--muted); font-weight: 700; margin-top: 3px; }
+
+  .restart-btn-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .confetti { position: fixed; inset: 0; pointer-events: none; z-index: 200; }
+
+  .dot {
+    position: absolute;
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    animation: fall linear forwards;
+  }
+
+  @keyframes fall {
+    0%   { transform: translateY(-20px) rotate(0deg);   opacity: 1; }
+    100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+  }
+</style>
+</head>
+<body>
+
+<div class="bg-shapes">
+  <div class="shape"></div>
+  <div class="shape"></div>
+  <div class="shape"></div>
+  <div class="shape"></div>
+  <div class="shape"></div>
+</div>
+
+<div class="confetti" id="confetti"></div>
+
+<header>
+  <div class="header-top">
+    <div class="header-title">
+      <span class="dot"></span> Aliezah Science Reviewer
+      <span class="mode-badge-chip" id="hdr-mode-chip">75 Points</span>
+    </div>
+    <div style="display:flex; align-items:center; gap:8px;">
+      <button class="sound-chip" id="sound-btn" onclick="toggleSound()">🔊 Sound ON</button>
+      <div class="score-chip" id="score-chip">Score: 0</div>
+    </div>
+  </div>
+  <div class="progress-track">
+    <div class="progress-fill" id="progress-fill" style="width:0%"></div>
+  </div>
+</header>
+
+<main>
+
+  <!-- ── START SCREEN ── -->
+  <div class="screen active" id="start-screen">
+    <div class="start-wrap">
+      <div class="big-emoji-row">
+        <span>🫀</span>
+        <span>🔬</span>
+        <span>🫁</span>
+      </div>
+      <h1 class="start-title">Aliezah <span class="green">Science</span> <span class="blue">Reviewer</span></h1>
+      <p class="start-sub">Master the Digestive &amp; Respiratory Systems, Accessory Organs, Respiration Airway, Diaphragm Mechanics &amp; Diseases!</p>
+
+      <div class="mode-select-title">
+        <span>🎯</span> Select Your Quiz Version:
+      </div>
+
+      <div class="version-grid">
+        <div class="version-card v-75" onclick="selectAndStartQuiz(75)">
+          <span class="v-badge">75</span>
+          <div class="v-title">75 Points Quiz</div>
+          <div class="v-desc">75 Questions • Digestive &amp; Respiratory Systems Review</div>
+          <div class="v-btn-start">Start 75 Points 🚀</div>
+        </div>
+
+        <div class="version-card v-100" onclick="selectAndStartQuiz(100)">
+          <span class="v-badge">100</span>
+          <div class="v-title">100 Points Quiz</div>
+          <div class="v-desc">100 Questions • Complete Master Review covering all diagrams &amp; organ systems</div>
+          <div class="v-btn-start">Start 100 Points 🌟</div>
+        </div>
+      </div>
+
+      <div class="cat-wrap">
+        <h3>📚 Topics Covered in Reviewer</h3>
+        <div class="cat-tags">
+          <span class="cat-tag tag-digestive">Digestive Tract Organs</span>
+          <span class="cat-tag tag-accessory">Accessory Organs (Liver, Gallbladder, Pancreas)</span>
+          <span class="cat-tag tag-respiratory">Respiratory System (Airway &amp; Lungs)</span>
+          <span class="cat-tag tag-airway">Inhalation &amp; Diaphragm Mechanics</span>
+          <span class="cat-tag tag-disease">Digestive &amp; Respiratory Diseases</span>
+          <span class="cat-tag tag-digestive">Digestive &amp; Respiratory Health</span>
+        </div>
+      </div>
+
+      <!-- ── HISTORY CARD ── -->
+      <div class="history-wrap">
+        <div class="history-header">
+          <h3><span>📜</span> Quiz Score History</h3>
+          <button class="btn-clear-history" onclick="clearHistory()">Clear History 🗑️</button>
+        </div>
+        <div class="history-list" id="history-list">
+          <div class="history-empty">No quiz history recorded yet. Complete a quiz to track your scores! 🚀</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── QUIZ SCREEN ── -->
+  <div class="screen" id="quiz-screen">
+    <div class="q-header">
+      <div class="q-badge" id="q-badge" style="background:#dcfce7;">Q1 / 75</div>
+      <span class="cat-badge tag-digestive" id="cat-badge">Digestive Tract</span>
+    </div>
+
+    <!-- Optional SVG diagram container -->
+    <div class="diagram-container" id="diagram-container" style="display:none;"></div>
+
+    <div class="q-card">
+      <p class="q-text" id="q-text">Question here</p>
+    </div>
+    <div class="options" id="options"></div>
+    <div class="feedback" id="feedback"></div>
+    <button class="btn btn-next" id="next-btn" onclick="nextQ()">Next Question →</button>
+  </div>
+
+  <!-- ── RESULTS SCREEN ── -->
+  <div class="screen" id="results-screen">
+    <div class="results-wrap">
+      <span class="trophy-emoji" id="trophy">🏆</span>
+      <h2 class="result-title" id="result-title">Awesome!</h2>
+      <div class="score-big-card">
+        <div class="score-num" id="score-num">0</div>
+        <div class="score-out" id="score-out">out of 75</div>
+      </div>
+      <p class="result-tagline" id="result-tagline">Great job!</p>
+      <div class="breakdown-row">
+        <div class="bd-card c"><span class="bd-num" id="r-c">0</span><span class="bd-label">✅ Correct</span></div>
+        <div class="bd-card w"><span class="bd-num" id="r-w">0</span><span class="bd-label">❌ Wrong</span></div>
+        <div class="bd-card p"><span class="bd-num" id="r-p">0%</span><span class="bd-label">🎯 Score</span></div>
+      </div>
+      
+      <div class="restart-btn-group">
+        <button class="btn btn-start" onclick="restartQuizCurrent()">Try Again 🔄</button>
+        <button class="btn" style="background:#ede9fe; color:#6d28d9;" onclick="returnToStart()">Switch Quiz Mode (75 / 100 Points) ⚙️</button>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<script>
+// SVG Diagrams definitions with pointer arrows
+const diagramsHTML = {
+  'digestive_diagram_A': `
+    <svg viewBox="0 0 400 320" xmlns="http://www.w3.org/2000/svg">
+      <rect width="400" height="320" fill="#f8fafc" rx="12"/>
+      <path d="M160,20 Q160,5 200,5 Q240,5 240,20 L240,110 Q260,140 240,280 L160,280 Q140,140 160,110 Z" fill="#e2e8f0" stroke="#cbd5e1" stroke-width="2"/>
+      <!-- Mouth -->
+      <ellipse cx="200" cy="35" rx="18" ry="10" fill="#ff6b9d" stroke="#2d2d2d" stroke-width="2"/>
+      <!-- Esophagus -->
+      <path d="M200,45 L200,105" stroke="#ff9a3c" stroke-width="12" stroke-linecap="round"/>
+      <!-- Stomach -->
+      <path d="M195,105 C170,110 160,135 185,150 C210,165 220,135 205,105 Z" fill="#ff4757" stroke="#2d2d2d" stroke-width="2"/>
+      <!-- Small Intestine -->
+      <path d="M185,150 Q200,180 185,200 Q210,210 195,225" fill="none" stroke="#f43f5e" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/>
+      <!-- Large Intestine -->
+      <path d="M160,140 L160,230 L240,230 L240,140" fill="none" stroke="#84cc16" stroke-width="12" stroke-linejoin="round"/>
+      <!-- Arrow A pointing to Mouth -->
+      <line x1="90" y1="35" x2="175" y2="35" stroke="#be123c" stroke-width="3"/>
+      <polygon points="175,35 165,30 165,40" fill="#be123c"/>
+      <rect x="25" y="20" width="60" height="30" rx="8" fill="#be123c"/>
+      <text x="55" y="40" fill="#fff" font-family="Fredoka One" font-size="16" text-anchor="middle">Arrow A</text>
+      <!-- Label -->
+      <text x="200" y="310" font-family="Fredoka One" font-size="14" fill="#2d2d2d" text-anchor="middle">Human Digestive System</text>
+    </svg>`,
+
+  'digestive_diagram_B': `
+    <svg viewBox="0 0 400 320" xmlns="http://www.w3.org/2000/svg">
+      <rect width="400" height="320" fill="#f8fafc" rx="12"/>
+      <path d="M160,20 Q160,5 200,5 Q240,5 240,20 L240,110 Q260,140 240,280 L160,280 Q140,140 160,110 Z" fill="#e2e8f0" stroke="#cbd5e1" stroke-width="2"/>
+      <ellipse cx="200" cy="35" rx="18" ry="10" fill="#ff6b9d" stroke="#2d2d2d" stroke-width="2"/>
+      <path d="M200,45 L200,105" stroke="#ff9a3c" stroke-width="14" stroke-linecap="round"/>
+      <path d="M195,105 C170,110 160,135 185,150 C210,165 220,135 205,105 Z" fill="#ff4757" stroke="#2d2d2d" stroke-width="2"/>
+      <path d="M185,150 Q200,180 185,200 Q210,210 195,225" fill="none" stroke="#f43f5e" stroke-width="18" stroke-linecap="round"/>
+      <path d="M160,140 L160,230 L240,230 L240,140" fill="none" stroke="#84cc16" stroke-width="12"/>
+      <!-- Arrow B pointing to Esophagus -->
+      <line x1="90" y1="75" x2="185" y2="75" stroke="#c2410c" stroke-width="3"/>
+      <polygon points="185,75 175,70 175,80" fill="#c2410c"/>
+      <rect x="25" y="60" width="60" height="30" rx="8" fill="#c2410c"/>
+      <text x="55" y="80" fill="#fff" font-family="Fredoka One" font-size="16" text-anchor="middle">Arrow B</text>
+      <text x="200" y="310" font-family="Fredoka One" font-size="14" fill="#2d2d2d" text-anchor="middle">Human Digestive System</text>
+    </svg>`,
+
+  'digestive_diagram_C': `
+    <svg viewBox="0 0 400 320" xmlns="http://www.w3.org/2000/svg">
+      <rect width="400" height="320" fill="#f8fafc" rx="12"/>
+      <path d="M160,20 Q160,5 200,5 Q240,5 240,20 L240,110 Q260,140 240,280 L160,280 Q140,140 160,110 Z" fill="#e2e8f0" stroke="#cbd5e1" stroke-width="2"/>
+      <ellipse cx="200" cy="35" rx="18" ry="10" fill="#ff6b9d" stroke="#2d2d2d" stroke-width="2"/>
+      <path d="M200,45 L200,105" stroke="#ff9a3c" stroke-width="12" stroke-linecap="round"/>
+      <!-- Highlighted Stomach -->
+      <path d="M195,105 C165,110 155,140 185,155 C215,170 225,135 205,105 Z" fill="#ff4757" stroke="#2d2d2d" stroke-width="3"/>
+      <path d="M185,155 Q200,180 185,200 Q210,210 195,225" fill="none" stroke="#f43f5e" stroke-width="16"/>
+      <path d="M160,140 L160,230 L240,230 L240,140" fill="none" stroke="#84cc16" stroke-width="12"/>
+      <!-- Arrow C pointing to Stomach -->
+      <line x1="310" y1="130" x2="215" y2="130" stroke="#be123c" stroke-width="3"/>
+      <polygon points="215,130 225,125 225,135" fill="#be123c"/>
+      <rect x="315" y="115" width="60" height="30" rx="8" fill="#be123c"/>
+      <text x="345" y="135" fill="#fff" font-family="Fredoka One" font-size="16" text-anchor="middle">Arrow C</text>
+      <text x="200" y="310" font-family="Fredoka One" font-size="14" fill="#2d2d2d" text-anchor="middle">Human Digestive System</text>
+    </svg>`,
+
+  'digestive_diagram_D': `
+    <svg viewBox="0 0 400 320" xmlns="http://www.w3.org/2000/svg">
+      <rect width="400" height="320" fill="#f8fafc" rx="12"/>
+      <path d="M160,20 Q160,5 200,5 Q240,5 240,20 L240,110 Q260,140 240,280 L160,280 Q140,140 160,110 Z" fill="#e2e8f0" stroke="#cbd5e1" stroke-width="2"/>
+      <ellipse cx="200" cy="35" rx="18" ry="10" fill="#ff6b9d" stroke="#2d2d2d"/>
+      <path d="M200,45 L200,105" stroke="#ff9a3c" stroke-width="12"/>
+      <path d="M195,105 C170,110 160,135 185,150 C210,165 220,135 205,105 Z" fill="#ff4757" stroke="#2d2d2d"/>
+      <!-- Highlighted Small Intestine -->
+      <path d="M185,150 Q200,175 185,195 Q210,210 195,225" fill="none" stroke="#f43f5e" stroke-width="22" stroke-linecap="round"/>
+      <path d="M160,140 L160,230 L240,230 L240,140" fill="none" stroke="#84cc16" stroke-width="10"/>
+      <!-- Arrow D pointing to Small Intestine -->
+      <line x1="90" y1="185" x2="175" y2="185" stroke="#6d28d9" stroke-width="3"/>
+      <polygon points="175,185 165,180 165,190" fill="#6d28d9"/>
+      <rect x="25" y="170" width="60" height="30" rx="8" fill="#6d28d9"/>
+      <text x="55" y="190" fill="#fff" font-family="Fredoka One" font-size="16" text-anchor="middle">Arrow D</text>
+      <text x="200" y="310" font-family="Fredoka One" font-size="14" fill="#2d2d2d" text-anchor="middle">Human Digestive System</text>
+    </svg>`,
+
+  'digestive_diagram_E': `
+    <svg viewBox="0 0 400 320" xmlns="http://www.w3.org/2000/svg">
+      <rect width="400" height="320" fill="#f8fafc" rx="12"/>
+      <path d="M160,20 Q160,5 200,5 Q240,5 240,20 L240,110 Q260,140 240,280 L160,280 Q140,140 160,110 Z" fill="#e2e8f0" stroke="#cbd5e1" stroke-width="2"/>
+      <ellipse cx="200" cy="35" rx="18" ry="10" fill="#ff6b9d" stroke="#2d2d2d"/>
+      <path d="M200,45 L200,105" stroke="#ff9a3c" stroke-width="12"/>
+      <path d="M195,105 C170,110 160,135 185,150 C210,165 220,135 205,105 Z" fill="#ff4757" stroke="#2d2d2d"/>
+      <path d="M185,150 Q200,180 185,200 Q210,210 195,225" fill="none" stroke="#f43f5e" stroke-width="14"/>
+      <!-- Highlighted Large Intestine -->
+      <path d="M155,140 L155,235 L245,235 L245,140" fill="none" stroke="#65a30d" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/>
+      <!-- Arrow E pointing to Large Intestine -->
+      <line x1="310" y1="210" x2="250" y2="210" stroke="#15803d" stroke-width="3"/>
+      <polygon points="250,210 260,205 260,215" fill="#15803d"/>
+      <rect x="315" y="195" width="60" height="30" rx="8" fill="#15803d"/>
+      <text x="345" y="215" fill="#fff" font-family="Fredoka One" font-size="16" text-anchor="middle">Arrow E</text>
+      <text x="200" y="310" font-family="Fredoka One" font-size="14" fill="#2d2d2d" text-anchor="middle">Human Digestive System</text>
+    </svg>`,
+
+  'accessory_diagram_A': `
+    <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+      <rect width="400" height="300" fill="#f8fafc" rx="12"/>
+      <!-- Highlighted Liver -->
+      <path d="M120,60 C150,50 250,55 270,90 C280,120 220,160 140,150 C110,145 100,100 120,60 Z" fill="#b91c1c" stroke="#2d2d2d" stroke-width="3"/>
+      <!-- Gallbladder -->
+      <ellipse cx="180" cy="140" rx="14" ry="20" fill="#15803d" stroke="#2d2d2d" stroke-width="2"/>
+      <!-- Pancreas -->
+      <path d="M170,160 Q240,150 260,180 Q220,195 160,170 Z" fill="#facc15" stroke="#2d2d2d" stroke-width="2"/>
+      <!-- Arrow A pointing to Liver -->
+      <line x1="70" y1="95" x2="140" y2="95" stroke="#b91c1c" stroke-width="3"/>
+      <polygon points="140,95 130,90 130,100" fill="#b91c1c"/>
+      <rect x="10" y="80" width="60" height="30" rx="8" fill="#b91c1c"/>
+      <text x="40" y="100" fill="#fff" font-family="Fredoka One" font-size="16" text-anchor="middle">Arrow A</text>
+      <text x="200" y="270" font-family="Fredoka One" font-size="14" fill="#2d2d2d" text-anchor="middle">Accessory Organs of Digestion</text>
+    </svg>`,
+
+  'accessory_diagram_B': `
+    <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+      <rect width="400" height="300" fill="#f8fafc" rx="12"/>
+      <!-- Liver -->
+      <path d="M120,60 C150,50 250,55 270,90 C280,120 220,160 140,150 C110,145 100,100 120,60 Z" fill="#b91c1c" stroke="#2d2d2d" stroke-width="2"/>
+      <!-- Highlighted Gallbladder -->
+      <ellipse cx="180" cy="140" rx="16" ry="22" fill="#16a34a" stroke="#2d2d2d" stroke-width="3"/>
+      <!-- Pancreas -->
+      <path d="M170,160 Q240,150 260,180 Q220,195 160,170 Z" fill="#facc15" stroke="#2d2d2d" stroke-width="2"/>
+      <!-- Arrow B pointing to Gallbladder -->
+      <line x1="70" y1="140" x2="162" y2="140" stroke="#16a34a" stroke-width="3"/>
+      <polygon points="162,140 152,135 152,145" fill="#16a34a"/>
+      <rect x="10" y="125" width="60" height="30" rx="8" fill="#16a34a"/>
+      <text x="40" y="145" fill="#fff" font-family="Fredoka One" font-size="16" text-anchor="middle">Arrow B</text>
+      <text x="200" y="270" font-family="Fredoka One" font-size="14" fill="#2d2d2d" text-anchor="middle">Accessory Organs of Digestion</text>
+    </svg>`,
+
+  'respiratory_diagram_A': `
+    <svg viewBox="0 0 400 320" xmlns="http://www.w3.org/2000/svg">
+      <rect width="400" height="320" fill="#f8fafc" rx="12"/>
+      <path d="M170,15 Q200,5 230,15 L230,60 L215,60 L215,150 L240,180 L260,260 L140,260 L160,180 L185,150 L185,60 L170,60 Z" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="2"/>
+      <!-- Trachea (Highlighted) -->
+      <rect x="190" y="60" width="20" height="75" rx="5" fill="#0284c7" stroke="#2d2d2d" stroke-width="2"/>
+      <!-- Cartilage rings -->
+      <line x1="190" y1="75" x2="210" y2="75" stroke="#fff" stroke-width="2"/>
+      <line x1="190" y1="90" x2="210" y2="90" stroke="#fff" stroke-width="2"/>
+      <line x1="190" y1="105" x2="210" y2="105" stroke="#fff" stroke-width="2"/>
+      <line x1="190" y1="120" x2="210" y2="120" stroke="#fff" stroke-width="2"/>
+      <!-- Lungs -->
+      <path d="M185,140 Q130,150 140,240 Q185,250 185,150 Z" fill="#ff6b9d" stroke="#2d2d2d"/>
+      <path d="M215,140 Q270,150 260,240 Q215,250 215,150 Z" fill="#ff6b9d" stroke="#2d2d2d"/>
+      <!-- Diaphragm -->
+      <path d="M130,250 Q200,225 270,250 Q200,270 130,250 Z" fill="#a855f7" stroke="#2d2d2d"/>
+      <!-- Arrow A pointing to Trachea -->
+      <line x1="90" y1="95" x2="185" y2="95" stroke="#0284c7" stroke-width="3"/>
+      <polygon points="185,95 175,90 175,100" fill="#0284c7"/>
+      <rect x="25" y="80" width="60" height="30" rx="8" fill="#0284c7"/>
+      <text x="55" y="100" fill="#fff" font-family="Fredoka One" font-size="16" text-anchor="middle">Arrow A</text>
+      <text x="200" y="305" font-family="Fredoka One" font-size="14" fill="#2d2d2d" text-anchor="middle">Respiratory System Overview</text>
+    </svg>`,
+
+  'respiratory_diagram_B': `
+    <svg viewBox="0 0 400 320" xmlns="http://www.w3.org/2000/svg">
+      <rect width="400" height="320" fill="#f8fafc" rx="12"/>
+      <rect x="192" y="60" width="16" height="70" rx="4" fill="#38bdf8" stroke="#2d2d2d"/>
+      <!-- Highlighted Bronchi -->
+      <path d="M200,130 L165,160 M200,130 L235,160" stroke="#0f766e" stroke-width="8" stroke-linecap="round"/>
+      <path d="M185,140 Q130,150 140,240 Q185,250 185,150 Z" fill="#ff6b9d" stroke="#2d2d2d"/>
+      <path d="M215,140 Q270,150 260,240 Q215,250 215,150 Z" fill="#ff6b9d" stroke="#2d2d2d"/>
+      <path d="M130,250 Q200,225 270,250 Q200,270 130,250 Z" fill="#a855f7" stroke="#2d2d2d"/>
+      <!-- Arrow B pointing to Bronchi -->
+      <line x1="80" y1="150" x2="160" y2="155" stroke="#0f766e" stroke-width="3"/>
+      <polygon points="160,155 150,150 150,160" fill="#0f766e"/>
+      <rect x="15" y="135" width="60" height="30" rx="8" fill="#0f766e"/>
+      <text x="45" y="155" fill="#fff" font-family="Fredoka One" font-size="16" text-anchor="middle">Arrow B</text>
+      <text x="200" y="305" font-family="Fredoka One" font-size="14" fill="#2d2d2d" text-anchor="middle">Respiratory System Overview</text>
+    </svg>`,
+
+  'respiratory_diagram_C': `
+    <svg viewBox="0 0 400 320" xmlns="http://www.w3.org/2000/svg">
+      <rect width="400" height="320" fill="#f8fafc" rx="12"/>
+      <rect x="192" y="60" width="16" height="70" fill="#38bdf8" stroke="#2d2d2d"/>
+      <path d="M185,140 Q130,150 140,240 Q185,250 185,150 Z" fill="#ff6b9d" stroke="#2d2d2d"/>
+      <path d="M215,140 Q270,150 260,240 Q215,250 215,150 Z" fill="#ff6b9d" stroke="#2d2d2d"/>
+      <!-- Highlighted Diaphragm -->
+      <path d="M130,245 Q200,220 270,245 Q200,270 130,245 Z" fill="#7c3aed" stroke="#2d2d2d" stroke-width="3"/>
+      <!-- Arrow C pointing to Diaphragm -->
+      <line x1="310" y1="245" x2="260" y2="245" stroke="#7c3aed" stroke-width="3"/>
+      <polygon points="260,245 270,240 270,250" fill="#7c3aed"/>
+      <rect x="315" y="230" width="60" height="30" rx="8" fill="#7c3aed"/>
+      <text x="345" y="250" fill="#fff" font-family="Fredoka One" font-size="16" text-anchor="middle">Arrow C</text>
+      <text x="200" y="305" font-family="Fredoka One" font-size="14" fill="#2d2d2d" text-anchor="middle">Respiratory System Overview</text>
+    </svg>`,
+
+  'respiratory_diagram_D': `
+    <svg viewBox="0 0 400 320" xmlns="http://www.w3.org/2000/svg">
+      <rect width="400" height="320" fill="#f8fafc" rx="12"/>
+      <!-- Alveoli cluster callout -->
+      <circle cx="200" cy="140" r="80" fill="#eff6ff" stroke="#2d2d2d" stroke-width="3"/>
+      <!-- Grapes of alveoli -->
+      <circle cx="180" cy="120" r="22" fill="#f43f5e" stroke="#2d2d2d" stroke-width="2"/>
+      <circle cx="215" cy="120" r="24" fill="#f43f5e" stroke="#2d2d2d" stroke-width="2"/>
+      <circle cx="170" cy="155" r="20" fill="#f43f5e" stroke="#2d2d2d" stroke-width="2"/>
+      <circle cx="205" cy="160" r="25" fill="#f43f5e" stroke="#2d2d2d" stroke-width="2"/>
+      <circle cx="230" cy="145" r="18" fill="#f43f5e" stroke="#2d2d2d" stroke-width="2"/>
+      <!-- Capillaries overlay -->
+      <path d="M150,110 C170,130 200,110 240,160" fill="none" stroke="#2563eb" stroke-width="3"/>
+      <path d="M160,160 C190,140 220,170 245,130" fill="none" stroke="#dc2626" stroke-width="3"/>
+      <!-- Arrow D pointing to Alveoli -->
+      <line x1="80" y1="140" x2="150" y2="140" stroke="#be123c" stroke-width="3"/>
+      <polygon points="150,140 140,135 140,145" fill="#be123c"/>
+      <rect x="15" y="125" width="60" height="30" rx="8" fill="#be123c"/>
+      <text x="45" y="145" fill="#fff" font-family="Fredoka One" font-size="16" text-anchor="middle">Arrow D</text>
+      <text x="200" y="305" font-family="Fredoka One" font-size="14" fill="#2d2d2d" text-anchor="middle">Microscopic Alveoli &amp; Capillaries</text>
+    </svg>`
+};
+
+const catStyles = {
+  'Digestive Tract':    'tag-digestive',
+  'Accessory Organs':   'tag-accessory',
+  'Digestive Diseases': 'tag-disease',
+  'Digestive Health':   'tag-digestive',
+  'Respiratory Airway': 'tag-respiratory',
+  'Respiration Process':'tag-airway',
+  'Respiratory Diseases':'tag-disease',
+  'Respiratory Health': 'tag-respiratory',
+  'States of Matter':   'tag-matter',
+  'Changes in State':   'tag-matter',
+  'Temperature & Energy':'tag-matter',
+  'Science Process Skills':'tag-process',
+  'Lab Equipment':      'tag-lab',
+  'Lab Safety':         'tag-safety',
+};
+
+const badgeColors = ['#dcfce7','#dbeafe','#fce7f3','#fff3cd','#ede9fe','#fff7ed','#ffe4e6','#ccfbf1'];
+
+const questions = [
+  // ── DIGESTIVE SYSTEM: ALIMENTARY CANAL & ORGANS (25 Questions) ──
+  {
+    cat: 'Digestive Tract',
+    q: 'What is the digestive tract also known as?',
+    opts: ['Respiratory canal', 'Alimentary canal or gastrointestinal (GI) tract', 'Nervous system pathway', 'Circulatory canal'],
+    ans: 1,
+    exp: 'The digestive tract is also known as the alimentary canal or gastrointestinal (GI) tract. It is the passageway of food through the body from the mouth to the anus.'
+  },
+  {
+    cat: 'Digestive Tract',
+    q: 'Which organ is the first part of the digestive tract that receives food and mixes it with saliva?',
+    opts: ['Esophagus', 'Pharynx', 'Mouth (oral cavity)', 'Stomach'],
+    ans: 2,
+    exp: 'The mouth, also called the oral cavity, is the first part of the digestive tract. It receives food, breaks it into small molecules using teeth, and mixes it with saliva.'
+  },
+  {
+    cat: 'Digestive Tract',
+    q: 'Which organ is a muscular tube that serves as a passageway between the pharynx and the stomach?',
+    opts: ['Mouth', 'Pharynx', 'Esophagus', 'Stomach'],
+    ans: 2,
+    exp: 'The esophagus is a muscular tube that serves as a passageway between the pharynx and the stomach.'
+  },
+  {
+    cat: 'Digestive Tract',
+    q: 'Where is the stomach located in the human body?',
+    opts: ['Upper right of the chest', 'Upper left of the abdomen', 'Lower right of the pelvis', 'Behind the lungs'],
+    ans: 1,
+    exp: 'The stomach, which receives food from the esophagus, is located in the upper left of the abdomen.'
+  },
+  {
+    cat: 'Digestive Tract',
+    q: 'What is the primary function of the stomach in digestion?',
+    opts: [
+      'Pumps oxygen into the blood',
+      'Stores swallowed food/liquid, mixes it with digestive juices, and sends it to the small intestine',
+      'Absorbs all water and forms solid waste',
+      'Filters air coming from the mouth'
+    ],
+    ans: 1,
+    exp: 'The stomach stores swallowed food and liquid, mixes up digestive juices with the food and liquid, and sends the mixture (chyme) to the small intestine.'
+  },
+  {
+    cat: 'Digestive Tract',
+    q: 'Which organ finishes the process of digestion by absorbing nutrients into the bloodstream and passing residue to the large intestine?',
+    opts: ['Stomach', 'Small intestine', 'Large intestine', 'Pharynx'],
+    ans: 1,
+    exp: 'The small intestine finishes the process of digestion by absorbing nutrients, vitamins, minerals, and amino acids into the bloodstream and passing remaining residue to the large intestine.'
+  },
+  {
+    cat: 'Digestive Tract',
+    q: 'What is the main function of the large intestine?',
+    opts: [
+      'It produces saliva to break down starches',
+      'It takes leftover water and nutrients from the residue coming from the small intestine',
+      'It stores bile produced by the liver',
+      'It pumps oxygen into the bloodstream'
+    ],
+    ans: 1,
+    exp: 'The large intestine takes leftover water and nutrients from the residue coming from the small intestine, turning undigested material into solid waste (feces).'
+  },
+  {
+    cat: 'Digestive Tract',
+    q: 'What is the rectum?',
+    opts: [
+      'The organ that produces insulin',
+      'The temporary storage area for feces before it is eliminated',
+      'The first part of the small intestine',
+      'The tube connecting throat to stomach'
+    ],
+    ans: 1,
+    exp: 'The rectum is the temporary storage area for feces. It is the last stop before feces is eliminated from the body.'
+  },
+  {
+    cat: 'Digestive Tract',
+    q: 'What is the anus?',
+    opts: ['The opening of the alimentary canal where feces exits the body', 'The sac that stores bile', 'The valve between stomach and esophagus', 'The organ that secretes saliva'],
+    ans: 0,
+    exp: 'The anus is the opening of the alimentary canal where feces exits the body during elimination.'
+  },
+  {
+    cat: 'Digestive Tract',
+    q: 'Which of the following represents the correct sequential path of food through the alimentary canal?',
+    opts: [
+      'Mouth → Esophagus → Pharynx → Stomach → Large Intestine → Small Intestine → Rectum → Anus',
+      'Mouth → Pharynx → Esophagus → Stomach → Small Intestine → Large Intestine → Rectum → Anus',
+      'Pharynx → Mouth → Stomach → Esophagus → Small Intestine → Rectum → Large Intestine → Anus',
+      'Mouth → Stomach → Esophagus → Pharynx → Large Intestine → Small Intestine → Anus → Rectum'
+    ],
+    ans: 1,
+    exp: 'Food travels in order: Mouth → Pharynx → Esophagus → Stomach → Small Intestine → Large Intestine → Rectum → Anus.'
+  },
+  {
+    cat: 'Digestive Tract',
+    q: 'Look at Diagram 1 below. Which organ is indicated by Arrow A?',
+    diagram: 'digestive_diagram_A',
+    opts: ['Mouth (oral cavity)', 'Stomach', 'Liver', 'Large intestine'],
+    ans: 0,
+    exp: 'Arrow A points to the mouth (oral cavity), which is the entry point of the alimentary canal where food is received and chewed.'
+  },
+  {
+    cat: 'Digestive Tract',
+    q: 'Look at Diagram 1 below. Which organ is indicated by Arrow B (the long muscular tube)?',
+    diagram: 'digestive_diagram_B',
+    opts: ['Trachea', 'Esophagus', 'Small intestine', 'Pharynx'],
+    ans: 1,
+    exp: 'Arrow B points to the esophagus, the muscular tube carrying food from the pharynx down to the stomach.'
+  },
+  {
+    cat: 'Digestive Tract',
+    q: 'Look at Diagram 1 below. Which organ is indicated by Arrow C (located in the upper left of abdomen)?',
+    diagram: 'digestive_diagram_C',
+    opts: ['Liver', 'Pancreas', 'Stomach', 'Gallbladder'],
+    ans: 2,
+    exp: 'Arrow C points to the stomach, which stores and mixes food with gastric digestive juices.'
+  },
+  {
+    cat: 'Digestive Tract',
+    q: 'Look at Diagram 1 below. Which organ is indicated by Arrow D (the long coiled inner organ)?',
+    diagram: 'digestive_diagram_D',
+    opts: ['Large intestine', 'Small intestine', 'Stomach', 'Appendix'],
+    ans: 1,
+    exp: 'Arrow D points to the small intestine, where final digestion and nutrient absorption occur.'
+  },
+  {
+    cat: 'Digestive Tract',
+    q: 'Look at Diagram 1 below. Which organ is indicated by Arrow E (the outer surrounding intestine)?',
+    diagram: 'digestive_diagram_E',
+    opts: ['Small intestine', 'Stomach', 'Large intestine', 'Esophagus'],
+    ans: 2,
+    exp: 'Arrow E points to the large intestine, which absorbs leftover water and passes solid waste.'
+  },
+  {
+    cat: 'Digestive Tract',
+    q: 'What is the pharynx or throat?',
+    opts: ['A passageway connecting nasal and oral cavities to the larynx and esophagus', 'A gland that secretes bile', 'The organ that absorbs nutrients', 'The muscle below the lungs'],
+    ans: 0,
+    exp: 'The pharynx (throat) connects the nasal and oral cavities to the larynx and esophagus. Food is pushed into it by the tongue.'
+  },
+  {
+    cat: 'Digestive Tract',
+    q: 'How does food move down the esophagus into the stomach?',
+    opts: ['By gravity alone', 'By wave-like muscle contractions pushing food forward', 'By air pressure from breathing', 'By liquid dissolving the food'],
+    ans: 1,
+    exp: 'Muscular contractions (peristalsis) in the walls of the esophagus push food downward into the stomach.'
+  },
+  {
+    cat: 'Digestive Tract',
+    q: 'What is chyme?',
+    opts: ['A hormone that controls blood sugar', 'A thick, semi-fluid mass of partially digested food and secretions in the stomach and intestines', 'A fluid secreted by the liver', 'The enzyme in saliva'],
+    ans: 1,
+    exp: 'Chyme is the thick, semi-fluid mass of partially digested food and digestive juices produced in the stomach.'
+  },
+  {
+    cat: 'Digestive Tract',
+    q: 'What three primary tasks does the digestive system perform?',
+    opts: [
+      'Inhalation, exhalation, gas exchange',
+      'Digestion (breaking down food), absorption (nutrients to blood), and elimination (waste removal)',
+      'Pumping blood, filtering oxygen, storing fat',
+      'Thinking, sensing, reacting'
+    ],
+    ans: 1,
+    exp: 'The digestive system has 3 primary tasks: Digestion (mechanical & chemical breakdown), Absorption (nutrients into bloodstream), and Elimination (waste removal).'
+  },
+  {
+    cat: 'Digestive Tract',
+    q: 'What happens during the absorption phase of digestion?',
+    opts: [
+      'Biting and grinding food into smaller bits',
+      'Nutrients cross the thin lining of the small intestine into blood vessels to be delivered to body cells',
+      'Passing solid waste out through the anus',
+      'Inhaling oxygen from the surrounding air'
+    ],
+    ans: 1,
+    exp: 'In absorption, biomolecules, vitamins, and minerals cross the small intestine wall into blood capillaries to nourish the body.'
+  },
+  {
+    cat: 'Digestive Tract',
+    q: 'Water in a cup was transferred into a plastic bottle. What property of liquid water does this demonstrate?',
+    opts: [
+      'Water has a definite fixed shape',
+      'Water takes the shape of its container because liquid particles can slide past each other',
+      'Water has no volume',
+      'Water changes state automatically when moved'
+    ],
+    ans: 1,
+    exp: 'Liquids have no definite shape — their particles can slide past one another so they take the shape of whichever container they are put in.'
+  },
+  {
+    cat: 'Digestive Tract',
+    q: 'Why must food be chewed well before swallowing?',
+    opts: [
+      'To make food lose its taste',
+      'To break food into smaller pieces and mix with saliva, making swallowing safe and digestion easier',
+      'To turn food into a gas',
+      'To prevent the stomach from expanding'
+    ],
+    ans: 1,
+    exp: 'Chewing breaks food into small bits and mixes it with saliva so it can be swallowed easily without choking or injuring the esophagus.'
+  },
+  {
+    cat: 'Digestive Tract',
+    q: 'What happens if a person swallows food hurriedly without chewing it properly?',
+    opts: [
+      'Food will digest instantly in the mouth',
+      'Food may block the throat or enter the epiglottis/airway, causing choking',
+      'The liver will stop secreting bile',
+      'The stomach will disappear'
+    ],
+    ans: 1,
+    exp: 'Swallowing unchewed food hurriedly can lead to choking because large pieces can get stuck or accidentally enter the epiglottis/airway.'
+  },
+  {
+    cat: 'Digestive Tract',
+    q: 'What happens to solid undigested waste (feces) after water is absorbed in the large intestine?',
+    opts: [
+      'It is converted into bile by the liver',
+      'It remains in the rectum for a while before being eliminated through the anus',
+      'It is absorbed back into the blood',
+      'It travels back up to the stomach'
+    ],
+    ans: 1,
+    exp: 'After water absorption in the large intestine, solid waste (feces) remains temporarily in the rectum until eliminated through the anus.'
+  },
+  {
+    cat: 'Digestive Tract',
+    q: 'Where does chemical digestion of carbohydrates begin?',
+    opts: ['In the stomach', 'In the small intestine', 'In the mouth (via salivary enzymes)', 'In the large intestine'],
+    ans: 2,
+    exp: 'Chemical digestion begins in the mouth, where enzymes in saliva (salivary amylase) start breaking down starches and carbohydrates.'
+  },
+
+  // ── ACCESSORY ORGANS & DIGESTIVE HEALTH (20 Questions) ──
+  {
+    cat: 'Accessory Organs',
+    q: 'Which of the following is NOT part of the digestive tract tube, but is considered an accessory organ?',
+    opts: ['Stomach', 'Esophagus', 'Liver', 'Small intestine'],
+    ans: 2,
+    exp: 'The liver is an accessory organ. Accessory organs (salivary glands, liver, gallbladder, pancreas) help digestion but food does not pass directly inside them.'
+  },
+  {
+    cat: 'Accessory Organs',
+    q: 'What is the largest gland in the human body?',
+    opts: ['Pancreas', 'Liver', 'Parotid gland', 'Submandibular gland'],
+    ans: 1,
+    exp: 'The liver is the largest gland of the human body, located in the right region of the abdomen.'
+  },
+  {
+    cat: 'Accessory Organs',
+    q: 'Which yellowish-green fluid produced by liver cells helps in the digestion and absorption of fats?',
+    opts: ['Insulin', 'Bile', 'Mucus', 'Saliva'],
+    ans: 1,
+    exp: 'The liver secretes bile, a yellowish-green fluid that acts as an agent in the digestion and absorption of fats.'
+  },
+  {
+    cat: 'Accessory Organs',
+    q: 'What is the function of the gallbladder?',
+    opts: [
+      'It produces insulin to control sugar',
+      'It serves as a reservoir for storing bile produced by the liver',
+      'It absorbs leftover water from food',
+      'It grinds food into small pieces'
+    ],
+    ans: 1,
+    exp: 'The gallbladder is a pear-shaped sac attached to the surface of the liver that stores bile until needed in the small intestine.'
+  },
+  {
+    cat: 'Accessory Organs',
+    q: 'Which soft triangular organ located behind the stomach secretes insulin and digestive enzymes?',
+    opts: ['Gallbladder', 'Pancreas', 'Liver', 'Appendix'],
+    ans: 1,
+    exp: 'The pancreas is a soft triangular organ behind the stomach that secretes enzymes (to break down proteins, fats, starch) and insulin.'
+  },
+  {
+    cat: 'Accessory Organs',
+    q: 'What is insulin?',
+    opts: [
+      'A fluid that dissolves fat',
+      'A hormone secreted by the pancreas that helps keep blood sugar levels from getting too high',
+      'An enzyme that digests cellulose',
+      'A gas in the lungs'
+    ],
+    ans: 1,
+    exp: 'Insulin is a hormone produced by the pancreas that regulates blood sugar levels in the body.'
+  },
+  {
+    cat: 'Accessory Organs',
+    q: 'How many major pairs of salivary glands are there in humans?',
+    opts: ['2 pairs', '3 pairs', '4 pairs', '5 pairs'],
+    ans: 1,
+    exp: 'There are 3 major pairs of salivary glands: parotid glands, submandibular glands, and sublingual glands.'
+  },
+  {
+    cat: 'Accessory Organs',
+    q: 'Which are the largest salivary glands, located just in front of the ears?',
+    opts: ['Sublingual glands', 'Submandibular glands', 'Parotid glands', 'Gastric glands'],
+    ans: 2,
+    exp: 'Parotid glands are the largest salivary glands, located in front of the ears.'
+  },
+  {
+    cat: 'Accessory Organs',
+    q: 'Which walnut-sized salivary glands are located below the jaw?',
+    opts: ['Parotid glands', 'Submandibular glands', 'Sublingual glands', 'Pancreatic glands'],
+    ans: 1,
+    exp: 'Submandibular glands are about the size of a walnut and located below the jaw.'
+  },
+  {
+    cat: 'Accessory Organs',
+    q: 'Which almond-shaped salivary glands are the smallest and located under the tongue?',
+    opts: ['Sublingual glands', 'Parotid glands', 'Submandibular glands', 'Liver glands'],
+    ans: 0,
+    exp: 'Sublingual glands are the smallest almond-shaped salivary glands located under the floor of the mouth below the tongue.'
+  },
+  {
+    cat: 'Digestive Diseases',
+    q: 'Which common digestive disorder affects the large intestine causing cramping, abdominal pain, bloating, diarrhea, and constipation?',
+    opts: ['Esophagitis', 'Irritable Bowel Syndrome (IBS)', 'Gastritis', 'Tonsillitis'],
+    ans: 1,
+    exp: 'Irritable Bowel Syndrome (IBS) is a common disorder affecting the large intestine, with symptoms like cramping, pain, bloating, diarrhea, and constipation.'
+  },
+  {
+    cat: 'Digestive Diseases',
+    q: 'What is esophagitis?',
+    opts: [
+      'Inflammation of the esophagus, causing painful swallowing, chest pain, and vomiting',
+      'A viral infection of the liver',
+      'Inflammation of the appendix',
+      'Lack of insulin in the blood'
+    ],
+    ans: 0,
+    exp: 'Esophagitis is the inflammation of the esophagus, commonly caused by bacterial or viral infections, leading to painful swallowing and chest pain.'
+  },
+  {
+    cat: 'Digestive Diseases',
+    q: 'What condition is characterized by inflammation of the lining of the stomach?',
+    opts: ['Gastritis', 'Appendicitis', 'Hepatitis', 'Laryngitis'],
+    ans: 0,
+    exp: 'Gastritis is the inflammation of the stomach lining, often caused by alcohol, stress, or frequent aspirin use.'
+  },
+  {
+    cat: 'Digestive Diseases',
+    q: 'What is a peptic ulcer?',
+    opts: [
+      'An infection of the lungs',
+      'Inflammation and sores that develop on the inner lining of the stomach and upper small intestine',
+      'Enlargement of the parotid gland',
+      'A blockage in the nasal cavity'
+    ],
+    ans: 1,
+    exp: 'Peptic ulcer is an inflammation and sore that develops on the inner lining of the stomach and upper portion of the small intestine.'
+  },
+  {
+    cat: 'Digestive Diseases',
+    q: 'Which condition causes yellowing of the skin due to excess hemoglobin by-products (bilirubin) in the blood when the liver fails to function properly?',
+    opts: ['Hepatitis', 'Jaundice', 'Diabetes', 'IBS'],
+    ans: 1,
+    exp: 'Jaundice is caused by excess hemoglobin by-products in the blood, indicating proper liver function is impaired.'
+  },
+  {
+    cat: 'Digestive Diseases',
+    q: 'What causes Hepatitis A, B, and C?',
+    opts: ['Fungal spores', 'Viral infections that cause liver damage', 'Lack of vitamin C', 'High sugar intake'],
+    ans: 1,
+    exp: 'Hepatitis A, B, and C are viral diseases that cause liver damage and inflammation.'
+  },
+  {
+    cat: 'Digestive Diseases',
+    q: 'Which disease is the result of inadequate levels of insulin in the body?',
+    opts: ['Hepatitis', 'Diabetes', 'Jaundice', 'Diarrhea'],
+    ans: 1,
+    exp: 'Diabetes is caused by inadequate levels of insulin, leading to impaired regulation of blood glucose.'
+  },
+  {
+    cat: 'Digestive Health',
+    q: 'Which eating habit helps ensure smooth digestive system function?',
+    opts: [
+      'Eating fast without chewing',
+      'Consuming fruits and vegetables for fiber and drinking enough water',
+      'Eating only sweets and fats',
+      'Skipping meals regularly'
+    ],
+    ans: 1,
+    exp: 'Eating fruits/vegetables (fiber), drinking enough water, chewing thoroughly, and eating protein maintain healthy digestion.'
+  },
+  {
+    cat: 'Accessory Organs',
+    q: 'Look at Diagram 2 below. Which accessory organ is indicated by Arrow A (large organ on the right region)?',
+    diagram: 'accessory_diagram_A',
+    opts: ['Liver', 'Pancreas', 'Stomach', 'Gallbladder'],
+    ans: 0,
+    exp: 'Arrow A points to the liver, the largest gland in the body that produces bile.'
+  },
+  {
+    cat: 'Accessory Organs',
+    q: 'Look at Diagram 2 below. Which organ is indicated by Arrow B (the small pear-shaped sac under the liver)?',
+    diagram: 'accessory_diagram_B',
+    opts: ['Pancreas', 'Gallbladder', 'Spleen', 'Submandibular gland'],
+    ans: 1,
+    exp: 'Arrow B points to the gallbladder, which stores bile produced by the liver.'
+  },
+
+  // ── RESPIRATORY SYSTEM STRUCTURES & AIRFLOW (25 Questions) ──
+  {
+    cat: 'Respiratory Airway',
+    q: 'What is respiration?',
+    opts: [
+      'The process of breaking down food',
+      'The process of breathing, composed of inhalation and exhalation',
+      'The circulation of blood in arteries',
+      'The elimination of solid waste'
+    ],
+    ans: 1,
+    exp: 'Respiration is the process of breathing, which is composed of inhalation (breathing in) and exhalation (breathing out).'
+  },
+  {
+    cat: 'Respiratory Airway',
+    q: 'Which organs make up the upper respiratory tract (upper airway)?',
+    opts: ['Trachea, bronchi, lungs', 'Nose, pharynx, larynx', 'Stomach, esophagus, mouth', 'Alveoli, capillaries, heart'],
+    ans: 1,
+    exp: 'The upper respiratory tract includes the nose, pharynx, and larynx.'
+  },
+  {
+    cat: 'Respiratory Airway',
+    q: 'Which organs make up the lower respiratory tract (lower airway)?',
+    opts: ['Nose, pharynx, larynx', 'Trachea, bronchi, and lungs', 'Oral cavity, tongue, teeth', 'Esophagus, stomach, liver'],
+    ans: 1,
+    exp: 'The lower respiratory tract is composed of the trachea, bronchi, and lungs.'
+  },
+  {
+    cat: 'Respiratory Airway',
+    q: 'Which organ is the first and last organ through which air passes during breathing?',
+    opts: ['Larynx', 'Nose', 'Trachea', 'Bronchi'],
+    ans: 1,
+    exp: 'The nose is the first organ air passes through during inhalation and the last during exhalation.'
+  },
+  {
+    cat: 'Respiratory Airway',
+    q: 'How does the nasal cavity prepare inhaled air before it reaches the lungs?',
+    opts: [
+      'It cools the air down to freezing',
+      'It moistens, warms, and filters the air using cilia and mucus',
+      'It removes oxygen from the air',
+      'It converts air into liquid'
+    ],
+    ans: 1,
+    exp: 'The nasal cavity moistens and warms air and filters out dirt using cilia and mucus before air enters the lungs.'
+  },
+  {
+    cat: 'Respiratory Airway',
+    q: 'What is the larynx also known as?',
+    opts: ['Windpipe', 'Voice box', 'Throat', 'Air sac'],
+    ans: 1,
+    exp: 'The larynx is also known as the voice box. It contains the vocal cords responsible for sound production.'
+  },
+  {
+    cat: 'Respiratory Airway',
+    q: 'What is the function of the epiglottis?',
+    opts: [
+      'It filters dust particles in the nose',
+      'It is a thin piece of cartilage that closes over the trachea during eating so food does not enter the airway',
+      'It absorbs oxygen into the blood',
+      'It contracts to flatten the chest'
+    ],
+    ans: 1,
+    exp: 'The epiglottis is a thin piece of cartilage above the glottis that closes the trachea when swallowing so food enters the esophagus instead of the lungs.'
+  },
+  {
+    cat: 'Respiratory Airway',
+    q: 'What is the glottis?',
+    opts: [
+      'A hole between the air tube and food tube that controls airflow in and out of respiratory passages',
+      'The muscle below the lungs',
+      'The main branch of the trachea',
+      'A gland in the neck'
+    ],
+    ans: 0,
+    exp: 'The glottis is the opening between the vocal cords that controls airflow into and out of the respiratory passages.'
+  },
+  {
+    cat: 'Respiratory Airway',
+    q: 'What is another name for the trachea?',
+    opts: ['Voice box', 'Windpipe', 'Food pipe', 'Bronchus'],
+    ans: 1,
+    exp: 'The trachea is commonly called the windpipe. It is the largest air passage connecting the larynx to the bronchi.'
+  },
+  {
+    cat: 'Respiratory Airway',
+    q: 'What keeps the trachea open so air can move freely without collapsing?',
+    opts: ['Bony plates', 'C-shaped rings of cartilage', 'Liquid mucus', 'Muscular valves'],
+    ans: 1,
+    exp: 'The trachea is held open by flexible C-shaped rings of cartilage.'
+  },
+  {
+    cat: 'Respiratory Airway',
+    q: 'What are the bronchi?',
+    opts: [
+      'Tiny microscopic air sacs',
+      'The two main branching pipes at the bottom of the trachea leading into the left and right lungs',
+      'The muscles between the ribs',
+      'The valves inside the heart'
+    ],
+    ans: 1,
+    exp: 'The bronchi (singular: bronchus) are the main air tubes branching off the bottom of the trachea into each lung.'
+  },
+  {
+    cat: 'Respiratory Airway',
+    q: 'What are bronchioles?',
+    opts: ['Tiny branching tubes that spread throughout the lungs from the bronchi to the alveoli', 'The outer covers of the lungs', 'The bones of the ribcage', 'The vocal cords'],
+    ans: 0,
+    exp: 'Bronchioles are tiny branching tubes that carry air from the bronchi to the alveoli inside the lungs.'
+  },
+  {
+    cat: 'Respiratory Airway',
+    q: 'Where does the exchange of oxygen and carbon dioxide take place in the lungs?',
+    opts: ['In the trachea', 'In the larynx', 'In the alveoli', 'In the pharynx'],
+    ans: 2,
+    exp: 'The alveoli (tiny thin-walled bubble-like air sacs) are the exact structures where gas exchange occurs between air and blood.'
+  },
+  {
+    cat: 'Respiratory Airway',
+    q: 'What network covers each alveolus to allow gas exchange with blood?',
+    opts: ['Lymph nodes', 'Blood capillaries', 'Cartilage rings', 'Nerve fibers'],
+    ans: 1,
+    exp: 'A dense network of tiny blood capillaries covers each alveolus, allowing oxygen to diffuse into blood and carbon dioxide to diffuse out.'
+  },
+  {
+    cat: 'Respiration Process',
+    q: 'Which gas is taken in by the lungs during inhalation and delivered to the bloodstream?',
+    opts: ['Carbon dioxide', 'Oxygen', 'Nitrogen', 'Helium'],
+    ans: 1,
+    exp: 'Oxygen is the vital gas absorbed by the lungs during inhalation.'
+  },
+  {
+    cat: 'Respiration Process',
+    q: 'Which waste product of respiration is expelled from the lungs during exhalation?',
+    opts: ['Oxygen', 'Carbon dioxide', 'Glucose', 'Saliva'],
+    ans: 1,
+    exp: 'Carbon dioxide is a waste product of cellular respiration expelled by the lungs during exhalation.'
+  },
+  {
+    cat: 'Respiration Process',
+    q: 'In the process of inhaling, what happens to the diaphragm?',
+    opts: ['It relaxes and moves upward into a dome shape', 'It contracts and moves downward/flattens', 'It increases in volume', 'It remains completely still'],
+    ans: 1,
+    exp: 'During inhalation, the diaphragm contracts and flattens downward, creating more space in the chest cavity so air rushes into the lungs.'
+  },
+  {
+    cat: 'Respiration Process',
+    q: 'In the process of exhaling, what happens to the diaphragm?',
+    opts: ['It contracts and flattens', 'It relaxes and curves upward like a dome', 'It expands to double its size', 'It turns into cartilage'],
+    ans: 1,
+    exp: 'During exhalation, the diaphragm relaxes and curves upward like a dome, decreasing lung volume and forcing air out.'
+  },
+  {
+    cat: 'Respiration Process',
+    q: 'Which pattern correctly shows airflow during inhalation?',
+    opts: [
+      'Pharynx → Trachea → Bronchi → Lungs',
+      'Nasal cavity → Pharynx → Larynx → Trachea → Bronchi → Bronchioles → Alveoli',
+      'Larynx → Pharynx → Trachea → Bronchioles → Bronchi',
+      'Nasal cavity → Larynx → Pharynx → Bronchioles → Trachea'
+    ],
+    ans: 1,
+    exp: 'Airflow pattern during inhalation: Nasal cavity → Pharynx → Larynx → Trachea → Bronchi → Bronchioles → Alveoli.'
+  },
+  {
+    cat: 'Respiration Process',
+    q: 'What role do intercostal muscles between the ribs play in breathing?',
+    opts: [
+      'They produce voice sounds',
+      'They work together with the diaphragm to expand and contract the rib cage',
+      'They filter dirt from incoming air',
+      'They store oxygen reserves'
+    ],
+    ans: 1,
+    exp: 'Intercostal muscles between the ribs contract to lift and expand the rib cage during inhalation and relax during exhalation.'
+  },
+  {
+    cat: 'Respiratory Airway',
+    q: 'Look at Diagram 3 below. Which structure is indicated by Arrow A (the windpipe)?',
+    diagram: 'respiratory_diagram_A',
+    opts: ['Trachea', 'Esophagus', 'Pharynx', 'Larynx'],
+    ans: 0,
+    exp: 'Arrow A points to the trachea (windpipe), the largest air tube leading down to the bronchi.'
+  },
+  {
+    cat: 'Respiratory Airway',
+    q: 'Look at Diagram 3 below. Which structures are indicated by Arrow B (the main branch tubes entering lungs)?',
+    diagram: 'respiratory_diagram_B',
+    opts: ['Bronchi', 'Alveoli', 'Vocal cords', 'Epiglottis'],
+    ans: 0,
+    exp: 'Arrow B points to the bronchi (left and right main bronchial tubes).'
+  },
+  {
+    cat: 'Respiratory Airway',
+    q: 'Look at Diagram 3 below. Which structure is indicated by Arrow C (the dome-shaped muscle at the base)?',
+    diagram: 'respiratory_diagram_C',
+    opts: ['Diaphragm', 'Intercostal muscle', 'Larynx', 'Heart'],
+    ans: 0,
+    exp: 'Arrow C points to the diaphragm, the muscle responsible for altering chest volume during breathing.'
+  },
+  {
+    cat: 'Respiratory Airway',
+    q: 'Look at Diagram 3 below. Which structures are indicated by Arrow D (the microscopic air sacs)?',
+    diagram: 'respiratory_diagram_D',
+    opts: ['Bronchioles', 'Alveoli', 'Nostrils', 'Cilia'],
+    ans: 1,
+    exp: 'Arrow D points to the alveoli, where gas exchange occurs across blood capillaries.'
+  },
+  {
+    cat: 'Respiration Process',
+    q: 'Why are the lungs paired lobes taking up most of the space in the chest?',
+    opts: [
+      'To hold food before it enters the stomach',
+      'To provide a huge surface area for oxygen absorption and carbon dioxide removal',
+      'To support the spine',
+      'To store digestive enzymes'
+    ],
+    ans: 1,
+    exp: 'Lungs contain millions of alveoli, creating a vast surface area for rapid gas exchange with the bloodstream.'
+  },
+
+  // ── RESPIRATORY DISEASES & CARE (15 Questions) ──
+  {
+    cat: 'Respiratory Diseases',
+    q: 'Which chronic disease causes internal walls of airways to become sore and swollen, often triggered by allergies or exercise?',
+    opts: ['Asthma', 'Emphysema', 'Gastritis', 'Jaundice'],
+    ans: 0,
+    exp: 'Asthma is a chronic disease where airway walls become inflamed and swollen, causing difficulty in breathing.'
+  },
+  {
+    cat: 'Respiratory Diseases',
+    q: 'What is emphysema?',
+    opts: [
+      'Swelling of the vocal cords',
+      'A chronic obstructive pulmonary disease (COPD) causing progressive damage to the alveoli air sacs',
+      'Infection of the salivary glands',
+      'Bacterial growth in the stomach'
+    ],
+    ans: 1,
+    exp: 'Emphysema (COPD) results in progressive destruction of alveoli walls, reducing the surface area for oxygen exchange.'
+  },
+  {
+    cat: 'Respiratory Diseases',
+    q: 'Which condition is defined as swelling of the larynx leading to temporary loss of voice?',
+    opts: ['Bronchitis', 'Laryngitis', 'Pneumonia', 'Tonsillitis'],
+    ans: 1,
+    exp: 'Laryngitis is the inflammation/swelling of the larynx, irritating vocal cords and causing hoarseness or loss of voice.'
+  },
+  {
+    cat: 'Respiratory Diseases',
+    q: 'What is bronchitis?',
+    opts: ['An infection or inflammation of the bronchial tubes', 'Inflammation of the appendix', 'Damage to the liver', 'Infection of the skin'],
+    ans: 0,
+    exp: 'Bronchitis is an infection or inflammation of the bronchial tubes that carry air to the lungs.'
+  },
+  {
+    cat: 'Respiratory Diseases',
+    q: 'What is tonsillitis?',
+    opts: ['Inflammation of the tonsils', 'Swelling of the diaphragm', 'Infection of the large intestine', 'Loss of hair in the nose'],
+    ans: 0,
+    exp: 'Tonsillitis is the inflammation of the tonsils located at the back of the throat.'
+  },
+  {
+    cat: 'Respiratory Diseases',
+    q: 'Which lung infection primarily infects the alveoli, causing them to fill with fluid or pus?',
+    opts: ['Pneumonia', 'Asthma', 'Diabetes', 'Esophagitis'],
+    ans: 0,
+    exp: 'Pneumonia is a lung infection that causes alveoli to become inflamed and filled with fluid.'
+  },
+  {
+    cat: 'Respiratory Diseases',
+    q: 'What causes Influenza (flu)?',
+    opts: ['Viruses entering through nose/mouth causing fever, headache, muscle ache, and sore throat', 'Lack of dietary fiber', 'Bacterial buildup in teeth', 'Cold weather alone'],
+    ans: 0,
+    exp: 'Influenza is an infectious viral disease affecting the respiratory tract, causing fever, aches, and sore throat.'
+  },
+  {
+    cat: 'Respiratory Diseases',
+    q: 'What is Tuberculosis (TB)?',
+    opts: [
+      'A viral skin rash',
+      'A bacterial infection (Mycobacterium tuberculosis) that attacks the lungs and can spread to other organs',
+      'An allergy to pollen',
+      'A swelling of the esophagus'
+    ],
+    ans: 1,
+    exp: 'Tuberculosis (TB) is a serious bacterial infection caused by Mycobacterium tuberculosis that primarily attacks the lungs.'
+  },
+  {
+    cat: 'Respiratory Diseases',
+    q: 'What is lung cancer?',
+    opts: ['Uncontrolled growth of abnormal cells forming tumors in the lungs', 'Swelling of the nose', 'Inflammation of salivary glands', 'Blockage in the stomach'],
+    ans: 0,
+    exp: 'Lung cancer is the uncontrolled growth of abnormal cells lining lung passages, forming tumors.'
+  },
+  {
+    cat: 'Respiratory Health',
+    q: 'What is secondhand smoke?',
+    opts: [
+      'Smoke produced by cooking food',
+      'Unwanted cigarette smoke exhaled by smokers and inhaled by nearby non-smokers',
+      'Smoke from burning wood outdoors',
+      'Gas released by plants'
+    ],
+    ans: 1,
+    exp: 'Secondhand smoke is cigarette smoke inhaled involuntarily by non-smokers, which can cause serious health issues.'
+  },
+  {
+    cat: 'Respiratory Health',
+    q: 'Why is smoking harmful to the respiratory system?',
+    opts: [
+      'It increases oxygen absorption',
+      'It damages lung cilia, destroys alveoli, and increases the risk of lung cancer and heart disease',
+      'It strengthens the diaphragm',
+      'It prevents asthma'
+    ],
+    ans: 1,
+    exp: 'Cigarette smoke contains harmful toxins that paralyze cilia, damage alveoli, and dramatically increase lung cancer risk.'
+  },
+  {
+    cat: 'Respiratory Health',
+    q: 'Which action helps keep the respiratory system healthy?',
+    opts: [
+      'Avoiding secondhand smoke and wearing masks in polluted areas',
+      'Exercising regularly and doing deep breathing exercises',
+      'Eating a healthy diet to support the immune system',
+      'All of the above'
+    ],
+    ans: 3,
+    exp: 'All of these habits — avoiding smoke, wearing masks, exercising, and eating healthy — keep the respiratory system strong.'
+  },
+  {
+    cat: 'Respiratory Airway',
+    q: 'A pupil coughing and choking while laughing during recess is an example of what mechanism failure?',
+    opts: [
+      'The diaphragm stopped contracting',
+      'The epiglottis remained open while talking/laughing, allowing food into the windpipe',
+      'The alveoli burst',
+      'The saliva dried up'
+    ],
+    ans: 1,
+    exp: 'Talking or laughing while eating keeps the epiglottis open, allowing food to slip into the trachea (windpipe) and trigger choking.'
+  },
+  {
+    cat: 'Respiratory Diseases',
+    q: 'Which disease causes loss of voice due to inflamed vocal cords?',
+    opts: ['Laryngitis', 'Gastritis', 'Appendicitis', 'Emphysema'],
+    ans: 0,
+    exp: 'Laryngitis affects the vocal cords inside the larynx, leading to loss of voice or a raspy voice.'
+  },
+  {
+    cat: 'Respiratory Health',
+    q: 'Why should you cover your mouth and nose in crowded or heavily polluted places?',
+    opts: [
+      'To prevent dust, bacteria, and viruses from entering your respiratory tract',
+      'To keep your face warm',
+      'To stop carbon dioxide from leaving',
+      'To slow down your heart rate'
+    ],
+    ans: 0,
+    exp: 'Covering nose/mouth in crowded or polluted areas prevents inhalation of harmful air pollutants and contagious germs.'
+  },
+
+  // ── MORE DIGESTIVE & RESPIRATORY QUESTIONS (15 Questions) ──
+  {
+    cat: 'Digestive Tract',
+    q: 'What is the function of the tongue during chewing and swallowing?',
+    opts: [
+      'It produces hydrochloric acid',
+      'It rolls food into a ball (bolus), mixes it with saliva, and pushes it into the pharynx',
+      'It filters dust from entering the stomach',
+      'It stores bile produced by the liver'
+    ],
+    ans: 1,
+    exp: 'The tongue helps roll food into a rounded mass (bolus), mixes it with saliva, and pushes it back into the pharynx for swallowing.'
+  },
+  {
+    cat: 'Accessory Organs',
+    q: 'Where is the parotid gland located and where does its saliva enter the mouth?',
+    opts: [
+      'Below the tongue; enters under the floor of the mouth',
+      'In front of the ears; saliva enters through a duct near the upper second molar',
+      'Behind the stomach; enters through the duodenum',
+      'Under the jaw; enters beneath the front teeth'
+    ],
+    ans: 1,
+    exp: 'The parotid glands are the largest salivary glands located in front of the ears. Saliva enters the mouth via a duct near the upper second molar.'
+  },
+  {
+    cat: 'Accessory Organs',
+    q: 'What size and location describe the submandibular salivary glands?',
+    opts: [
+      'Almond-shaped under the tongue',
+      'Walnut-sized located below the jaw',
+      'Grape-sized behind the stomach',
+      'Large lobes in the right abdomen'
+    ],
+    ans: 1,
+    exp: 'Submandibular glands are about the size of a walnut and are located below the jaw.'
+  },
+  {
+    cat: 'Accessory Organs',
+    q: 'Which salivary glands are almond-shaped and located under the floor of the mouth below the tongue?',
+    opts: ['Sublingual glands', 'Parotid glands', 'Submandibular glands', 'Pancreatic glands'],
+    ans: 0,
+    exp: 'Sublingual glands are the smallest almond-shaped salivary glands located under the floor of the mouth below either side of the tongue.'
+  },
+  {
+    cat: 'Digestive Diseases',
+    q: 'What is the appendix and what condition occurs when it becomes inflamed?',
+    opts: [
+      'A pouch off the stomach; causes gastritis',
+      'A small pouch attached to the large intestine; inflammation is called appendicitis',
+      'A gland in the neck; causes tonsillitis',
+      'A lobe of the liver; causes jaundice'
+    ],
+    ans: 1,
+    exp: 'The appendix is a small structure attached to the large intestine. Its inflammation is called appendicitis and may require surgical removal.'
+  },
+  {
+    cat: 'Digestive Health',
+    q: 'Why is eating protein-rich foods like beef, chicken, or fish essential for body health?',
+    opts: [
+      'To provide dietary fiber for quick elimination',
+      'To supply amino acids for muscle growth, cell repair, and energy storage',
+      'To decrease bile secretion',
+      'To expand lung volume'
+    ],
+    ans: 1,
+    exp: 'Proteins from meat, fish, and eggs supply essential amino acids used for growth, tissue repair, and maintaining body structures.'
+  },
+  {
+    cat: 'Digestive Tract',
+    q: 'What is the role of digestive enzymes during chemical digestion?',
+    opts: [
+      'They bite and crush solid food into smaller bits',
+      'They break down large complex biomolecules (starches, proteins, fats) into simple nutrients that can cross into blood vessels',
+      'They pump air into the esophagus',
+      'They turn liquid into gas'
+    ],
+    ans: 1,
+    exp: 'Digestive enzymes chemically split large food biomolecules into simple nutrients so they can be absorbed into the bloodstream.'
+  },
+  {
+    cat: 'Respiratory Airway',
+    q: 'What is the main functional difference between the upper airway and lower airway?',
+    opts: [
+      'Upper airway absorbs nutrients; lower airway absorbs water',
+      'Upper airway (nose, pharynx, larynx) warms, moistens, and cleans air; lower airway (trachea, bronchi, lungs) conducts air to alveoli for gas exchange',
+      'Upper airway pumps blood; lower airway filters bile',
+      'There is no difference between them'
+    ],
+    ans: 1,
+    exp: 'The upper airway moistens, warms, and filters incoming air, while the lower airway carries air deep into the lungs to the alveoli.'
+  },
+  {
+    cat: 'Respiration Process',
+    q: 'What happens to the chest cavity and lungs when the diaphragm contracts and flattens during inhalation?',
+    opts: [
+      'Chest space decreases and air is forced out',
+      'Chest space increases, lung volume expands, and oxygen-rich air rushes in',
+      'Lungs shrink to half their size',
+      'The ribs contract inward'
+    ],
+    ans: 1,
+    exp: 'When the diaphragm contracts downward, the chest cavity expands, lowering air pressure in the lungs so outside air rushes in.'
+  },
+  {
+    cat: 'Respiration Process',
+    q: 'What happens to the chest cavity when the diaphragm relaxes and curves upward like a dome during exhalation?',
+    opts: [
+      'Chest space increases and more air enters',
+      'Chest space decreases, lung volume shrinks, and carbon dioxide air is pushed out',
+      'Air becomes trapped in the esophagus',
+      'The intercostal muscles freeze'
+    ],
+    ans: 1,
+    exp: 'Exhalation occurs when the diaphragm relaxes upward, reducing chest volume and squeezing waste gas (carbon dioxide) out of the lungs.'
+  },
+  {
+    cat: 'Respiratory Diseases',
+    q: 'Which bacterium is responsible for causing Tuberculosis (TB) in the lungs?',
+    opts: ['Escherichia coli', 'Mycobacterium tuberculosis', 'Streptococcus pneumoniae', 'Influenza virus'],
+    ans: 1,
+    exp: 'Tuberculosis (TB) is caused by the bacterium Mycobacterium tuberculosis, which attacks the lungs and can spread to other body parts.'
+  },
+  {
+    cat: 'Respiratory Diseases',
+    q: 'How does Pneumonia specifically affect the alveoli in the lungs?',
+    opts: [
+      'It causes alveoli to fill with fluid or pus, obstructing oxygen exchange',
+      'It turns alveoli into solid muscle',
+      'It stops the heart from beating',
+      'It enlarges the vocal cords'
+    ],
+    ans: 0,
+    exp: 'Pneumonia is an infection that inflames alveoli air sacs, filling them with fluid or pus and making breathing difficult.'
+  },
+  {
+    cat: 'Respiratory Diseases',
+    q: 'What is the main characteristic of Emphysema (COPD)?',
+    opts: [
+      'Inflammation of salivary glands',
+      'Progressive destruction of alveoli walls, destroying the respiratory membrane for oxygen exchange',
+      'Swelling of the stomach lining',
+      'Inadequate insulin production'
+    ],
+    ans: 1,
+    exp: 'Emphysema causes progressive destruction of the thin walls of alveoli, drastically reducing the surface area for oxygen exchange.'
+  },
+  {
+    cat: 'Respiratory Health',
+    q: 'Why is exposure to secondhand smoke particularly dangerous for infants and children?',
+    opts: [
+      'It can cause asthma attacks, ear infections, respiratory illnesses, and sudden infant death syndrome',
+      'It stops teeth from growing',
+      'It prevents stomach acid formation',
+      'It causes hair loss'
+    ],
+    ans: 0,
+    exp: 'Secondhand smoke is very harmful to children, leading to frequent asthma attacks, ear infections, severe respiratory issues, and SIDS.'
+  },
+  {
+    cat: 'Respiration Process',
+    q: 'How does oxygen move from the alveoli into blood capillaries during gas exchange?',
+    opts: [
+      'By active pumping through valves',
+      'By diffusion across the thin walls of alveoli into adjacent blood capillary vessels',
+      'By dissolving in stomach acid',
+      'By muscular contractions of the ribs'
+    ],
+    ans: 1,
+    exp: 'Oxygen moves by passive diffusion across the ultra-thin membranes of alveoli air sacs directly into surrounding blood capillaries.'
+  }
+];
+
+let activeQuestions = [];
+let targetLength = 75;
+let cur = 0, score = 0, answered = false;
+
+function selectAndStartQuiz(length) {
+  targetLength = length;
+  if (length === 75) {
+    activeQuestions = questions.slice(0, 75);
+    document.getElementById('hdr-mode-chip').textContent = '75 Points';
+  } else {
+    activeQuestions = questions;
+    document.getElementById('hdr-mode-chip').textContent = '100 Points';
+  }
+  startQuiz();
+}
+
+function startQuiz() {
+  cur = 0; score = 0;
+  document.getElementById('start-screen').classList.remove('active');
+  document.getElementById('results-screen').classList.remove('active');
+  document.getElementById('quiz-screen').classList.add('active');
+  loadQ();
+}
+
+function loadQ() {
+  answered = false;
+  const q = activeQuestions[cur];
+  const letters = ['A','B','C','D'];
+  const color   = badgeColors[cur % badgeColors.length];
+
+  document.getElementById('q-badge').textContent      = `Q${cur+1} / ${activeQuestions.length}`;
+  document.getElementById('q-badge').style.background = color;
+
+  const catEl = document.getElementById('cat-badge');
+  catEl.textContent  = q.cat;
+  catEl.className    = 'cat-badge ' + (catStyles[q.cat] || 'tag-digestive');
+
+  // Handle Diagram display
+  const dContainer = document.getElementById('diagram-container');
+  if (q.diagram && diagramsHTML[q.diagram]) {
+    dContainer.style.display = 'block';
+    dContainer.innerHTML = diagramsHTML[q.diagram];
+  } else {
+    dContainer.style.display = 'none';
+    dContainer.innerHTML = '';
+  }
+
+  document.getElementById('q-text').textContent = q.q;
+  document.getElementById('progress-fill').style.width = (cur / activeQuestions.length * 100) + '%';
+
+  const opts = document.getElementById('options');
+  opts.innerHTML = '';
+  q.opts.forEach((o, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'opt-btn';
+    btn.innerHTML = `<span class="opt-letter">${letters[i]}</span>${o}`;
+    btn.onclick = () => pick(i, btn);
+    opts.appendChild(btn);
+  });
+
+  const fb = document.getElementById('feedback');
+  fb.className = 'feedback';
+  fb.innerHTML = '';
+
+  document.getElementById('next-btn').classList.remove('show');
+  document.getElementById('score-chip').textContent = `Score: ${score}`;
+}
+
+let audioCtx = null;
+let soundMuted = false;
+
+function getAudioCtx() {
+  if (!audioCtx) {
+    const AudioCtxClass = window.AudioContext || window.webkitAudioContext;
+    if (AudioCtxClass) {
+      audioCtx = new AudioCtxClass();
+    }
+  }
+  if (audioCtx && audioCtx.state === 'suspended') {
+    audioCtx.resume();
+  }
+  return audioCtx;
+}
+
+function toggleSound() {
+  soundMuted = !soundMuted;
+  const btn = document.getElementById('sound-btn');
+  if (soundMuted) {
+    btn.textContent = '🔇 Muted';
+    btn.classList.add('muted');
+  } else {
+    btn.textContent = '🔊 Sound ON';
+    btn.classList.remove('muted');
+    playCorrectSound();
+  }
+}
+
+function playCorrectSound() {
+  if (soundMuted) return;
+  const ctx = getAudioCtx();
+  if (!ctx) return;
+
+  const now = ctx.currentTime;
+  
+  // High cheerful 2-note chime: E5 (659.25Hz) -> A5 (880Hz)
+  const osc1 = ctx.createOscillator();
+  const gain1 = ctx.createGain();
+  osc1.type = 'sine';
+  osc1.frequency.setValueAtTime(659.25, now);
+  gain1.gain.setValueAtTime(0.25, now);
+  gain1.gain.exponentialRampToValueAtTime(0.001, now + 0.15);
+  osc1.connect(gain1);
+  gain1.connect(ctx.destination);
+  osc1.start(now);
+  osc1.stop(now + 0.15);
+
+  const osc2 = ctx.createOscillator();
+  const gain2 = ctx.createGain();
+  osc2.type = 'sine';
+  osc2.frequency.setValueAtTime(880, now + 0.1);
+  gain2.gain.setValueAtTime(0.3, now + 0.1);
+  gain2.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
+  osc2.connect(gain2);
+  gain2.connect(ctx.destination);
+  osc2.start(now + 0.1);
+  osc2.stop(now + 0.35);
+}
+
+function playWrongSound() {
+  if (soundMuted) return;
+  const ctx = getAudioCtx();
+  if (!ctx) return;
+
+  const now = ctx.currentTime;
+
+  // Gentle descending buzz sound: A3 (220Hz) -> C3 (130.81Hz)
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
+  osc.type = 'triangle';
+  osc.frequency.setValueAtTime(220, now);
+  osc.frequency.exponentialRampToValueAtTime(130.81, now + 0.25);
+  gain.gain.setValueAtTime(0.3, now);
+  gain.gain.exponentialRampToValueAtTime(0.001, now + 0.28);
+  osc.connect(gain);
+  gain.connect(ctx.destination);
+  osc.start(now);
+  osc.stop(now + 0.28);
+}
+
+function playFanfareSound() {
+  if (soundMuted) return;
+  const ctx = getAudioCtx();
+  if (!ctx) return;
+
+  const now = ctx.currentTime;
+  const notes = [523.25, 659.25, 783.99, 1046.50]; // C5, E5, G5, C6
+  notes.forEach((freq, idx) => {
+    const startTime = now + (idx * 0.1);
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(freq, startTime);
+    gain.gain.setValueAtTime(0.25, startTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, startTime + (idx === 3 ? 0.6 : 0.2));
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.start(startTime);
+    osc.stop(startTime + (idx === 3 ? 0.6 : 0.2));
+  });
+}
+
+function pick(idx, btn) {
+  if (answered) return;
+  answered = true;
+
+  const q = activeQuestions[cur];
+  const allBtns = document.querySelectorAll('.opt-btn');
+  allBtns.forEach(b => b.disabled = true);
+
+  const fb = document.getElementById('feedback');
+
+  if (idx === q.ans) {
+    score++;
+    btn.classList.add('correct');
+    fb.className = 'feedback fb-correct show';
+    fb.innerHTML = `<strong>✅ Correct!</strong>${q.exp}`;
+    playCorrectSound();
+  } else {
+    btn.classList.add('wrong');
+    allBtns[q.ans].classList.add('correct');
+    fb.className = 'feedback fb-wrong show';
+    fb.innerHTML = `<strong>❌ Not quite!</strong>${q.exp}`;
+    playWrongSound();
+  }
+
+  document.getElementById('score-chip').textContent = `Score: ${score}`;
+  document.getElementById('next-btn').classList.add('show');
+}
+
+function nextQ() {
+  cur++;
+  if (cur >= activeQuestions.length) {
+    showResults();
+  } else {
+    loadQ();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+}
+
+// ── HISTORY SYSTEM ──
+const HISTORY_KEY = 'aliezah_quiz_history_records';
+
+function getHistory() {
+  try {
+    const raw = localStorage.getItem(HISTORY_KEY);
+    return raw ? JSON.parse(raw) : [];
+  } catch(e) {
+    return [];
+  }
+}
+
+function saveAttempt(score, total, mode) {
+  const history = getHistory();
+  const pct = Math.round((score / total) * 100);
+  const now = new Date();
+  const dateStr = now.toLocaleDateString('en-US', {
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric'
+  }) + ' at ' + now.toLocaleTimeString('en-US', {
+    hour: 'numeric',
+    minute: '2-digit',
+    hour12: true
+  });
+
+  const record = {
+    id: Date.now(),
+    score: score,
+    total: total,
+    pct: pct,
+    mode: mode,
+    date: dateStr
+  };
+
+  history.unshift(record); // newest first
+  if (history.length > 20) history.pop();
+
+  try {
+    localStorage.setItem(HISTORY_KEY, JSON.stringify(history));
+  } catch(e) {}
+
+  renderHistory();
+}
+
+function clearHistory() {
+  const history = getHistory();
+  if (history.length === 0) {
+    alert('History is already empty!');
+    return;
+  }
+  if (confirm('Are you sure you want to clear all recorded quiz scores?')) {
+    localStorage.removeItem(HISTORY_KEY);
+    renderHistory();
+  }
+}
+
+function renderHistory() {
+  const listEl = document.getElementById('history-list');
+  if (!listEl) return;
+
+  const history = getHistory();
+  if (history.length === 0) {
+    listEl.innerHTML = '<div class="history-empty">No quiz history recorded yet. Complete a quiz to track your scores! 🚀</div>';
+    return;
+  }
+
+  let html = '';
+  history.forEach(item => {
+    html += `
+      <div class="history-item">
+        <div class="history-item-left">
+          <div class="history-item-score">Score: <span>${item.score} / ${item.total}</span> (${item.pct}%)</div>
+          <div class="history-item-date">🗓️ ${item.date}</div>
+        </div>
+        <span class="history-badge v-${item.mode}">${item.mode} Points</span>
+      </div>
+    `;
+  });
+  listEl.innerHTML = html;
+}
+
+// Initial history load
+window.addEventListener('DOMContentLoaded', renderHistory);
+renderHistory();
+
+function showResults() {
+  document.getElementById('quiz-screen').classList.remove('active');
+  document.getElementById('results-screen').classList.add('active');
+  document.getElementById('progress-fill').style.width = '100%';
+
+  const total = activeQuestions.length;
+  const pct = Math.round((score / total) * 100);
+  document.getElementById('score-num').textContent = score;
+  document.getElementById('score-out').textContent = `out of ${total} points`;
+  document.getElementById('r-c').textContent = score;
+  document.getElementById('r-w').textContent = total - score;
+  document.getElementById('r-p').textContent = pct + '%';
+
+  let trophy, title, tagline;
+  if (pct >= 90)      { trophy='🏆'; title='Science Star!';   tagline='Outstanding! You completely mastered the Digestive & Respiratory Systems! 🔥'; }
+  else if (pct >= 75) { trophy='🎯'; title='Great Work!';     tagline='Solid knowledge! A quick review will make your score perfect.'; }
+  else if (pct >= 60) { trophy='📖'; title='Good Effort!';    tagline='Good job! Review the missed organs and questions, then try again.'; }
+  else                { trophy='💪'; title='Keep Studying!';  tagline='Don\'t give up! Review the textbook notes and take the quiz again!'; }
+
+  document.getElementById('trophy').textContent        = trophy;
+  document.getElementById('result-title').textContent  = title;
+  document.getElementById('result-tagline').textContent = tagline;
+
+  // Save attempt to history
+  saveAttempt(score, total, targetLength);
+
+  if (pct >= 75) {
+    launchConfetti();
+    playFanfareSound();
+  }
+}
+
+function restartQuizCurrent() {
+  selectAndStartQuiz(targetLength);
+}
+
+function returnToStart() {
+  document.getElementById('quiz-screen').classList.remove('active');
+  document.getElementById('results-screen').classList.remove('active');
+  document.getElementById('start-screen').classList.add('active');
+  document.getElementById('progress-fill').style.width = '0%';
+  renderHistory();
+}
+
+function launchConfetti() {
+  const c = document.getElementById('confetti');
+  c.innerHTML = '';
+  const colors = ['#06d6a0','#ffd93d','#4ecdc4','#a855f7','#ff9a3c','#ff6b9d'];
+  for (let i = 0; i < 60; i++) {
+    const dot = document.createElement('div');
+    dot.className = 'dot';
+    dot.style.left              = Math.random() * 100 + 'vw';
+    dot.style.background        = colors[Math.floor(Math.random() * colors.length)];
+    dot.style.animationDuration = (1.5 + Math.random() * 2) + 's';
+    dot.style.animationDelay   = Math.random() * 1.2 + 's';
+    dot.style.width = dot.style.height = (6 + Math.random() * 8) + 'px';
+    c.appendChild(dot);
+  }
+  setTimeout(() => c.innerHTML = '', 4000);
+}
+</script>
+</body>
+</html>

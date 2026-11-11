@@ -1,0 +1,2751 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Chloe Grade 4 Reviewer - 2nd Summative Test</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --pink: #ff6b9d;
+    --yellow: #ffd93d;
+    --blue: #4ecdc4;
+    --purple: #a855f7;
+    --orange: #ff9a3c;
+    --green: #06d6a0;
+    --red: #ff4757;
+    --bg: #fef9f0;
+    --white: #ffffff;
+    --dark: #2d2d2d;
+    --muted: #666666;
+    --card-shadow: 0 6px 0 rgba(0,0,0,0.12);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    font-family: 'Nunito', sans-serif;
+    min-height: 100vh;
+    background-image:
+      radial-gradient(circle at 10% 20%, rgba(255,107,157,0.12) 0%, transparent 40%),
+      radial-gradient(circle at 90% 80%, rgba(78,205,196,0.12) 0%, transparent 40%),
+      radial-gradient(circle at 50% 50%, rgba(255,217,61,0.08) 0%, transparent 60%);
+  }
+
+  .bg-shapes {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+  }
+
+  .shape {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.08;
+    animation: float 8s ease-in-out infinite;
+  }
+  .shape:nth-child(1) { width:80px;height:80px;background:var(--pink);top:8%;left:5%;animation-delay:0s; }
+  .shape:nth-child(2) { width:50px;height:50px;background:var(--yellow);top:20%;right:8%;animation-delay:1s;border-radius:8px;transform:rotate(20deg); }
+  .shape:nth-child(3) { width:60px;height:60px;background:var(--blue);bottom:25%;left:3%;animation-delay:2s; }
+  .shape:nth-child(4) { width:40px;height:40px;background:var(--purple);bottom:15%;right:5%;animation-delay:3s;border-radius:4px; }
+  .shape:nth-child(5) { width:35px;height:35px;background:var(--orange);top:55%;left:8%;animation-delay:1.5s; }
+
+  @keyframes float {
+    0%,100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-18px) rotate(10deg); }
+  }
+
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--white);
+    border-bottom: 3px solid var(--dark);
+    padding: 14px 18px 10px;
+    box-shadow: 0 3px 0 rgba(0,0,0,0.08);
+  }
+
+  .header-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+
+  .header-title {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.15rem;
+    color: var(--dark);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .header-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .mode-badge-chip {
+    font-size: 0.75rem;
+    font-weight: 800;
+    white-space: nowrap;
+    background: #ede9fe;
+    color: #6d28d9;
+    border: 2px solid var(--dark);
+    padding: 2px 8px;
+    border-radius: 12px;
+    margin-left: 6px;
+  }
+
+  .score-chip {
+    background: var(--yellow);
+    border: 2px solid var(--dark);
+    border-radius: 20px;
+    padding: 4px 14px;
+    font-weight: 800;
+    font-size: 0.85rem;
+    white-space: nowrap;
+    color: var(--dark);
+    box-shadow: 2px 2px 0 var(--dark);
+  }
+
+  .sound-chip {
+    background: var(--white);
+    border: 2px solid var(--dark);
+    border-radius: 20px;
+    padding: 4px 10px;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 800;
+    font-size: 0.78rem;
+    white-space: nowrap;
+    color: var(--dark);
+    cursor: pointer;
+    box-shadow: 2px 2px 0 var(--dark);
+    transition: transform 0.1s, background 0.2s;
+  }
+  .sound-chip:active { transform: translateY(1px); }
+  .sound-chip.muted { background: #fee2e2; color: #991b1b; }
+
+  .progress-track {
+    height: 10px;
+    background: #f0e8d8;
+    border-radius: 10px;
+    border: 2px solid var(--dark);
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--green), var(--blue), var(--purple));
+    border-radius: 8px;
+    transition: width 0.5s cubic-bezier(.68,-0.55,.27,1.55);
+  }
+
+  main {
+    position: relative;
+    z-index: 1;
+    max-width: 540px;
+    margin: 0 auto;
+    padding: 20px 16px 40px;
+  }
+
+  .screen { display: none; }
+  .screen.active { display: block; }
+
+  .start-wrap {
+    text-align: center;
+    padding: 10px 0 20px;
+    animation: popIn 0.5s cubic-bezier(.68,-0.55,.27,1.55);
+  }
+
+  @keyframes popIn {
+    from { opacity:0; transform: scale(0.85); }
+    to { opacity:1; transform: scale(1); }
+  }
+
+  .big-emoji-row {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    font-size: 3rem;
+    margin-bottom: 10px;
+    animation: wiggle 2s ease-in-out infinite;
+  }
+
+  @keyframes wiggle {
+    0%,100%{transform:rotate(-3deg);} 50%{transform:rotate(3deg);}
+  }
+
+  .start-title {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.6rem;
+    color: var(--dark);
+    line-height: 1.15;
+    margin-bottom: 4px;
+  }
+
+  .g4-pink { color: var(--pink); }
+  .g4-blue { color: #0284c7; }
+
+  .start-sub {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--muted);
+    margin-bottom: 18px;
+  }
+
+  .subject-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+
+  .subject-card {
+    background: var(--white);
+    border: 3px solid var(--dark);
+    border-radius: 16px;
+    padding: 14px 10px 12px;
+    box-shadow: var(--card-shadow);
+    cursor: pointer;
+    text-align: center;
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+
+  .subject-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 0 rgba(0,0,0,0.15);
+  }
+
+  .subject-card .sc-icon {
+    font-size: 1.7rem;
+    line-height: 1;
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .subject-card .sc-name {
+    font-family: 'Fredoka One', cursive;
+    font-size: 0.95rem;
+    color: var(--dark);
+    margin-bottom: 2px;
+  }
+
+  .subject-card .sc-desc {
+    font-size: 0.68rem;
+    font-weight: 700;
+    color: var(--muted);
+    line-height: 1.3;
+    min-height: 2.6em;
+    margin-bottom: 8px;
+  }
+
+  .subject-card .sc-count {
+    display: inline-block;
+    font-size: 0.68rem;
+    font-weight: 800;
+    color: var(--white);
+    padding: 4px 9px;
+    border: 2px solid var(--dark);
+    border-radius: 10px;
+    box-shadow: 2px 2px 0 var(--dark);
+  }
+
+  .sc-mapeh    { background: linear-gradient(135deg, #ffffff 0%, #ecfdf5 100%); border-color: #059669; }
+  .sc-filipino { background: linear-gradient(135deg, #ffffff 0%, #fef2f2 100%); border-color: #dc2626; }
+  .sc-english  { background: linear-gradient(135deg, #ffffff 0%, #eff6ff 100%); border-color: #2563eb; }
+  .sc-values   { background: linear-gradient(135deg, #ffffff 0%, #fefce8 100%); border-color: #ca8a04; }
+  .sc-hele     { background: linear-gradient(135deg, #ffffff 0%, #faf5ff 100%); border-color: #9333ea; }
+  .sc-all      { background: linear-gradient(135deg, #2d2d2d 0%, #4b4b4b 100%); border-color: #2d2d2d; }
+  .sc-all .sc-name { color: var(--white); }
+  .sc-all .sc-desc { color: #e5e5e5; }
+
+  .sc-mapeh .sc-count    { background: #059669; }
+  .sc-filipino .sc-count { background: #dc2626; }
+  .sc-english .sc-count  { background: #2563eb; }
+  .sc-values .sc-count   { background: #ca8a04; }
+  .sc-hele .sc-count     { background: #9333ea; }
+  .sc-all .sc-count      { background: #ff9a3c; }
+
+  .mode-select-title {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.15rem;
+    color: var(--dark);
+    margin-bottom: 12px;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .version-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-bottom: 24px;
+  }
+
+  .version-card {
+    background: var(--white);
+    border: 3px solid var(--dark);
+    border-radius: 18px;
+    padding: 18px 14px;
+    box-shadow: var(--card-shadow);
+    cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.15s, border-color 0.2s;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .version-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 0 rgba(0,0,0,0.15);
+  }
+
+  .version-card.v-75 {
+    background: linear-gradient(135deg, #ffffff 0%, #ecfdf5 100%);
+    border-color: #059669;
+  }
+
+  .version-card.v-100 {
+    background: linear-gradient(135deg, #ffffff 0%, #f0f9ff 100%);
+    border-color: #0284c7;
+  }
+
+  .version-card .v-badge {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.8rem;
+    line-height: 1;
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .v-75 .v-badge { color: #059669; }
+  .v-100 .v-badge { color: #0284c7; }
+
+  .version-card .v-title {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1rem;
+    color: var(--dark);
+    margin-bottom: 4px;
+  }
+
+  .version-card .v-desc {
+    font-size: 0.75rem;
+    color: var(--muted);
+    font-weight: 700;
+    line-height: 1.35;
+  }
+
+  .version-card .v-btn-start {
+    margin-top: 12px;
+    padding: 8px 12px;
+    border-radius: 12px;
+    border: 2px solid var(--dark);
+    font-family: 'Fredoka One', cursive;
+    font-size: 0.85rem;
+    color: white;
+    box-shadow: 2px 2px 0 var(--dark);
+  }
+
+  .v-75 .v-btn-start { background: var(--green); }
+  .v-100 .v-btn-start { background: var(--blue); }
+
+  .history-wrap {
+    background: var(--white);
+    border: 2.5px solid var(--dark);
+    border-radius: 16px;
+    padding: 16px;
+    box-shadow: var(--card-shadow);
+    margin-bottom: 24px;
+    text-align: left;
+  }
+
+  .history-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+  }
+
+  .history-header h3 {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1rem;
+    color: var(--dark);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .btn-clear-history {
+    background: #ffe4e6;
+    color: #be123c;
+    border: 2px solid var(--dark);
+    border-radius: 12px;
+    padding: 3px 10px;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 800;
+    font-size: 0.75rem;
+    cursor: pointer;
+    box-shadow: 2px 2px 0 var(--dark);
+    transition: transform 0.1s, background 0.2s;
+  }
+  .btn-clear-history:hover { background: #fecdd3; }
+  .btn-clear-history:active { transform: translateY(1px); }
+
+  .history-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-height: 220px;
+    overflow-y: auto;
+    padding-right: 4px;
+  }
+
+  .history-item {
+    background: #f8fafc;
+    border: 2px solid var(--dark);
+    border-radius: 12px;
+    padding: 10px 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .history-item-left {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .history-item-score {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1rem;
+    color: var(--dark);
+  }
+
+  .history-item-score span {
+    color: var(--green);
+  }
+
+  .history-item-date {
+    font-size: 0.72rem;
+    color: var(--muted);
+    font-weight: 700;
+  }
+
+  .history-badge {
+    font-family: 'Fredoka One', cursive;
+    font-size: 0.75rem;
+    padding: 3px 9px;
+    border-radius: 10px;
+    border: 1.5px solid var(--dark);
+  }
+
+  .history-badge.v-75 { background: #dcfce7; color: #15803d; }
+  .history-badge.v-100 { background: #e0f2fe; color: #0369a1; }
+  .history-badge.subject-badge { background: #ede9fe; color: #6d28d9; }
+
+  .history-empty {
+    font-size: 0.82rem;
+    color: var(--muted);
+    font-weight: 700;
+    text-align: center;
+    padding: 12px 0;
+  }
+
+  .cat-wrap {
+    background: var(--white);
+    border: 2.5px solid var(--dark);
+    border-radius: 16px;
+    padding: 16px;
+    box-shadow: var(--card-shadow);
+    margin-bottom: 24px;
+    text-align: left;
+  }
+
+  .cat-wrap h3 {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1rem;
+    margin-bottom: 10px;
+    color: var(--dark);
+  }
+
+  .cat-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .cat-tag {
+    font-size: 0.72rem;
+    font-weight: 800;
+    padding: 5px 11px;
+    border-radius: 20px;
+    border: 2px solid var(--dark);
+  }
+
+  .tag-noregroup  { background: #dcfce7; color: #15803d; }
+  .tag-regroup    { background: #ffe4e6; color: #be123c; }
+  .tag-zero       { background: #e0f2fe; color: #0369a1; }
+  .tag-mental     { background: #f3e8ff; color: #6b21a8; }
+  .tag-word       { background: #ffedd5; color: #c2410c; }
+  .tag-medicine   { background: #ffe4e6; color: #be123c; }
+  .tag-shape      { background: #f3e8ff; color: #6b21a8; }
+  .tag-rhythm     { background: #e0f2fe; color: #0369a1; }
+  .tag-pangabay   { background: #dcfce7; color: #15803d; }
+  .tag-aklat      { background: #ffedd5; color: #c2410c; }
+  .tag-pandiwa    { background: #fee2e2; color: #b91c1c; }
+  .tag-pronoun    { background: #cffafe; color: #0e7490; }
+  .tag-antecedent { background: #e0e7ff; color: #3730a3; }
+  .tag-values     { background: #fef9c3; color: #a16207; }
+  .tag-posture    { background: #ccfbf1; color: #0f766e; }
+  .tag-hospitable { background: #ffe4e6; color: #9f1239; }
+  .tag-house      { background: #ecfccb; color: #4d7c0f; }
+
+  .btn {
+    display: block;
+    width: 100%;
+    padding: 16px;
+    border: 2.5px solid var(--dark);
+    border-radius: 14px;
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: transform 0.1s, box-shadow 0.1s;
+    letter-spacing: 0.03em;
+    box-shadow: var(--card-shadow);
+    text-align: center;
+  }
+
+  .btn:active { transform: translateY(3px); box-shadow: 0 2px 0 rgba(0,0,0,0.12); }
+
+  .btn-start   { background: var(--green); color: var(--white); }
+  .btn-next    { background: var(--blue); color: var(--white); margin-top: 16px; display: none; }
+  .btn-next.show { display: block; }
+
+  .q-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+  }
+
+  .q-badge {
+    font-family: 'Fredoka One', cursive;
+    font-size: 0.88rem;
+    padding: 5px 14px;
+    border-radius: 20px;
+    border: 2px solid var(--dark);
+    box-shadow: 2px 2px 0 var(--dark);
+  }
+
+  .cat-badge {
+    font-size: 0.7rem;
+    font-weight: 800;
+    padding: 4px 10px;
+    border-radius: 20px;
+    border: 2px solid var(--dark);
+  }
+
+  .q-card {
+    background: var(--white);
+    border: 2.5px solid var(--dark);
+    border-radius: 18px;
+    padding: 20px 18px;
+    margin-bottom: 16px;
+    box-shadow: var(--card-shadow);
+    animation: slideIn 0.35s cubic-bezier(.68,-0.55,.27,1.55);
+    position: relative;
+  }
+
+  @keyframes slideIn {
+    from { opacity:0; transform: translateY(20px) scale(0.97); }
+    to   { opacity:1; transform: translateY(0) scale(1); }
+  }
+
+  .q-text {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--dark);
+    line-height: 1.55;
+  }
+
+  .options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .opt-btn {
+    width: 100%;
+    background: var(--white);
+    border: 2.5px solid var(--dark);
+    border-radius: 14px;
+    padding: 13px 14px;
+    text-align: left;
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--dark);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    transition: transform 0.1s, box-shadow 0.1s, background 0.2s;
+    box-shadow: 3px 3px 0 rgba(0,0,0,0.1);
+  }
+
+  .opt-btn:not(:disabled):hover {
+    transform: translateY(-2px);
+    box-shadow: 3px 5px 0 rgba(0,0,0,0.15);
+  }
+
+  .opt-btn:active:not(:disabled) { transform: translateY(1px); box-shadow: 1px 1px 0 rgba(0,0,0,0.1); }
+
+  .opt-letter {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    background: var(--bg);
+    border: 2px solid var(--dark);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Fredoka One', cursive;
+    font-size: 0.85rem;
+    flex-shrink: 0;
+    transition: background 0.2s;
+  }
+
+  .opt-btn.correct { background: #dcfce7; border-color: var(--green); box-shadow: 3px 3px 0 rgba(6,214,160,0.3); }
+  .opt-btn.correct .opt-letter { background: var(--green); color: white; border-color: var(--green); }
+
+  .opt-btn.wrong { background: #ffe4e6; border-color: var(--red); box-shadow: 3px 3px 0 rgba(255,71,87,0.2); }
+  .opt-btn.wrong .opt-letter { background: var(--red); color: white; border-color: var(--red); }
+
+  .opt-btn:disabled { cursor: default; }
+
+  .feedback {
+    display: none;
+    border: 2.5px solid var(--dark);
+    border-radius: 14px;
+    padding: 14px;
+    margin-top: 14px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    line-height: 1.55;
+    animation: popIn 0.3s cubic-bezier(.68,-0.55,.27,1.55);
+  }
+  .feedback.show { display: block; }
+  .feedback strong { font-family: 'Fredoka One', cursive; font-size: 1rem; display: block; margin-bottom: 4px; }
+  .feedback.fb-correct { background: #f0fdf4; border-color: var(--green); color: #166534; }
+  .feedback.fb-wrong   { background: #fff1f2; border-color: var(--red);   color: #9f1239; }
+
+  .results-wrap {
+    text-align: center;
+    animation: popIn 0.5s cubic-bezier(.68,-0.55,.27,1.55);
+  }
+
+  .trophy-emoji {
+    font-size: 4rem;
+    display: block;
+    margin: 10px 0 6px;
+    animation: bounce 1s ease-in-out infinite;
+  }
+
+  @keyframes bounce {
+    0%,100%{transform:translateY(0);} 50%{transform:translateY(-12px);}
+  }
+
+  .result-title {
+    font-family: 'Fredoka One', cursive;
+    font-size: 2rem;
+    color: var(--dark);
+    margin-bottom: 4px;
+  }
+
+  .result-tagline {
+    color: var(--muted);
+    font-size: 0.88rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    line-height: 1.5;
+  }
+
+  .score-big-card {
+    background: var(--white);
+    border: 3px solid var(--dark);
+    border-radius: 20px;
+    padding: 20px 30px;
+    box-shadow: 5px 5px 0 var(--dark);
+    margin-bottom: 18px;
+    display: inline-block;
+    min-width: 180px;
+  }
+
+  .score-big-card .score-num {
+    font-family: 'Fredoka One', cursive;
+    font-size: 3.4rem;
+    line-height: 1;
+    color: var(--green);
+  }
+
+  .score-big-card .score-out {
+    font-size: 0.85rem;
+    color: var(--muted);
+    font-weight: 700;
+    margin-top: 4px;
+  }
+
+  .breakdown-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-bottom: 22px;
+  }
+
+  .bd-card {
+    background: var(--white);
+    border: 2.5px solid var(--dark);
+    border-radius: 14px;
+    padding: 12px 8px;
+    box-shadow: 3px 3px 0 var(--dark);
+    text-align: center;
+  }
+
+  .bd-card .bd-num {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.5rem;
+    display: block;
+    line-height: 1;
+  }
+
+  .bd-card.c .bd-num { color: var(--green); }
+  .bd-card.w .bd-num { color: var(--red); }
+  .bd-card.p .bd-num { color: var(--purple); }
+  .bd-card .bd-label { font-size: 0.7rem; color: var(--muted); font-weight: 700; margin-top: 3px; }
+
+  .restart-btn-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .confetti { position: fixed; inset: 0; pointer-events: none; z-index: 200; }
+
+  .dot-confetti {
+    position: absolute;
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    animation: fall linear forwards;
+  }
+
+  @keyframes fall {
+    0%   { transform: translateY(-20px) rotate(0deg);   opacity: 1; }
+    100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+  }
+
+  @media (max-width: 480px) {
+    header { padding: 12px 14px 9px; }
+
+    .header-top {
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .header-title {
+      flex: 1 1 100%;
+      font-size: 1.05rem;
+    }
+
+    .header-controls {
+      flex: 1 1 100%;
+      justify-content: flex-end;
+    }
+
+    .version-grid { gap: 10px; }
+
+    .version-card { padding: 16px 10px; }
+
+    .version-card .v-btn-start {
+      font-size: 0.75rem;
+      padding: 8px 6px;
+      white-space: nowrap;
+    }
+
+    .q-text { font-size: 1.05rem; }
+
+    .q-header,
+    .history-header {
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .history-header .btn-clear-history { margin-left: auto; }
+  }
+
+  @media (max-width: 340px) {
+    .version-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="bg-shapes">
+  <div class="shape"></div>
+  <div class="shape"></div>
+  <div class="shape"></div>
+  <div class="shape"></div>
+  <div class="shape"></div>
+</div>
+
+<div class="confetti" id="confetti"></div>
+
+<header>
+  <div class="header-top">
+    <div class="header-title">
+      GRADE 4 REVIEWER
+      <span class="mode-badge-chip" id="hdr-mode-chip">All Subjects</span>
+    </div>
+    <div class="header-controls">
+      <button class="sound-chip" id="sound-btn" onclick="toggleSound()">🔊 Sound ON</button>
+      <div class="score-chip" id="score-chip">Score: 0</div>
+    </div>
+  </div>
+  <div class="progress-track">
+    <div class="progress-fill" id="progress-fill" style="width:0%"></div>
+  </div>
+</header>
+
+<main>
+
+  <!-- ── START SCREEN ── -->
+  <div class="screen active" id="start-screen">
+    <div class="start-wrap">
+      <div class="big-emoji-row">
+        <span>📚</span>
+        <span>✏️</span>
+        <span>🌟</span>
+      </div>
+      <h1 class="start-title">Chloe <span class="g4-pink">Grade 4</span> <span class="g4-blue">Reviewer</span></h1>
+
+      <div class="mode-select-title">
+        <span>🎯</span> Choose a Subject:
+      </div>
+
+      <div class="subject-grid">
+        <div class="subject-card sc-mapeh" onclick="selectSubject('MAPEH')">
+          <span class="sc-icon">🎨</span>
+          <div class="sc-name">MAPEH 4</div>
+          <div class="sc-desc">Medicine • Shape • Rhythm</div>
+          <div class="sc-count">40 Questions</div>
+        </div>
+        <div class="subject-card sc-filipino" onclick="selectSubject('Filipino')">
+          <span class="sc-icon">🇵🇭</span>
+          <div class="sc-name">Filipino 4</div>
+          <div class="sc-desc">Pang-abay • Bahagi ng Aklat • Pandiwa</div>
+          <div class="sc-count">40 Questions</div>
+        </div>
+        <div class="subject-card sc-english" onclick="selectSubject('English')">
+          <span class="sc-icon">🔤</span>
+          <div class="sc-name">English 4</div>
+          <div class="sc-desc">Compound Pronouns • Antecedents</div>
+          <div class="sc-count">40 Questions</div>
+        </div>
+        <div class="subject-card sc-values" onclick="selectSubject('Values')">
+          <span class="sc-icon">💛</span>
+          <div class="sc-name">Values 4</div>
+          <div class="sc-desc">Aralin 4: Pagpapahalaga sa Pamilya</div>
+          <div class="sc-count">40 Questions</div>
+        </div>
+        <div class="subject-card sc-hele" onclick="selectSubject('HELE')">
+          <span class="sc-icon">🏠</span>
+          <div class="sc-name">HELE 4</div>
+          <div class="sc-desc">Posture • Hospitality • Clean House</div>
+          <div class="sc-count">40 Questions</div>
+        </div>
+        <div class="subject-card sc-all" onclick="selectSubject('ALL')">
+          <span class="sc-icon">🏆</span>
+          <div class="sc-name">All Subjects</div>
+          <div class="sc-desc">Random 75 from all subjects</div>
+          <div class="sc-count">75 Questions • Shuffled</div>
+        </div>
+      </div>
+
+      <!-- ── HISTORY CARD ── -->
+      <div class="history-wrap">
+        <div class="history-header">
+          <h3><span>📜</span> Quiz Score History</h3>
+          <button class="btn-clear-history" onclick="clearHistory()">Clear History 🗑️</button>
+        </div>
+        <div class="history-list" id="history-list">
+          <div class="history-empty">No quiz history recorded yet. Complete a quiz to track your scores! 🚀</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── QUIZ SCREEN ── -->
+  <div class="screen" id="quiz-screen">
+    <div class="q-header">
+      <div class="q-badge" id="q-badge" style="background:#dcfce7;">Q1 / 75</div>
+      <span class="cat-badge tag-noregroup" id="cat-badge">Multiplication without Regrouping</span>
+    </div>
+
+    <div class="q-card">
+      <p class="q-text" id="q-text">Question here</p>
+    </div>
+    <div class="options" id="options"></div>
+    <div class="feedback" id="feedback"></div>
+    <button class="btn btn-next" id="next-btn" onclick="nextQ()">Next Question →</button>
+  </div>
+
+  <!-- ── RESULTS SCREEN ── -->
+  <div class="screen" id="results-screen">
+    <div class="results-wrap">
+      <span class="trophy-emoji" id="trophy">🏆</span>
+      <h2 class="result-title" id="result-title">Awesome!</h2>
+      <div class="score-big-card">
+        <div class="score-num" id="score-num">0</div>
+        <div class="score-out" id="score-out">out of 75</div>
+      </div>
+      <p class="result-tagline" id="result-tagline">Great job!</p>
+      <div class="breakdown-row">
+        <div class="bd-card c"><span class="bd-num" id="r-c">0</span><span class="bd-label">✅ Correct</span></div>
+        <div class="bd-card w"><span class="bd-num" id="r-w">0</span><span class="bd-label">❌ Wrong</span></div>
+        <div class="bd-card p"><span class="bd-num" id="r-p">0%</span><span class="bd-label">🎯 Score</span></div>
+      </div>
+      
+      <div class="restart-btn-group">
+        <button class="btn btn-start" onclick="restartQuizCurrent()">Try Again 🔄</button>
+        <button class="btn" style="background:#ede9fe; color:#6d28d9;" onclick="returnToStart()">Choose Another Subject ⚙️</button>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<script>
+const catStyles = {
+  'Types of Medicine':                  'tag-medicine',
+  'Elements of Art: Shape':             'tag-shape',
+  'Elements of Rhythm':                 'tag-rhythm',
+  'Pang-abay at Uri Nito':              'tag-pangabay',
+  'Mga Bahagi ng Aklat':                'tag-aklat',
+  'Pandiwa at Aspekto':                 'tag-pandiwa',
+  'Compound Personal Pronouns':         'tag-pronoun',
+  'Pronouns & Antecedents':             'tag-antecedent',
+  'Pagpapahalaga sa Pamilya':           'tag-values',
+  'Lesson 3: Good Posture':             'tag-posture',
+  'Lesson 4: Caring & Hospitable Family': 'tag-hospitable',
+  'Lesson 5: Clean & Inviting House':   'tag-house',
+};
+
+const badgeColors = ['#dcfce7','#dbeafe','#fce7f3','#fff3cd','#ede9fe','#fff7ed','#ffe4e6','#ccfbf1'];
+
+// Chloe - Grade 4 Reviewer - 2nd Summative Test
+// 40 questions per subject: MAPEH 4, Filipino 4, English 4, Values 4, HELE 4
+// The correct option is listed first; options are rotated when a quiz starts.
+const questions = [
+  // ══════════ MAPEH 4 (40) ══════════
+  // ── Types of Medicine and their Proper Uses (14) ──
+  {
+    subj: 'MAPEH', cat: 'Types of Medicine',
+    q: 'Which type of medicine can be bought without a doctor\'s written prescription?',
+    opts: ['Over-the-counter (OTC) medicine', 'Prescription medicine', 'Antibiotic injection', 'Maintenance medicine for heart disease'],
+    ans: 0,
+    exp: 'OTC medicines, such as paracetamol for fever, are safe to buy without a prescription when the label directions are followed.'
+  },
+  {
+    subj: 'MAPEH', cat: 'Types of Medicine',
+    q: 'What should you always check on a medicine label before taking it?',
+    opts: ['The expiration date and the correct dosage', 'The color of the box', 'The name of the store', 'The size of the bottle'],
+    ans: 0,
+    exp: 'Always check the expiration date and the recommended dose so the medicine is safe and effective.'
+  },
+  {
+    subj: 'MAPEH', cat: 'Types of Medicine',
+    q: 'Why should prescription medicines be taken only with a doctor\'s advice?',
+    opts: ['They are strong and can be harmful if taken the wrong way', 'They are always more expensive', 'They taste better than OTC medicines', 'They can be shared with anyone'],
+    ans: 0,
+    exp: 'Prescription medicines are given for a specific person and condition. Taking them without a doctor\'s advice can cause serious harm.'
+  },
+  {
+    subj: 'MAPEH', cat: 'Types of Medicine',
+    q: 'Where is the safest place to store medicines at home?',
+    opts: ['In a cool, dry place out of children\'s reach', 'Beside the stove', 'On a low shelf near the toys', 'Inside a warm cabinet'],
+    ans: 0,
+    exp: 'Medicines should stay in a cool, dry place and away from children so they do not spoil or get taken by mistake.'
+  },
+  {
+    subj: 'MAPEH', cat: 'Types of Medicine',
+    q: 'A classmate has a fever. What is the proper use of medicine?',
+    opts: ['Give the correct dose of fever medicine with an adult\'s guidance', 'Give any medicine found in the bag', 'Give twice the dose to make it work faster', 'Let the classmate take a friend\'s prescription'],
+    ans: 0,
+    exp: 'Fever medicine should be given in the correct dose, and a child should always have an adult\'s guidance.'
+  },
+  {
+    subj: 'MAPEH', cat: 'Types of Medicine',
+    q: 'Why should you never share your prescription medicine with a friend?',
+    opts: ['It was prescribed for your condition and your dose only', 'It might make your friend feel better', 'It will save your friend money', 'It is the polite thing to do'],
+    ans: 0,
+    exp: 'A prescription is personal. Your friend may have a different condition, allergy, or needed dose, so sharing can be dangerous.'
+  },
+  {
+    subj: 'MAPEH', cat: 'Types of Medicine',
+    q: 'Which medicine is commonly used to lower a fever?',
+    opts: ['Paracetamol', 'Antibiotic', 'Vitamin C', 'Cough syrup'],
+    ans: 0,
+    exp: 'Paracetamol is an antipyretic medicine used to lower fever when taken in the correct dose.'
+  },
+  {
+    subj: 'MAPEH', cat: 'Types of Medicine',
+    q: 'What does OTC stand for?',
+    opts: ['Over-the-counter', 'Only-the-cure', 'On-the-clock', 'Open-treatment-care'],
+    ans: 0,
+    exp: 'OTC means over-the-counter, which refers to medicines sold without a prescription.'
+  },
+  {
+    subj: 'MAPEH', cat: 'Types of Medicine',
+    q: 'What should you do if you accidentally take the wrong medicine?',
+    opts: ['Tell an adult or doctor immediately', 'Take another medicine to cancel it', 'Drink lots of soda', 'Go to sleep and ignore it'],
+    ans: 0,
+    exp: 'Tell an adult or doctor right away so you can get proper help.'
+  },
+  {
+    subj: 'MAPEH', cat: 'Types of Medicine',
+    q: 'Why should expired medicines be thrown away?',
+    opts: ['They may no longer be safe or effective', 'They become too sweet', 'They turn into vitamins', 'They can be used forever'],
+    ans: 0,
+    exp: 'Expired medicines may lose their strength or become harmful, so they should be disposed of properly.'
+  },
+  {
+    subj: 'MAPEH', cat: 'Types of Medicine',
+    q: 'Who can prescribe prescription medicine?',
+    opts: ['A doctor', 'A classmate', 'A store clerk', 'A neighbor'],
+    ans: 0,
+    exp: 'Only a licensed doctor can prescribe prescription medicine after checking a patient\'s condition.'
+  },
+  {
+    subj: 'MAPEH', cat: 'Types of Medicine',
+    q: 'What is the proper way to measure liquid medicine?',
+    opts: ['Use the measuring cup or spoon that comes with it', 'Use any kitchen spoon', 'Estimate by pouring', 'Use a bottle cap'],
+    ans: 0,
+    exp: 'A medicine measuring cup or spoon gives the exact dose. Kitchen spoons may give too little or too much.'
+  },
+  {
+    subj: 'MAPEH', cat: 'Types of Medicine',
+    q: 'Why should medicine stay in its original container with its label?',
+    opts: ['So you know what it is and how to take it safely', 'So it looks new', 'So it is harder to open', 'So it can be shared easily'],
+    ans: 0,
+    exp: 'The original container and label show the medicine\'s name, dose, and expiration date.'
+  },
+  {
+    subj: 'MAPEH', cat: 'Types of Medicine',
+    q: 'What should an adult do before giving medicine to a child?',
+    opts: ['Check the label and give the correct child dose', 'Give the adult dose', 'Mix it with candy', 'Skip the label'],
+    ans: 0,
+    exp: 'Children need the correct child dose. Always check the label and follow the doctor\'s or package instructions.'
+  },
+
+  // ── Elements of Art: Shape (13) ──
+  {
+    subj: 'MAPEH', cat: 'Elements of Art: Shape',
+    q: 'What is a shape in art?',
+    opts: ['An enclosed space defined by line, color, or texture', 'The lightness or darkness of a color', 'The roughness or smoothness of a surface', 'The steady pulse of a song'],
+    ans: 0,
+    exp: 'A shape is a two-dimensional area enclosed by lines, colors, or textures.'
+  },
+  {
+    subj: 'MAPEH', cat: 'Elements of Art: Shape',
+    q: 'Which of the following is a geometric shape?',
+    opts: ['Triangle', 'Cloud', 'Leaf', 'Puddle'],
+    ans: 0,
+    exp: 'Geometric shapes are exact mathematical shapes with names, such as triangles, squares, circles, and rectangles.'
+  },
+  {
+    subj: 'MAPEH', cat: 'Elements of Art: Shape',
+    q: 'Which of the following is an organic or free-form shape?',
+    opts: ['Cloud', 'Square', 'Rectangle', 'Triangle'],
+    ans: 0,
+    exp: 'Organic shapes are irregular shapes inspired by nature, such as clouds, leaves, stones, and puddles.'
+  },
+  {
+    subj: 'MAPEH', cat: 'Elements of Art: Shape',
+    q: 'A shape has length and width but no thickness. What do we call it?',
+    opts: ['Two-dimensional (2D)', 'Three-dimensional (3D)', 'Four-dimensional (4D)', 'One-dimensional (1D)'],
+    ans: 0,
+    exp: 'Shapes are two-dimensional because they only have length and width. Forms are three-dimensional.'
+  },
+  {
+    subj: 'MAPEH', cat: 'Elements of Art: Shape',
+    q: 'Which pair is made up of two geometric shapes?',
+    opts: ['Square and circle', 'Cloud and leaf', 'Stone and puddle', 'Tree and flower'],
+    ans: 0,
+    exp: 'A square and a circle are both geometric shapes because they have exact, regular forms.'
+  },
+  {
+    subj: 'MAPEH', cat: 'Elements of Art: Shape',
+    q: 'How can shapes create rhythm in an artwork?',
+    opts: ['By repeating them in a regular pattern', 'By making every shape different', 'By hiding all the shapes', 'By using only one color'],
+    ans: 0,
+    exp: 'Repeating shapes, lines, or colors in a regular pattern creates visual rhythm and guides the viewer\'s eye.'
+  },
+  {
+    subj: 'MAPEH', cat: 'Elements of Art: Shape',
+    q: 'Which shape has three sides and three corners?',
+    opts: ['Triangle', 'Square', 'Circle', 'Rectangle'],
+    ans: 0,
+    exp: 'A triangle is a polygon with three sides and three corners.'
+  },
+  {
+    subj: 'MAPEH', cat: 'Elements of Art: Shape',
+    q: 'Which shape has four equal sides and four right angles?',
+    opts: ['Square', 'Triangle', 'Circle', 'Oval'],
+    ans: 0,
+    exp: 'A square has four equal sides and four right angles.'
+  },
+  {
+    subj: 'MAPEH', cat: 'Elements of Art: Shape',
+    q: 'A circle is an example of what kind of shape?',
+    opts: ['Geometric shape', 'Organic shape', 'Free-form shape', 'Irregular shape'],
+    ans: 0,
+    exp: 'A circle is a geometric shape because it has an exact, regular mathematical form.'
+  },
+  {
+    subj: 'MAPEH', cat: 'Elements of Art: Shape',
+    q: 'Which is an organic shape?',
+    opts: ['A blob-like puddle', 'A perfect square', 'A perfect circle', 'A rectangle'],
+    ans: 0,
+    exp: 'Puddles have irregular, free-form edges, so they are organic shapes.'
+  },
+  {
+    subj: 'MAPEH', cat: 'Elements of Art: Shape',
+    q: 'What do we call shapes that are irregular and inspired by nature?',
+    opts: ['Organic or free-form shapes', 'Geometric shapes', 'Perfect shapes', 'Mathematical shapes'],
+    ans: 0,
+    exp: 'Organic shapes are free-form shapes found in nature, such as leaves, clouds, and stones.'
+  },
+  {
+    subj: 'MAPEH', cat: 'Elements of Art: Shape',
+    q: 'Which element of art is a two-dimensional enclosed area?',
+    opts: ['Shape', 'Form', 'Texture', 'Value'],
+    ans: 0,
+    exp: 'Shape is the element of art that describes a flat, enclosed area.'
+  },
+  {
+    subj: 'MAPEH', cat: 'Elements of Art: Shape',
+    q: 'How are geometric shapes different from organic shapes?',
+    opts: ['Geometric shapes have exact mathematical forms; organic shapes are irregular', 'Geometric shapes are always red; organic shapes are always blue', 'Organic shapes have names like square and triangle', 'They are exactly the same'],
+    ans: 0,
+    exp: 'Geometric shapes are regular and mathematical, while organic shapes are irregular and free-form.'
+  },
+
+  // ── Elements of Rhythm (13) ──
+  {
+    subj: 'MAPEH', cat: 'Elements of Rhythm',
+    q: 'What is rhythm in music?',
+    opts: ['The pattern of sounds and silences over a steady beat', 'The volume of the music', 'The speed of a song only', 'The words of a song'],
+    ans: 0,
+    exp: 'Rhythm is the arrangement of long and short sounds and silences over the steady beat.'
+  },
+  {
+    subj: 'MAPEH', cat: 'Elements of Rhythm',
+    q: 'What is the steady pulse that you can feel in a song called?',
+    opts: ['Beat', 'Melody', 'Harmony', 'Timbre'],
+    ans: 0,
+    exp: 'The beat is the steady, recurring pulse of music, like a heartbeat or a ticking clock.'
+  },
+  {
+    subj: 'MAPEH', cat: 'Elements of Rhythm',
+    q: 'Which meter groups beats into threes?',
+    opts: ['Triple meter (3/4)', 'Duple meter (2/4)', 'Quadruple meter (4/4)', 'Free meter'],
+    ans: 0,
+    exp: 'Triple meter, such as 3/4, groups three beats in every measure.'
+  },
+  {
+    subj: 'MAPEH', cat: 'Elements of Rhythm',
+    q: 'How many beats are there in one measure of a 4/4 song?',
+    opts: ['4 beats', '2 beats', '3 beats', '6 beats'],
+    ans: 0,
+    exp: 'The top number of 4/4 tells us there are four beats in each measure.'
+  },
+  {
+    subj: 'MAPEH', cat: 'Elements of Rhythm',
+    q: 'What is visual rhythm?',
+    opts: ['The repetition of lines, shapes, or colors that guides the eye', 'The loudness of a drum', 'The highness or lowness of a note', 'The speed of a dance'],
+    ans: 0,
+    exp: 'In visual arts, rhythm is created by repeating visual elements at regular intervals.'
+  },
+  {
+    subj: 'MAPEH', cat: 'Elements of Rhythm',
+    q: 'Which activity clearly shows rhythm?',
+    opts: ['Clapping a pattern of long and short sounds', 'Covering your ears', 'Standing perfectly still', 'Speaking in one flat tone'],
+    ans: 0,
+    exp: 'Clapping long and short sounds creates a rhythmic pattern over the beat.'
+  },
+  {
+    subj: 'MAPEH', cat: 'Elements of Rhythm',
+    q: 'What do we call the grouping of beats into regular patterns?',
+    opts: ['Meter', 'Melody', 'Texture', 'Timbre'],
+    ans: 0,
+    exp: 'Meter is the grouping of beats into regular patterns, such as 2/4, 3/4, and 4/4.'
+  },
+  {
+    subj: 'MAPEH', cat: 'Elements of Rhythm',
+    q: 'Which meter has two beats in every measure?',
+    opts: ['Duple meter (2/4)', 'Triple meter (3/4)', 'Quadruple meter (4/4)', 'Free meter'],
+    ans: 0,
+    exp: 'Duple meter, such as 2/4, has two beats in each measure.'
+  },
+  {
+    subj: 'MAPEH', cat: 'Elements of Rhythm',
+    q: 'In 3/4 time, what does the bottom 4 tell us?',
+    opts: ['A quarter note gets one beat', 'There are four measures', 'The song has four beats', 'The song is very fast'],
+    ans: 0,
+    exp: 'The bottom number tells which note gets one beat. In 3/4, the quarter note gets one beat.'
+  },
+  {
+    subj: 'MAPEH', cat: 'Elements of Rhythm',
+    q: 'What is a measure?',
+    opts: ['A group of beats between two bar lines', 'A single sound', 'The title of a song', 'A musical instrument'],
+    ans: 0,
+    exp: 'A measure is a group of beats separated by bar lines.'
+  },
+  {
+    subj: 'MAPEH', cat: 'Elements of Rhythm',
+    q: 'Which is an example of a rhythmic pattern?',
+    opts: ['clap-clap-rest-clap', 'do-re-mi-fa', 'loud-soft-high-low', 'red-blue-yellow-green'],
+    ans: 0,
+    exp: 'A rhythmic pattern is a repeated arrangement of sounds and rests, such as clap-clap-rest-clap.'
+  },
+  {
+    subj: 'MAPEH', cat: 'Elements of Rhythm',
+    q: 'What happens when a rhythm is repeated?',
+    opts: ['It creates a pattern and a feeling of unity', 'It makes the song silent', 'It changes the words', 'It stops the beat'],
+    ans: 0,
+    exp: 'Repeating a rhythm creates a pattern that gives music unity and structure.'
+  },
+  {
+    subj: 'MAPEH', cat: 'Elements of Rhythm',
+    q: 'Which element of music deals with the length of sounds and silences?',
+    opts: ['Rhythm', 'Melody', 'Harmony', 'Dynamics'],
+    ans: 0,
+    exp: 'Rhythm deals with how long or short sounds and silences are.'
+  },
+
+  // ══════════ FILIPINO 4 (40) ══════════
+  // ── Pang-abay at Mga Uri Nito (14) ──
+  {
+    subj: 'Filipino', cat: 'Pang-abay at Uri Nito',
+    q: 'Ano ang pang-abay?',
+    opts: ['Salitang naglalarawan sa pandiwa, pang-uri, o kapwa pang-abay', 'Salitang nagsasaad ng ngalan ng tao, bagay, o lugar', 'Salitang nagsasaad ng kilos lamang', 'Salitang nag-uugnay ng dalawang pangungusap'],
+    ans: 0,
+    exp: 'Ang pang-abay ay salitang nagbibigay-turing o naglalarawan sa pandiwa, pang-uri, o isa pang pang-abay.'
+  },
+  {
+    subj: 'Filipino', cat: 'Pang-abay at Uri Nito',
+    q: 'Anong uri ng pang-abay ang salitang nakasalungguhit sa pangungusap na: "Kumain si Ana <u>kanina</u>."?',
+    opts: ['Pang-abay na Pamanahon', 'Pang-abay na Panlunan', 'Pang-abay na Pamaraan', 'Pang-uri'],
+    ans: 0,
+    exp: 'Ang "kanina" ay sumasagot sa tanong na "Kailan?", kaya ito ay pang-abay na pamanahon.'
+  },
+  {
+    subj: 'Filipino', cat: 'Pang-abay at Uri Nito',
+    q: 'Anong uri ng pang-abay ang nasa pangungusap na: "Naglaro ang mga bata <u>sa palaruan</u>."?',
+    opts: ['Pang-abay na Panlunan', 'Pang-abay na Pamanahon', 'Pang-abay na Pamaraan', 'Pangngalan'],
+    ans: 0,
+    exp: 'Ang "sa palaruan" ay sumasagot sa tanong na "Saan?", kaya ito ay pang-abay na panlunan.'
+  },
+  {
+    subj: 'Filipino', cat: 'Pang-abay at Uri Nito',
+    q: 'Anong uri ng pang-abay ang nasa pangungusap na: "Sumagot si Ben <u>nang mahinahon</u>."?',
+    opts: ['Pang-abay na Pamaraan', 'Pang-abay na Pamanahon', 'Pang-abay na Panlunan', 'Pang-uri'],
+    ans: 0,
+    exp: 'Ang "nang mahinahon" ay sumasagot sa tanong na "Paano?", kaya ito ay pang-abay na pamaraan.'
+  },
+  {
+    subj: 'Filipino', cat: 'Pang-abay at Uri Nito',
+    q: 'Alin sa mga sumusunod ang pang-abay na pamaraan?',
+    opts: ['nang maingat', 'bukas', 'sa bahay', 'tuwing Linggo'],
+    ans: 0,
+    exp: 'Ang "nang maingat" ay nagsasaad kung paano ginawa ang kilos, kaya ito ay pamaraan.'
+  },
+  {
+    subj: 'Filipino', cat: 'Pang-abay at Uri Nito',
+    q: 'Alin sa mga sumusunod ang pang-abay na pamanahon?',
+    opts: ['mamaya', 'sa ilog', 'nang mabilis', 'kina Lola'],
+    ans: 0,
+    exp: 'Ang "mamaya" ay sumasagot sa tanong na "Kailan?", kaya ito ay pamanahon.'
+  },
+  {
+    subj: 'Filipino', cat: 'Pang-abay at Uri Nito',
+    q: 'Anong uri ng pang-abay ang nasa pangungusap na: "Inilagay ni Tatay ang kahon <u>sa ilalim ng mesa</u>."?',
+    opts: ['Pang-abay na Panlunan', 'Pang-abay na Pamaraan', 'Pang-abay na Pamanahon', 'Pang-abay na Pamilang'],
+    ans: 0,
+    exp: 'Ang "sa ilalim ng mesa" ay nagsasaad kung saan inilagay ang kahon, kaya ito ay panlunan.'
+  },
+  {
+    subj: 'Filipino', cat: 'Pang-abay at Uri Nito',
+    q: 'Anong uri ng pang-abay ang salitang "bukas" sa pangungusap na "Aalis kami bukas."?',
+    opts: ['Pang-abay na Pamanahon', 'Pang-abay na Panlunan', 'Pang-abay na Pamaraan', 'Pang-uri'],
+    ans: 0,
+    exp: 'Ang "bukas" ay nagsasaad kung kailan aalis, kaya ito ay pamanahon.'
+  },
+  {
+    subj: 'Filipino', cat: 'Pang-abay at Uri Nito',
+    q: 'Anong uri ng pang-abay ang "sa dagat" sa pangungusap na "Lumangoy sila sa dagat."?',
+    opts: ['Pang-abay na Panlunan', 'Pang-abay na Pamanahon', 'Pang-abay na Pamaraan', 'Pangngalan'],
+    ans: 0,
+    exp: 'Ang "sa dagat" ay sumasagot sa tanong na "Saan?", kaya ito ay panlunan.'
+  },
+  {
+    subj: 'Filipino', cat: 'Pang-abay at Uri Nito',
+    q: 'Anong uri ng pang-abay ang "nang mabilis" sa pangungusap na "Tumakbo siya nang mabilis."?',
+    opts: ['Pang-abay na Pamaraan', 'Pang-abay na Pamanahon', 'Pang-abay na Panlunan', 'Pang-uri'],
+    ans: 0,
+    exp: 'Ang "nang mabilis" ay nagsasaad kung paano tumakbo, kaya ito ay pamaraan.'
+  },
+  {
+    subj: 'Filipino', cat: 'Pang-abay at Uri Nito',
+    q: 'Alin sa mga pangungusap ang may pang-abay na pamaraan?',
+    opts: ['Tumakbo si Ana nang mabilis.', 'Aalis kami bukas.', 'Naglaro sila sa parke.', 'Kumain kami kanina.'],
+    ans: 0,
+    exp: 'Ang "nang mabilis" ay nagsasaad kung paano tumakbo, kaya ito ay pamaraan.'
+  },
+  {
+    subj: 'Filipino', cat: 'Pang-abay at Uri Nito',
+    q: 'Alin sa mga pangungusap ang may pang-abay na panlunan?',
+    opts: ['Nagluto si Nanay sa kusina.', 'Bukas ang pagsusulit namin.', 'Maingat siyang naglakad.', 'Kanina siya dumating.'],
+    ans: 0,
+    exp: 'Ang "sa kusina" ay nagsasaad kung saan nagluto si Nanay, kaya ito ay panlunan.'
+  },
+  {
+    subj: 'Filipino', cat: 'Pang-abay at Uri Nito',
+    q: 'Alin sa mga pangungusap ang may pang-abay na pamanahon?',
+    opts: ['Aalis kami bukas.', 'Naglaro sila sa bakuran.', 'Tahimik siyang nagbasa.', 'Inilagay niya ang bag sa mesa.'],
+    ans: 0,
+    exp: 'Ang "bukas" ay nagsasaad kung kailan aalis, kaya ito ay pamanahon.'
+  },
+  {
+    subj: 'Filipino', cat: 'Pang-abay at Uri Nito',
+    q: 'Anong uri ng pang-abay ang "tuwing Sabado" sa pangungusap na "Naglilinis kami ng bahay tuwing Sabado."?',
+    opts: ['Pang-abay na Pamanahon', 'Pang-abay na Panlunan', 'Pang-abay na Pamaraan', 'Pang-abay na Pamilang'],
+    ans: 0,
+    exp: 'Ang "tuwing Sabado" ay nagsasaad kung kailan ginagawa ang kilos, kaya ito ay pamanahon.'
+  },
+
+  // ── Mga Bahagi ng Aklat (12) ──
+  {
+    subj: 'Filipino', cat: 'Mga Bahagi ng Aklat',
+    q: 'Saan makikita ang pamagat ng aklat, pangalan ng may-akda, at tagaguhit sa labas ng aklat?',
+    opts: ['Pabalat', 'Talaan ng Nilalaman', 'Glosari', 'Index'],
+    ans: 0,
+    exp: 'Ang pabalat ang panlabas na bahagi ng aklat kung saan nakasulat ang pamagat, may-akda, at ilustrador.'
+  },
+  {
+    subj: 'Filipino', cat: 'Mga Bahagi ng Aklat',
+    q: 'Anong bahagi ng aklat ang naglalaman ng listahan ng mga aralin o kabanata kasama ang pahina?',
+    opts: ['Talaan ng Nilalaman', 'Talahulugan', 'Bibliograpiya', 'Pabalat'],
+    ans: 0,
+    exp: 'Ang Talaan ng Nilalaman ay tumutulong upang mabilis na mahanap ang aralin at ang pahina nito.'
+  },
+  {
+    subj: 'Filipino', cat: 'Mga Bahagi ng Aklat',
+    q: 'Anong bahagi ng aklat ang nagbibigay ng kahulugan ng mga mahihirap na salita?',
+    opts: ['Talahulugan o Glosari', 'Talatuntunan o Index', 'Talaan ng Nilalaman', 'Katawan ng Aklat'],
+    ans: 0,
+    exp: 'Ang glosari o talahulugan ay listahan ng mga salita at ang kanilang kahulugan, nakaayos nang pa-alpabeto.'
+  },
+  {
+    subj: 'Filipino', cat: 'Mga Bahagi ng Aklat',
+    q: 'Anong bahagi ng aklat ang listahan ng mga paksa o pangalan sa dulo ng aklat, na nakaayos nang pa-alpabeto?',
+    opts: ['Talatuntunan o Index', 'Talahulugan o Glosari', 'Pahinang Pamagat', 'Bibliograpiya'],
+    ans: 0,
+    exp: 'Ang index o talatuntunan ay tumutulong upang mabilis na mahanap ang isang paksa sa aklat.'
+  },
+  {
+    subj: 'Filipino', cat: 'Mga Bahagi ng Aklat',
+    q: 'Anong bahagi ng aklat ang naglalaman ng listahan ng mga pinagkukunang aklat at website?',
+    opts: ['Bibliograpiya', 'Talaan ng Nilalaman', 'Glosari', 'Pabalat'],
+    ans: 0,
+    exp: 'Ang bibliograpiya ay listahan ng mga sanggunian na ginamit ng may-akda.'
+  },
+  {
+    subj: 'Filipino', cat: 'Mga Bahagi ng Aklat',
+    q: 'Ano ang katawan ng aklat?',
+    opts: ['Ang bahaging naglalaman ng mga aralin at teksto', 'Ang panlabas na takip ng aklat', 'Ang listahan ng mga salita', 'Ang listahan ng mga sanggunian'],
+    ans: 0,
+    exp: 'Ang katawan ng aklat ang pinakamahalagang bahagi dahil dito matatagpuan ang mga aralin at impormasyon.'
+  },
+  {
+    subj: 'Filipino', cat: 'Mga Bahagi ng Aklat',
+    q: 'Ano ang pahinang pamagat?',
+    opts: ['Pahinang nagpapakita ng buong pamagat, may-akda, at tagalimbag', 'Listahan ng mga salita', 'Panlabas na takip', 'Listahan ng mga sanggunian'],
+    ans: 0,
+    exp: 'Ang pahinang pamagat ay naglalaman ng buong pamagat ng aklat, may-akda, at tagalimbag o publisher.'
+  },
+  {
+    subj: 'Filipino', cat: 'Mga Bahagi ng Aklat',
+    q: 'Saan makikita ang tagalimbag o publisher ng aklat?',
+    opts: ['Sa pahinang pamagat at pahina ng karapatang-ari', 'Sa glosari', 'Sa index', 'Sa bibliograpiya'],
+    ans: 0,
+    exp: 'Ang tagalimbag ay nakasulat sa pahinang pamagat at sa pahina ng karapatang-ari.'
+  },
+  {
+    subj: 'Filipino', cat: 'Mga Bahagi ng Aklat',
+    q: 'Ano ang spine ng aklat?',
+    opts: ['Ang gilid na nag-uugnay sa mga pahina at nagpapakita ng pamagat', 'Ang likod na larawan', 'Ang unang pahina ng aralin', 'Ang listahan ng mga salita'],
+    ans: 0,
+    exp: 'Ang spine ang gilid ng aklat na nag-uugnay sa mga pahina. Dito rin madalas nakasulat ang pamagat.'
+  },
+  {
+    subj: 'Filipino', cat: 'Mga Bahagi ng Aklat',
+    q: 'Ano ang nilalaman ng pahina ng karapatang-ari?',
+    opts: ['Petsa ng karapatang-ari at impormasyon ng tagalimbag', 'Mga aralin sa aklat', 'Kahulugan ng mga salita', 'Listahan ng mga paksa'],
+    ans: 0,
+    exp: 'Ang pahina ng karapatang-ari ay naglalaman ng copyright date, tagalimbag, at iba pang legal na impormasyon.'
+  },
+  {
+    subj: 'Filipino', cat: 'Mga Bahagi ng Aklat',
+    q: 'Bakit kapaki-pakinabang ang talaan ng nilalaman?',
+    opts: ['Upang mabilis na mahanap ang kabanata at pahina', 'Upang malaman ang kahulugan ng salita', 'Upang makita ang mga sanggunian', 'Upang mabilang ang mga larawan'],
+    ans: 0,
+    exp: 'Sa tulong ng talaan ng nilalaman, madaling hanapin ang aralin at ang pahina nito.'
+  },
+  {
+    subj: 'Filipino', cat: 'Mga Bahagi ng Aklat',
+    q: 'Alin sa mga bahagi ng aklat ang tumutulong upang malaman ang kahulugan ng mahihirap na salita?',
+    opts: ['Glosari', 'Index', 'Bibliograpiya', 'Pabalat'],
+    ans: 0,
+    exp: 'Ang glosari ay listahan ng mga salita at kahulugan nito.'
+  },
+
+  // ── Pandiwa at Aspekto Nito (14) ──
+  {
+    subj: 'Filipino', cat: 'Pandiwa at Aspekto',
+    q: 'Ano ang pandiwa?',
+    opts: ['Salitang nagsasaad ng kilos o galaw', 'Salitang nagsasaad ng ngalan ng bagay', 'Salitang naglalarawan ng kulay', 'Salitang nag-uugnay ng mga salita'],
+    ans: 0,
+    exp: 'Ang pandiwa ay salitang nagpapakita ng kilos, galaw, o pangyayari.'
+  },
+  {
+    subj: 'Filipino', cat: 'Pandiwa at Aspekto',
+    q: 'Anong aspekto ng pandiwa ang salitang "nagluto"?',
+    opts: ['Perpektibo (naganap na)', 'Imperpektibo (nagaganap pa)', 'Kontemplatibo (gaganapin pa)', 'Pawatas'],
+    ans: 0,
+    exp: 'Ang "nagluto" ay nagsasaad na tapos nang gawin ang kilos, kaya ito ay perpektibo.'
+  },
+  {
+    subj: 'Filipino', cat: 'Pandiwa at Aspekto',
+    q: 'Anong aspekto ng pandiwa ang salitang "nagluluto"?',
+    opts: ['Imperpektibo (nagaganap pa)', 'Perpektibo (naganap na)', 'Kontemplatibo (gaganapin pa)', 'Pawatas'],
+    ans: 0,
+    exp: 'Ang "nagluluto" ay nagsasaad na kasalukuyang ginagawa ang kilos, kaya ito ay imperpektibo.'
+  },
+  {
+    subj: 'Filipino', cat: 'Pandiwa at Aspekto',
+    q: 'Anong aspekto ng pandiwa ang salitang "magluluto"?',
+    opts: ['Kontemplatibo (gaganapin pa)', 'Perpektibo (naganap na)', 'Imperpektibo (nagaganap pa)', 'Pawatas'],
+    ans: 0,
+    exp: 'Ang "magluluto" ay nagsasaad na gagawin pa lamang ang kilos, kaya ito ay kontemplatibo.'
+  },
+  {
+    subj: 'Filipino', cat: 'Pandiwa at Aspekto',
+    q: 'Alin sa mga sumusunod ang nasa aspektong kontemplatibo?',
+    opts: ['aakyat', 'umakyat', 'umaakyat', 'umakyat na'],
+    ans: 0,
+    exp: 'Ang "aakyat" ay gagawin pa lamang, kaya ito ay kontemplatibo.'
+  },
+  {
+    subj: 'Filipino', cat: 'Pandiwa at Aspekto',
+    q: 'Alin sa mga sumusunod ang nasa aspektong perpektibo?',
+    opts: ['sumulat', 'sumusulat', 'susulat', 'sulat'],
+    ans: 0,
+    exp: 'Ang "sumulat" ay nagsasaad na tapos nang gawin ang kilos, kaya ito ay perpektibo.'
+  },
+  {
+    subj: 'Filipino', cat: 'Pandiwa at Aspekto',
+    q: 'Anong aspekto ng pandiwa ang nasa pangungusap na: "Nag-aaral si Liza ngayon."?',
+    opts: ['Imperpektibo', 'Perpektibo', 'Kontemplatibo', 'Pawatas'],
+    ans: 0,
+    exp: 'Ang "nag-aaral" ay kasalukuyang ginagawa, kaya ito ay imperpektibo.'
+  },
+  {
+    subj: 'Filipino', cat: 'Pandiwa at Aspekto',
+    q: 'Anong aspekto ng pandiwa ang "kumain" sa pangungusap na "Kumain kami kanina."?',
+    opts: ['Perpektibo', 'Imperpektibo', 'Kontemplatibo', 'Pawatas'],
+    ans: 0,
+    exp: 'Ang "kumain" ay tapos nang gawin, kaya ito ay perpektibo.'
+  },
+  {
+    subj: 'Filipino', cat: 'Pandiwa at Aspekto',
+    q: 'Anong aspekto ng pandiwa ang "kumakain" sa pangungusap na "Kumakain si Ana ngayon."?',
+    opts: ['Imperpektibo', 'Perpektibo', 'Kontemplatibo', 'Pawatas'],
+    ans: 0,
+    exp: 'Ang "kumakain" ay kasalukuyang ginagawa, kaya ito ay imperpektibo.'
+  },
+  {
+    subj: 'Filipino', cat: 'Pandiwa at Aspekto',
+    q: 'Anong aspekto ng pandiwa ang "kakain" sa pangungusap na "Kakain kami mamaya."?',
+    opts: ['Kontemplatibo', 'Perpektibo', 'Imperpektibo', 'Pawatas'],
+    ans: 0,
+    exp: 'Ang "kakain" ay gagawin pa lamang, kaya ito ay kontemplatibo.'
+  },
+  {
+    subj: 'Filipino', cat: 'Pandiwa at Aspekto',
+    q: 'Anong aspekto ng pandiwa ang "naglinis"?',
+    opts: ['Perpektibo', 'Imperpektibo', 'Kontemplatibo', 'Pawatas'],
+    ans: 0,
+    exp: 'Ang "naglinis" ay nagsasaad na tapos nang gawin ang kilos, kaya ito ay perpektibo.'
+  },
+  {
+    subj: 'Filipino', cat: 'Pandiwa at Aspekto',
+    q: 'Anong aspekto ng pandiwa ang "naglilinis"?',
+    opts: ['Imperpektibo', 'Perpektibo', 'Kontemplatibo', 'Pawatas'],
+    ans: 0,
+    exp: 'Ang "naglilinis" ay kasalukuyang ginagawa, kaya ito ay imperpektibo.'
+  },
+  {
+    subj: 'Filipino', cat: 'Pandiwa at Aspekto',
+    q: 'Anong aspekto ng pandiwa ang "maglilinis"?',
+    opts: ['Kontemplatibo', 'Perpektibo', 'Imperpektibo', 'Pawatas'],
+    ans: 0,
+    exp: 'Ang "maglilinis" ay gagawin pa lamang, kaya ito ay kontemplatibo.'
+  },
+  {
+    subj: 'Filipino', cat: 'Pandiwa at Aspekto',
+    q: 'Alin sa mga pangungusap ang gumagamit ng aspektong kontemplatibo?',
+    opts: ['Bibisita kami sa Lunes.', 'Bumisita kami kahapon.', 'Bumibisita kami tuwing Linggo.', 'Bisita ang paborito naming gawain.'],
+    ans: 0,
+    exp: 'Ang "bibisita" ay gagawin pa lamang, kaya ito ay kontemplatibo.'
+  },
+
+  // ══════════ ENGLISH 4 (40) ══════════
+  // ── Compound Personal Pronouns (20) ──
+  {
+    subj: 'English', cat: 'Compound Personal Pronouns',
+    q: 'Which of the following is a compound personal pronoun?',
+    opts: ['myself', 'mine', 'me', 'my'],
+    ans: 0,
+    exp: 'Compound personal pronouns are formed by adding -self or -selves, such as myself, yourself, himself, herself, itself, ourselves, yourselves, and themselves.'
+  },
+  {
+    subj: 'English', cat: 'Compound Personal Pronouns',
+    q: 'Complete the sentence: "I made this project by _________."',
+    opts: ['myself', 'himself', 'herself', 'themselves'],
+    ans: 0,
+    exp: 'The subject is "I", so the reflexive pronoun must be "myself".'
+  },
+  {
+    subj: 'English', cat: 'Compound Personal Pronouns',
+    q: 'Complete the sentence: "The girls enjoyed _________ at the party."',
+    opts: ['themselves', 'himself', 'itself', 'yourself'],
+    ans: 0,
+    exp: 'The subject "The girls" is plural, so the correct reflexive pronoun is "themselves".'
+  },
+  {
+    subj: 'English', cat: 'Compound Personal Pronouns',
+    q: 'Which sentence uses an intensive pronoun correctly?',
+    opts: ['The mayor himself attended the meeting.', 'The mayor hurt himself while cooking.', 'The mayor bought himself a new car.', 'The mayor taught himself to swim.'],
+    ans: 0,
+    exp: 'An intensive pronoun only emphasizes the noun before it. "Himself" emphasizes "the mayor" and can be removed without changing the meaning.'
+  },
+  {
+    subj: 'English', cat: 'Compound Personal Pronouns',
+    q: 'What is the difference between a reflexive and an intensive pronoun?',
+    opts: ['A reflexive pronoun is needed for the sentence\'s meaning; an intensive pronoun only adds emphasis.', 'A reflexive pronoun is always plural; an intensive pronoun is always singular.', 'An intensive pronoun replaces a noun; a reflexive pronoun describes an adjective.', 'There is no difference at all.'],
+    ans: 0,
+    exp: 'Reflexive pronouns show that the action returns to the subject. Intensive pronouns emphasize a noun or pronoun and can be removed.'
+  },
+  {
+    subj: 'English', cat: 'Compound Personal Pronouns',
+    q: 'Complete the sentence: "You should be proud of _________."',
+    opts: ['yourself', 'himself', 'itself', 'themselves'],
+    ans: 0,
+    exp: 'The subject is "You", so the correct reflexive pronoun is "yourself".'
+  },
+  {
+    subj: 'English', cat: 'Compound Personal Pronouns',
+    q: 'Complete the sentence: "The cat cleaned _________ after eating."',
+    opts: ['itself', 'himself', 'herself', 'themselves'],
+    ans: 0,
+    exp: '"The cat" is a singular animal, so the correct pronoun is "itself".'
+  },
+  {
+    subj: 'English', cat: 'Compound Personal Pronouns',
+    q: 'Which word is NOT a compound personal pronoun?',
+    opts: ['ours', 'ourselves', 'yourself', 'themselves'],
+    ans: 0,
+    exp: '"Ours" is a possessive pronoun. Compound personal pronouns end in -self or -selves.'
+  },
+  {
+    subj: 'English', cat: 'Compound Personal Pronouns',
+    q: 'Complete the sentence: "He built the table _________."',
+    opts: ['himself', 'herself', 'myself', 'ourselves'],
+    ans: 0,
+    exp: 'The subject is "He", so the correct reflexive pronoun is "himself".'
+  },
+  {
+    subj: 'English', cat: 'Compound Personal Pronouns',
+    q: 'Complete the sentence: "We enjoyed _________ at the beach."',
+    opts: ['ourselves', 'themselves', 'yourselves', 'herself'],
+    ans: 0,
+    exp: 'The subject is "We", so the correct reflexive pronoun is "ourselves".'
+  },
+  {
+    subj: 'English', cat: 'Compound Personal Pronouns',
+    q: 'Complete the sentence: "The children dressed _________ for the program."',
+    opts: ['themselves', 'himself', 'itself', 'myself'],
+    ans: 0,
+    exp: 'The subject "The children" is plural, so the correct pronoun is "themselves".'
+  },
+  {
+    subj: 'English', cat: 'Compound Personal Pronouns',
+    q: 'Complete the sentence: "She blamed _________ for the mistake."',
+    opts: ['herself', 'himself', 'itself', 'themselves'],
+    ans: 0,
+    exp: 'The subject is "She", so the correct reflexive pronoun is "herself".'
+  },
+  {
+    subj: 'English', cat: 'Compound Personal Pronouns',
+    q: 'Complete the sentence: "I hurt _________ while playing."',
+    opts: ['myself', 'yourself', 'himself', 'herself'],
+    ans: 0,
+    exp: 'The subject is "I", so the correct reflexive pronoun is "myself".'
+  },
+  {
+    subj: 'English', cat: 'Compound Personal Pronouns',
+    q: 'Complete the sentence: "You and Ana should prepare _________ for the trip."',
+    opts: ['yourselves', 'themselves', 'ourselves', 'himself'],
+    ans: 0,
+    exp: '"You and Ana" is a plural subject that includes the listener, so the correct pronoun is "yourselves".'
+  },
+  {
+    subj: 'English', cat: 'Compound Personal Pronouns',
+    q: 'Which sentence uses a reflexive pronoun?',
+    opts: ['He taught himself to play the guitar.', 'The president himself gave the award.', 'The teacher herself joined the game.', 'The queen herself visited the school.'],
+    ans: 0,
+    exp: 'In "He taught himself", the action reflects back to the subject, so "himself" is reflexive.'
+  },
+  {
+    subj: 'English', cat: 'Compound Personal Pronouns',
+    q: 'Which sentence uses an intensive pronoun?',
+    opts: ['The queen herself visited us.', 'She cleaned herself after the game.', 'He bought himself a snack.', 'They enjoyed themselves at the fair.'],
+    ans: 0,
+    exp: '"Herself" emphasizes "the queen" and can be removed without changing the meaning. This makes it intensive.'
+  },
+  {
+    subj: 'English', cat: 'Compound Personal Pronouns',
+    q: 'Complete the sentence: "The machine turned _________ off."',
+    opts: ['itself', 'himself', 'herself', 'themselves'],
+    ans: 0,
+    exp: '"The machine" is a singular thing, so the correct pronoun is "itself".'
+  },
+  {
+    subj: 'English', cat: 'Compound Personal Pronouns',
+    q: 'Complete the sentence: "The players congratulated _________ after the game."',
+    opts: ['themselves', 'himself', 'herself', 'myself'],
+    ans: 0,
+    exp: 'The subject "The players" is plural, so the correct pronoun is "themselves".'
+  },
+  {
+    subj: 'English', cat: 'Compound Personal Pronouns',
+    q: 'Complete the sentence: "Please help _________ to some food."',
+    opts: ['yourself', 'myself', 'himself', 'themselves'],
+    ans: 0,
+    exp: 'The speaker is telling one person to help himself or herself, so the correct pronoun is "yourself".'
+  },
+  {
+    subj: 'English', cat: 'Compound Personal Pronouns',
+    q: 'Which pronoun refers back to "the baby"?',
+    opts: ['itself', 'themselves', 'ourselves', 'yourselves'],
+    ans: 0,
+    exp: '"The baby" is singular, so the correct compound personal pronoun is "itself".'
+  },
+
+  // ── Pronouns & Antecedents (20) ──
+  {
+    subj: 'English', cat: 'Pronouns & Antecedents',
+    q: 'What is an antecedent?',
+    opts: ['The noun or noun phrase that a pronoun refers to', 'The action word in a sentence', 'The adjective that describes a noun', 'The punctuation mark at the end of a sentence'],
+    ans: 0,
+    exp: 'An antecedent is the noun that a pronoun replaces or refers to.'
+  },
+  {
+    subj: 'English', cat: 'Pronouns & Antecedents',
+    q: 'Identify the antecedent: "Mia lost her bag on the bus."',
+    opts: ['Mia', 'bag', 'bus', 'lost'],
+    ans: 0,
+    exp: 'The pronoun "her" refers to Mia, so Mia is the antecedent.'
+  },
+  {
+    subj: 'English', cat: 'Pronouns & Antecedents',
+    q: 'Identify the antecedent of "they": "The boys played until they got tired."',
+    opts: ['The boys', 'played', 'tired', 'until'],
+    ans: 0,
+    exp: 'The pronoun "they" refers to "The boys".'
+  },
+  {
+    subj: 'English', cat: 'Pronouns & Antecedents',
+    q: 'Choose the correct pronoun: "The flower lost _________ petals."',
+    opts: ['its', 'their', 'his', 'her'],
+    ans: 0,
+    exp: '"The flower" is a singular thing, so the possessive pronoun must be "its".'
+  },
+  {
+    subj: 'English', cat: 'Pronouns & Antecedents',
+    q: 'Choose the correct pronoun: "Ana and Lisa forgot _________ books at home."',
+    opts: ['their', 'her', 'his', 'its'],
+    ans: 0,
+    exp: '"Ana and Lisa" is a plural antecedent, so the pronoun must be "their".'
+  },
+  {
+    subj: 'English', cat: 'Pronouns & Antecedents',
+    q: 'Which pronoun correctly agrees with the antecedent "Mr. Cruz"?',
+    opts: ['he', 'she', 'it', 'they'],
+    ans: 0,
+    exp: '"Mr. Cruz" is a singular male, so the correct pronoun is "he".'
+  },
+  {
+    subj: 'English', cat: 'Pronouns & Antecedents',
+    q: 'Why must a pronoun agree with its antecedent?',
+    opts: ['It must match in number and gender', 'It must rhyme with the antecedent', 'It must be longer than the antecedent', 'It must come before the antecedent'],
+    ans: 0,
+    exp: 'A pronoun must agree with its antecedent in number (singular or plural) and gender (masculine, feminine, or neuter).'
+  },
+  {
+    subj: 'English', cat: 'Pronouns & Antecedents',
+    q: 'Identify the antecedent of "their": "The teacher gave her students their books."',
+    opts: ['students', 'teacher', 'books', 'gave'],
+    ans: 0,
+    exp: 'The pronoun "their" refers to the students, so "students" is the antecedent.'
+  },
+  {
+    subj: 'English', cat: 'Pronouns & Antecedents',
+    q: 'Identify the antecedent of "his": "Peter forgot his lunch."',
+    opts: ['Peter', 'lunch', 'forgot', 'home'],
+    ans: 0,
+    exp: 'The pronoun "his" refers to Peter.'
+  },
+  {
+    subj: 'English', cat: 'Pronouns & Antecedents',
+    q: 'Identify the antecedent of "their": "The kittens drank their milk."',
+    opts: ['The kittens', 'milk', 'drank', 'the'],
+    ans: 0,
+    exp: 'The pronoun "their" refers to the kittens.'
+  },
+  {
+    subj: 'English', cat: 'Pronouns & Antecedents',
+    q: 'Identify the antecedent of "her": "My sister loves her doll."',
+    opts: ['sister', 'doll', 'loves', 'My'],
+    ans: 0,
+    exp: 'The pronoun "her" refers to "my sister".'
+  },
+  {
+    subj: 'English', cat: 'Pronouns & Antecedents',
+    q: 'Identify the antecedent of "its": "The team won its first game."',
+    opts: ['The team', 'game', 'won', 'first'],
+    ans: 0,
+    exp: '"The team" is a singular group, so the pronoun "its" refers to it.'
+  },
+  {
+    subj: 'English', cat: 'Pronouns & Antecedents',
+    q: 'Identify the antecedent of "his": "Grandpa told us his story."',
+    opts: ['Grandpa', 'story', 'us', 'told'],
+    ans: 0,
+    exp: 'The pronoun "his" refers to Grandpa.'
+  },
+  {
+    subj: 'English', cat: 'Pronouns & Antecedents',
+    q: 'Identify the antecedent of "our": "Lisa and I finished our project."',
+    opts: ['Lisa and I', 'project', 'finished', 'our'],
+    ans: 0,
+    exp: 'The pronoun "our" refers to "Lisa and I".'
+  },
+  {
+    subj: 'English', cat: 'Pronouns & Antecedents',
+    q: 'Identify the antecedent of "its": "The bird built its nest."',
+    opts: ['The bird', 'nest', 'built', 'the'],
+    ans: 0,
+    exp: 'The pronoun "its" refers to the bird.'
+  },
+  {
+    subj: 'English', cat: 'Pronouns & Antecedents',
+    q: 'Identify the antecedent of "their": "The boys lost their ball."',
+    opts: ['The boys', 'ball', 'lost', 'their'],
+    ans: 0,
+    exp: 'The pronoun "their" refers to the boys.'
+  },
+  {
+    subj: 'English', cat: 'Pronouns & Antecedents',
+    q: 'Identify the antecedent of "her": "Mrs. Santos teaches her class."',
+    opts: ['Mrs. Santos', 'class', 'teaches', 'her'],
+    ans: 0,
+    exp: 'The pronoun "her" refers to Mrs. Santos.'
+  },
+  {
+    subj: 'English', cat: 'Pronouns & Antecedents',
+    q: 'Identify the antecedent of "its": "The car needs its oil changed."',
+    opts: ['The car', 'oil', 'changed', 'needs'],
+    ans: 0,
+    exp: 'The pronoun "its" refers to the car.'
+  },
+  {
+    subj: 'English', cat: 'Pronouns & Antecedents',
+    q: 'Which pronoun agrees with the antecedent "the girls"?',
+    opts: ['they', 'he', 'it', 'she'],
+    ans: 0,
+    exp: '"The girls" is plural, so the correct pronoun is "they".'
+  },
+  {
+    subj: 'English', cat: 'Pronouns & Antecedents',
+    q: 'Which pronoun agrees with the antecedent "the book"?',
+    opts: ['it', 'they', 'he', 'she'],
+    ans: 0,
+    exp: '"The book" is a singular thing, so the correct pronoun is "it".'
+  },
+
+  // ══════════ VALUES 4 (40) ══════════
+  {
+    subj: 'Values', cat: 'Pagpapahalaga sa Pamilya',
+    q: 'Ano ang pangunahing aral ng Aralin 4?',
+    opts: ['Pagbibigay ng halaga sa pamilya bilang paglalapat ng mga aral ng pananampalataya', 'Pagbibigay ng regalo sa mga kaibigan', 'Pangingibang bansa upang yumaman', 'Pagbili ng mga laruan'],
+    ans: 0,
+    exp: 'Ang Aralin 4 ay tungkol sa pagpapahalaga sa pamilya bilang paraan ng paglalapat ng mga aral ng pananampalataya.'
+  },
+  {
+    subj: 'Values', cat: 'Pagpapahalaga sa Pamilya',
+    q: 'Paano mo maipakikita ang paggalang sa iyong mga magulang?',
+    opts: ['Pagsunod sa kanilang payo at pagmamano sa kanila', 'Pagdadabog kapag hindi sumang-ayon', 'Paglabas ng bahay nang walang paalam', 'Pagpapabaya sa kanilang utos'],
+    ans: 0,
+    exp: 'Ang paggalang sa magulang ay makikita sa pagsunod sa mabubuting payo at pagmamano.'
+  },
+  {
+    subj: 'Values', cat: 'Pagpapahalaga sa Pamilya',
+    q: 'Alin ang nagpapakita ng pagpapahalaga sa pamilya?',
+    opts: ['Tumulong sa gawaing bahay nang may kagalakan', 'Magtago ng maruming pinggan sa ilalim ng kama', 'Iwanan ang lahat ng gawain sa iba', 'Manood ng TV habang naglilinis ang lahat'],
+    ans: 0,
+    exp: 'Ang pagtulong sa gawaing bahay nang may kagalakan ay tanda ng pagmamahal at pagpapahalaga sa pamilya.'
+  },
+  {
+    subj: 'Values', cat: 'Pagpapahalaga sa Pamilya',
+    q: 'Bakit mahalaga ang panalangin sa pamilya?',
+    opts: ['Nagpapalakas ito ng ugnayan ng pamilya at ng pananampalataya sa Diyos', 'Nagpapabilis ito ng pagluto', 'Nagpapataas ito ng grado sa paaralan', 'Nagpapaganda ito ng bahay'],
+    ans: 0,
+    exp: 'Ang panalangin ay nagbibigay ng lakas at nagpapatibay ng ugnayan ng pamilya sa Diyos.'
+  },
+  {
+    subj: 'Values', cat: 'Pagpapahalaga sa Pamilya',
+    q: 'Ano ang dapat mong gawin kung may hindi pagkakaunawaan sa pamilya?',
+    opts: ['Pag-usapan ito nang mahinahon at magpatawad', 'Sumigaw at manakit ng kapatid', 'Lumabas ng bahay at huwag nang bumalik', 'Ipagkalat ang problema sa mga kapitbahay'],
+    ans: 0,
+    exp: 'Ang mahinahong pag-uusap at pagpapatawad ay nagpapanatili ng kapayapaan sa pamilya.'
+  },
+  {
+    subj: 'Values', cat: 'Pagpapahalaga sa Pamilya',
+    q: 'Alin ang HINDI nagpapakita ng pagpapahalaga sa pamilya?',
+    opts: ['Pagsuway sa mga magulang at pagtanggi sa gawaing bahay', 'Pagmamano sa lolo at lola', 'Pagtulong sa paghahanda ng hapunan', 'Pag-aalaga sa may sakit na kapatid'],
+    ans: 0,
+    exp: 'Ang pagsuway at pagtanggi sa tungkulin sa bahay ay hindi nagpapakita ng pagpapahalaga sa pamilya.'
+  },
+  {
+    subj: 'Values', cat: 'Pagpapahalaga sa Pamilya',
+    q: 'Paano mo maipakikita ang pagmamahal sa iyong kapatid?',
+    opts: ['Pagtulong at pag-alalay sa kanya', 'Pagkunan ng kanyang gamit', 'Pagpapahiya sa kanya sa harap ng iba', 'Pagbubukod sa kanya sa lahat ng gawain'],
+    ans: 0,
+    exp: 'Ang pagtulong at pag-alalay sa kapatid ay paraan ng pagpapakita ng pagmamahal.'
+  },
+  {
+    subj: 'Values', cat: 'Pagpapahalaga sa Pamilya',
+    q: 'Ang pagbibigay ng oras sa pamilya ay tanda ng _________.',
+    opts: ['pagmamahal at pagpapahalaga', 'pagkabagot', 'pagkakaisa sa trabaho lamang', 'panggigipit'],
+    ans: 0,
+    exp: 'Ang oras na ibinibigay sa pamilya ay nagpapakita ng pagmamahal at pagpapahalaga sa kanila.'
+  },
+  {
+    subj: 'Values', cat: 'Pagpapahalaga sa Pamilya',
+    q: 'Ano ang unang hakbang sa pagpapakita ng paggalang sa magulang pag-uwi mo ng bahay?',
+    opts: ['Pagmamano at pagbati sa kanila', 'Dumiretso sa kuwarto at magsara ng pinto', 'Manood agad ng TV', 'Humingi agad ng pera'],
+    ans: 0,
+    exp: 'Ang pagmamano at pagbati ay simpleng paraan ng pagpapakita ng paggalang sa magulang.'
+  },
+  {
+    subj: 'Values', cat: 'Pagpapahalaga sa Pamilya',
+    q: 'Bakit mahalaga ang pagsasama-sama ng pamilya sa pagkain?',
+    opts: ['Nagpapatibay ito ng ugnayan at pagkakaisa', 'Nagpapabilis ito ng pagluto', 'Nagpapababa ito ng gastos', 'Nagpapaganda ito ng mesa'],
+    ans: 0,
+    exp: 'Ang pagsasalo-salo sa pagkain ay nagbibigay ng pagkakataong mag-usap at magpatibay ng ugnayan.'
+  },
+  {
+    subj: 'Values', cat: 'Pagpapahalaga sa Pamilya',
+    q: 'Ano ang dapat gawin kapag nagkasakit ang iyong kapatid?',
+    opts: ['Alagaan at bigyan ng gamot ayon sa payo ng magulang', 'Hayaang mag-isa siya', 'Pagtawanan siya', 'Iwan siya sa bahay mag-isa'],
+    ans: 0,
+    exp: 'Ang pag-aalaga sa may sakit na kapatid ay nagpapakita ng pagmamahal at malasakit.'
+  },
+  {
+    subj: 'Values', cat: 'Pagpapahalaga sa Pamilya',
+    q: 'Paano ipakikita ang pasasalamat sa magulang?',
+    opts: ['Pasalamatan sila sa kanilang pagmamahal at pagsisikap', 'Humingi ng mas maraming laruan', 'Magtampo kapag hindi nabili ang gusto', 'Huwag silang kausapin'],
+    ans: 0,
+    exp: 'Ang pagpapasalamat sa pagmamahal at pagsisikap ng magulang ay tanda ng pagpapahalaga sa kanila.'
+  },
+  {
+    subj: 'Values', cat: 'Pagpapahalaga sa Pamilya',
+    q: 'Ano ang mabuting gawin tuwing Linggo kasama ang pamilya?',
+    opts: ['Sama-samang magsimba at magsama-sama sa bahay', 'Mag-isa lang sa kuwarto buong araw', 'Lumabas nang walang paalam', 'Makipag-away sa kapatid'],
+    ans: 0,
+    exp: 'Ang pagsasama-sama sa simbahan at sa bahay ay nagpapalakas ng pananampalataya at ugnayan ng pamilya.'
+  },
+  {
+    subj: 'Values', cat: 'Pagpapahalaga sa Pamilya',
+    q: 'Ano ang ipinapakita ng pagdarasal bago kumain?',
+    opts: ['Pasasalamat sa Diyos para sa pagkain', 'Pagkainip sa pagkain', 'Pagmamalaki sa sarili', 'Pagkalimot sa pamilya'],
+    ans: 0,
+    exp: 'Ang pagdarasal bago kumain ay pasasalamat sa Diyos para sa biyayang pagkain.'
+  },
+  {
+    subj: 'Values', cat: 'Pagpapahalaga sa Pamilya',
+    q: 'Ano ang dapat gawin kapag pinagsabihan ka ng iyong magulang?',
+    opts: ['Makinig at magbago', 'Sumagot nang pabalang', 'Magtampo at magkulong', 'Balewalain ang kanilang sinasabi'],
+    ans: 0,
+    exp: 'Ang pakikinig at pagbabago ay tanda ng paggalang at pagpapahalaga sa payo ng magulang.'
+  },
+  {
+    subj: 'Values', cat: 'Pagpapahalaga sa Pamilya',
+    q: 'Bakit mahalaga ang pagtupad sa pangako sa pamilya?',
+    opts: ['Nagtataguyod ito ng tiwala', 'Nagbibigay ito ng pera', 'Nagpapabilis ito ng oras', 'Nagpapaganda ito ng bahay'],
+    ans: 0,
+    exp: 'Ang pagtupad sa pangako ay nagtataguyod ng tiwala at paggalang sa isa\'t isa.'
+  },
+  {
+    subj: 'Values', cat: 'Pagpapahalaga sa Pamilya',
+    q: 'Ano ang magandang halimbawa na maibibigay mo sa iyong nakababatang kapatid?',
+    opts: ['Pagiging magalang at masunurin', 'Pagiging matigas ang ulo', 'Pagsisinungaling sa magulang', 'Pagwawalang-bahala sa gawaing bahay'],
+    ans: 0,
+    exp: 'Ang pagiging magalang at masunurin ay magandang halimbawang matututuhan ng nakababatang kapatid.'
+  },
+  {
+    subj: 'Values', cat: 'Pagpapahalaga sa Pamilya',
+    q: 'Paano ipakikita ang pagmamahal sa lolo at lola?',
+    opts: ['Pagbisita at pagkumusta sa kanila', 'Kalimutan sila', 'Kunin ang kanilang pera', 'Huwag silang kausapin'],
+    ans: 0,
+    exp: 'Ang pagbisita at pagkumusta ay nagpaparamdam sa lolo at lola na mahalaga sila.'
+  },
+  {
+    subj: 'Values', cat: 'Pagpapahalaga sa Pamilya',
+    q: 'Ano ang dapat gawin kapag may bagong kapatid sa pamilya?',
+    opts: ['Alagaan at mahalin ito', 'Pagselosan ito', 'Iwan itong umiiyak', 'Pagsabihan ito nang masama'],
+    ans: 0,
+    exp: 'Ang pag-aalaga at pagmamahal sa bagong kapatid ay nagpapatibay ng samahan ng pamilya.'
+  },
+  {
+    subj: 'Values', cat: 'Pagpapahalaga sa Pamilya',
+    q: 'Bakit mahalaga ang pagtutulungan sa gawaing bahay?',
+    opts: ['Nagpapabilis at nagpapasaya ng gawain', 'Nagpapabigat ng trabaho', 'Nagpapagalit sa lahat', 'Nagpapabagal ng gawain'],
+    ans: 0,
+    exp: 'Kapag sama-samang gumagawa ng gawaing bahay, mas mabilis at mas masaya itong tapusin.'
+  },
+  {
+    subj: 'Values', cat: 'Pagpapahalaga sa Pamilya',
+    q: 'Ano ang tamang gawi kapag may bisita ang pamilya?',
+    opts: ['Batiin sila at maging magalang', 'Magtago sa kuwarto', 'Sumigaw at mag-ingay', 'Umalis nang hindi nagpapaalam'],
+    ans: 0,
+    exp: 'Ang pagbati at pagiging magalang sa bisita ay nagpapakita ng mabuting asal ng pamilya.'
+  },
+  {
+    subj: 'Values', cat: 'Pagpapahalaga sa Pamilya',
+    q: 'Paano ipapakita ang paggalang sa desisyon ng pamilya?',
+    opts: ['Sundin ito kung ito ay mabuti at makatarungan', 'Laging labanan ito', 'Ipagkalat ito sa iba', 'Huwag itong pakinggan'],
+    ans: 0,
+    exp: 'Ang pagsunod sa mabuti at makatarungang desisyon ng pamilya ay tanda ng paggalang.'
+  },
+  {
+    subj: 'Values', cat: 'Pagpapahalaga sa Pamilya',
+    q: 'Ano ang dapat gawin kapag nagkamali ka sa iyong kapatid?',
+    opts: ['Humingi ng tawad', 'Ipagmalaki ang pagkakamali', 'Sisisihin ang kapatid', 'Magtago at huwag magsalita'],
+    ans: 0,
+    exp: 'Ang paghingi ng tawad ay nagpapakita ng pagpapakumbaba at pagmamahal sa kapatid.'
+  },
+  {
+    subj: 'Values', cat: 'Pagpapahalaga sa Pamilya',
+    q: 'Bakit mahalaga ang pagpapatawad sa pamilya?',
+    opts: ['Nagpapanatili ito ng kapayapaan at pagmamahal', 'Nagpapabilis ito ng paglalakbay', 'Nagpapataas ito ng grado', 'Nagpapaganda ito ng bahay'],
+    ans: 0,
+    exp: 'Ang pagpapatawad ay nagpapanatili ng kapayapaan at nagpapatibay ng pagmamahal sa pamilya.'
+  },
+  {
+    subj: 'Values', cat: 'Pagpapahalaga sa Pamilya',
+    q: 'Paano makatutulong ang pag-aaral nang mabuti sa iyong pamilya?',
+    opts: ['Nagbibigay ito ng karangalan at pag-asa', 'Nagpapabigat ito ng gastusin', 'Nagpapalayo ito sa pamilya', 'Wala itong epekto'],
+    ans: 0,
+    exp: 'Ang pagsisikap sa pag-aaral ay nagbibigay ng karangalan at pag-asa sa pamilya.'
+  },
+  {
+    subj: 'Values', cat: 'Pagpapahalaga sa Pamilya',
+    q: 'Ano ang ipinapakita ng pagtulong sa kapitbahay?',
+    opts: ['Pakikipagkapwa at pagmamahal', 'Pagmamalaki', 'Pagiging mapag-isa', 'Paghingi ng kapalit'],
+    ans: 0,
+    exp: 'Ang pagtulong sa kapitbahay ay nagpapakita ng pakikipagkapwa at pagmamahal sa iba.'
+  },
+  {
+    subj: 'Values', cat: 'Pagpapahalaga sa Pamilya',
+    q: 'Bakit dapat iwasan ang panlalait sa kapatid?',
+    opts: ['Nakakasakit ito ng damdamin', 'Nakakatulong ito sa kanya', 'Nagpapasaya ito sa pamilya', 'Nagpapaganda ito ng samahan'],
+    ans: 0,
+    exp: 'Ang panlalait ay nakakasakit ng damdamin at nakakasira ng samahan ng magkakapatid.'
+  },
+  {
+    subj: 'Values', cat: 'Pagpapahalaga sa Pamilya',
+    q: 'Ano ang tamang paraan ng pakikipag-usap sa magulang?',
+    opts: ['Nang mahinahon at may paggalang', 'Nang pasigaw at pabalang', 'Nang nakatalikod', 'Nang hindi sila tinitingnan'],
+    ans: 0,
+    exp: 'Ang mahinahon at magalang na pakikipag-usap ay nagpapakita ng pagpapahalaga sa magulang.'
+  },
+  {
+    subj: 'Values', cat: 'Pagpapahalaga sa Pamilya',
+    q: 'Paano ipakikita ang pagpapahalaga sa sakripisyo ng magulang?',
+    opts: ['Sa pamamagitan ng pagsunod at pag-aaral nang mabuti', 'Sa pamamagitan ng paghingi ng mas maraming gamit', 'Sa pamamagitan ng paglalayas', 'Sa pamamagitan ng pagtago ng problema'],
+    ans: 0,
+    exp: 'Ang pagsunod at pagsisikap sa pag-aaral ay paraan ng pagpapahalaga sa sakripisyo ng magulang.'
+  },
+  {
+    subj: 'Values', cat: 'Pagpapahalaga sa Pamilya',
+    q: 'Ano ang gagawin mo kung inanyayahan ka ng kaibigan na magsinungaling sa magulang?',
+    opts: ['Tanggihan at sabihin ang totoo', 'Sumang-ayon agad', 'Magtago ng sikreto', 'Magalit sa magulang'],
+    ans: 0,
+    exp: 'Ang pagtanggi sa masamang impluwensya at pagsasabi ng totoo ay tanda ng katapatan at paggalang sa magulang.'
+  },
+  {
+    subj: 'Values', cat: 'Pagpapahalaga sa Pamilya',
+    q: 'Bakit mahalaga ang pagkakaisa sa pamilya?',
+    opts: ['Mas madaling malutas ang problema', 'Mas maraming away ang mangyayari', 'Mas mahirap ang gawain', 'Mas malayo ang pamilya'],
+    ans: 0,
+    exp: 'Kapag nagkakaisa ang pamilya, mas madaling harapin at lutasin ang mga problema.'
+  },
+  {
+    subj: 'Values', cat: 'Pagpapahalaga sa Pamilya',
+    q: 'Ano ang bunga ng pagmamahal at paggalang sa pamilya?',
+    opts: ['Mapayapang tahanan', 'Madalas na away', 'Malungkot na pamilya', 'Pagkakawatak-watak'],
+    ans: 0,
+    exp: 'Ang pagmamahal at paggalang ay nagdudulot ng mapayapa at masayang tahanan.'
+  },
+  {
+    subj: 'Values', cat: 'Pagpapahalaga sa Pamilya',
+    q: 'Paano mo maipapakita ang pagpapahalaga sa pamilya sa panahon ng problema?',
+    opts: ['Manatiling kalmado at tumulong', 'Magtago at umiwas', 'Magdagdag ng gulo', 'Sisisihin ang lahat'],
+    ans: 0,
+    exp: 'Sa panahon ng problema, ang kalmadong pagtulong ay nagpapakita ng pagmamahal sa pamilya.'
+  },
+  {
+    subj: 'Values', cat: 'Pagpapahalaga sa Pamilya',
+    q: 'Ano ang dapat gawin tuwing may okasyon sa pamilya?',
+    opts: ['Makibahagi at tumulong sa paghahanda', 'Mag-isa lang sa kuwarto', 'Magreklamo sa gawain', 'Umalis nang walang paalam'],
+    ans: 0,
+    exp: 'Ang pakikibahagi at pagtulong sa paghahanda ay nagpapakita ng pagkakaisa at pagmamahal sa pamilya.'
+  },
+  {
+    subj: 'Values', cat: 'Pagpapahalaga sa Pamilya',
+    q: 'Bakit mahalaga ang paggalang sa mga nakatatanda?',
+    opts: ['Nagpapakita ito ng mabuting asal', 'Nagpapababa ito ng tingin sa sarili', 'Nagpapagalit sa kanila', 'Wala itong kahulugan'],
+    ans: 0,
+    exp: 'Ang paggalang sa nakatatanda ay tanda ng mabuting asal at pagpapahalaga sa kanila.'
+  },
+  {
+    subj: 'Values', cat: 'Pagpapahalaga sa Pamilya',
+    q: 'Ano ang tunay na kayamanan ng pamilya?',
+    opts: ['Pagmamahal at pagkakaisa', 'Pera at alahas', 'Malaking bahay', 'Mamahaling sasakyan'],
+    ans: 0,
+    exp: 'Ang tunay na kayamanan ng pamilya ay ang pagmamahal at pagkakaisa, hindi ang materyal na bagay.'
+  },
+  {
+    subj: 'Values', cat: 'Pagpapahalaga sa Pamilya',
+    q: 'Paano makatutulong ang pagtitipid sa pamilya?',
+    opts: ['Nakapag-iimpok para sa pangangailangan', 'Nakapagpapabigat ng gastos', 'Nakapagpapagalit sa lahat', 'Nakapagsasayang ng pera'],
+    ans: 0,
+    exp: 'Ang pagtitipid ay tumutulong upang may maitabi para sa mga pangangailangan ng pamilya.'
+  },
+  {
+    subj: 'Values', cat: 'Pagpapahalaga sa Pamilya',
+    q: 'Ano ang dapat gawin kung may hidwaan ang mga magulang?',
+    opts: ['Manalangin at huwag maging dahilan ng gulo', 'Makipagsigawan', 'Kumampi at manlait', 'Ipagkalat sa kapitbahay'],
+    ans: 0,
+    exp: 'Sa halip na dagdagan ang gulo, manalangin at panatilihin ang kapayapaan sa pamilya.'
+  },
+  {
+    subj: 'Values', cat: 'Pagpapahalaga sa Pamilya',
+    q: 'Bakit mahalaga ang pagsasabi ng "mahal kita" sa pamilya?',
+    opts: ['Nagpaparamdam ito ng pagmamahal', 'Nagpapabilis ito ng gawain', 'Nagpapataas ito ng grado', 'Nagpapaganda ito ng bahay'],
+    ans: 0,
+    exp: 'Ang pagsasabi ng "mahal kita" ay nagpaparamdam ng pagmamahal at nagpapatibay ng ugnayan.'
+  },
+  {
+    subj: 'Values', cat: 'Pagpapahalaga sa Pamilya',
+    q: 'Ano ang pinakamahalagang aral ng Aralin 4?',
+    opts: ['Ang pagmamahal sa pamilya ay pagmamahal sa Diyos', 'Ang pera ang pinakamahalaga', 'Ang paglalaro ay mas mahalaga kaysa pamilya', 'Ang pamilya ay hindi mahalaga'],
+    ans: 0,
+    exp: 'Ang pagmamahal at pagpapahalaga sa pamilya ay paraan ng pagpapakita ng pagmamahal sa Diyos.'
+  },
+
+  // ══════════ HELE 4 (40) ══════════
+  // ── Lesson 3: Maintaining a Good Posture (14) ──
+  {
+    subj: 'HELE', cat: 'Lesson 3: Good Posture',
+    q: 'What is good posture?',
+    opts: ['The proper alignment of body parts while standing, sitting, or walking', 'Sitting in any comfortable position', 'Carrying the heaviest bag on one shoulder', 'Slouching while reading'],
+    ans: 0,
+    exp: 'Good posture means keeping the body properly aligned so muscles and bones are balanced.'
+  },
+  {
+    subj: 'HELE', cat: 'Lesson 3: Good Posture',
+    q: 'Which shows good standing posture?',
+    opts: ['Back straight, chin up, and shoulders relaxed', 'Head bent down and shoulders slumped', 'Weight placed only on one foot', 'Knees locked and back curved'],
+    ans: 0,
+    exp: 'Good standing posture keeps the back straight, the chin up, and the shoulders relaxed with weight balanced on both feet.'
+  },
+  {
+    subj: 'HELE', cat: 'Lesson 3: Good Posture',
+    q: 'How should you sit properly?',
+    opts: ['Sit back in the chair with feet flat on the floor and back straight', 'Cross your legs and lean forward', 'Sit on the edge of the chair with a curved back', 'Tuck your feet under the chair and slouch'],
+    ans: 0,
+    exp: 'Proper sitting keeps the back straight, feet flat on the floor, and shoulders relaxed.'
+  },
+  {
+    subj: 'HELE', cat: 'Lesson 3: Good Posture',
+    q: 'Why is good posture important?',
+    opts: ['It prevents back pain and helps breathing and digestion', 'It makes you taller instantly', 'It replaces the need for exercise', 'It makes your clothes look bigger'],
+    ans: 0,
+    exp: 'Good posture prevents strain and supports proper breathing and digestion.'
+  },
+  {
+    subj: 'HELE', cat: 'Lesson 3: Good Posture',
+    q: 'Which is a bad posture habit?',
+    opts: ['Slouching while reading', 'Keeping the back straight while sitting', 'Standing with shoulders relaxed', 'Walking with the head up'],
+    ans: 0,
+    exp: 'Slouching strains the back and neck and is a bad posture habit.'
+  },
+  {
+    subj: 'HELE', cat: 'Lesson 3: Good Posture',
+    q: 'What is the best way to carry a heavy backpack?',
+    opts: ['Use both straps and keep the bag close to your back', 'Carry it on one shoulder', 'Hang it from one hand', 'Drag it on the floor'],
+    ans: 0,
+    exp: 'Using both straps distributes the weight evenly and keeps the bag close to the back.'
+  },
+  {
+    subj: 'HELE', cat: 'Lesson 3: Good Posture',
+    q: 'How should you lift a heavy object?',
+    opts: ['Bend your knees and keep your back straight', 'Bend at the waist and keep your legs straight', 'Twist your body while lifting', 'Lift with one hand only'],
+    ans: 0,
+    exp: 'Bending the knees and keeping the back straight protects the lower back when lifting.'
+  },
+  {
+    subj: 'HELE', cat: 'Lesson 3: Good Posture',
+    q: 'Which shows good walking posture?',
+    opts: ['Head up and shoulders back', 'Head down and shoulders forward', 'Body leaning to one side', 'Feet dragging on the floor'],
+    ans: 0,
+    exp: 'Good walking posture keeps the head up, shoulders back, and body balanced.'
+  },
+  {
+    subj: 'HELE', cat: 'Lesson 3: Good Posture',
+    q: 'What can slouching cause?',
+    opts: ['Back and neck strain', 'Stronger muscles', 'Better breathing', 'Straighter bones'],
+    ans: 0,
+    exp: 'Slouching puts extra strain on the back and neck and can cause pain.'
+  },
+  {
+    subj: 'HELE', cat: 'Lesson 3: Good Posture',
+    q: 'How does good posture affect how you look?',
+    opts: ['You look confident and neat', 'You look tired and sad', 'You look shorter', 'You look untidy'],
+    ans: 0,
+    exp: 'Good posture helps a person look confident, neat, and poised.'
+  },
+  {
+    subj: 'HELE', cat: 'Lesson 3: Good Posture',
+    q: 'Where should your computer screen be when you sit at a desk?',
+    opts: ['At eye level', 'Far below the desk', 'Behind your chair', 'On your lap'],
+    ans: 0,
+    exp: 'A screen at eye level helps prevent neck strain while working or studying.'
+  },
+  {
+    subj: 'HELE', cat: 'Lesson 3: Good Posture',
+    q: 'What should you do during long periods of sitting?',
+    opts: ['Stand up and stretch regularly', 'Stay still for hours', 'Slouch deeper into the chair', 'Cross your legs the whole time'],
+    ans: 0,
+    exp: 'Standing and stretching regularly keeps muscles from getting stiff and tired.'
+  },
+  {
+    subj: 'HELE', cat: 'Lesson 3: Good Posture',
+    q: 'Which is a sign of poor posture?',
+    opts: ['Rounded shoulders and a curved back', 'Shoulders relaxed and back straight', 'Chin up and head level', 'Feet flat on the floor'],
+    ans: 0,
+    exp: 'Rounded shoulders and a curved back are signs of poor posture.'
+  },
+  {
+    subj: 'HELE', cat: 'Lesson 3: Good Posture',
+    q: 'How should you stand for a long time?',
+    opts: ['Shift your weight and wear comfortable shoes', 'Lock your knees and lean forward', 'Stand on one leg the whole time', 'Keep your back curved'],
+    ans: 0,
+    exp: 'Shifting weight and wearing comfortable shoes help reduce fatigue when standing for a long time.'
+  },
+
+  // ── Lesson 4: A Caring and Hospitable Family (13) ──
+  {
+    subj: 'HELE', cat: 'Lesson 4: Caring & Hospitable Family',
+    q: 'What does hospitality mean?',
+    opts: ['Welcoming guests warmly and courteously', 'Ignoring visitors until they leave', 'Cleaning the house only for family', 'Serving food only to relatives'],
+    ans: 0,
+    exp: 'Hospitality is the friendly and generous treatment of guests and visitors.'
+  },
+  {
+    subj: 'HELE', cat: 'Lesson 4: Caring & Hospitable Family',
+    q: 'How can you show hospitality to a visitor?',
+    opts: ['Greet them with a smile and offer a seat', 'Hide in your room', 'Ask them to leave immediately', 'Ignore them while watching TV'],
+    ans: 0,
+    exp: 'A warm greeting and offering a seat make visitors feel welcome.'
+  },
+  {
+    subj: 'HELE', cat: 'Lesson 4: Caring & Hospitable Family',
+    q: 'What should you offer a guest on a hot day?',
+    opts: ['A glass of water or a refreshing drink', 'A heavy blanket', 'A pair of shoes', 'A book to carry home'],
+    ans: 0,
+    exp: 'Offering water or refreshments is a simple way to show care to a guest.'
+  },
+  {
+    subj: 'HELE', cat: 'Lesson 4: Caring & Hospitable Family',
+    q: 'Which behavior is NOT hospitable?',
+    opts: ['Ignoring a guest who arrives', 'Greeting a guest politely', 'Offering a snack', 'Listening to a guest when they speak'],
+    ans: 0,
+    exp: 'Ignoring a guest makes them feel unwelcome and is not hospitable.'
+  },
+  {
+    subj: 'HELE', cat: 'Lesson 4: Caring & Hospitable Family',
+    q: 'Why is hospitality important?',
+    opts: ['It makes guests feel valued and builds good relationships', 'It makes the house look bigger', 'It saves money on food', 'It keeps visitors from coming back'],
+    ans: 0,
+    exp: 'Hospitality strengthens relationships and makes people feel respected and cared for.'
+  },
+  {
+    subj: 'HELE', cat: 'Lesson 4: Caring & Hospitable Family',
+    q: 'How should you greet an older visitor?',
+    opts: ['Greet them politely and offer a mano or respectful greeting', 'Shout their name from another room', 'Ignore them until they speak first', 'Ask them to wait outside'],
+    ans: 0,
+    exp: 'A polite greeting and the mano show respect to older visitors.'
+  },
+  {
+    subj: 'HELE', cat: 'Lesson 4: Caring & Hospitable Family',
+    q: 'What should you do if a guest arrives while your family is eating?',
+    opts: ['Invite them to join or offer them a seat and food', 'Hide the food and keep eating', 'Tell them to come back later', 'Ignore them'],
+    ans: 0,
+    exp: 'Inviting a guest to join or offering food is a warm and hospitable gesture.'
+  },
+  {
+    subj: 'HELE', cat: 'Lesson 4: Caring & Hospitable Family',
+    q: 'How can you make a guest comfortable?',
+    opts: ['Offer a seat, refreshments, and ask if they need anything', 'Leave them standing at the door', 'Turn off all the lights', 'Speak loudly and ignore them'],
+    ans: 0,
+    exp: 'Offering a seat, refreshments, and help makes guests feel comfortable and welcome.'
+  },
+  {
+    subj: 'HELE', cat: 'Lesson 4: Caring & Hospitable Family',
+    q: 'What should you do when a guest leaves?',
+    opts: ['Thank them and say goodbye politely', 'Close the door without speaking', 'Ask them not to return', 'Continue watching TV'],
+    ans: 0,
+    exp: 'Thanking guests and saying goodbye politely leaves them with a good impression.'
+  },
+  {
+    subj: 'HELE', cat: 'Lesson 4: Caring & Hospitable Family',
+    q: 'What is a caring family?',
+    opts: ['A family that supports and helps one another', 'A family that ignores each other', 'A family that only gives gifts', 'A family that never talks'],
+    ans: 0,
+    exp: 'A caring family shows love and support through words and actions.'
+  },
+  {
+    subj: 'HELE', cat: 'Lesson 4: Caring & Hospitable Family',
+    q: 'How can you show care to a sick family member?',
+    opts: ['Give them food, medicine, and comfort', 'Leave them alone all day', 'Tell them to get up and work', 'Ignore their needs'],
+    ans: 0,
+    exp: 'Caring for a sick family member includes giving food, medicine, and emotional support.'
+  },
+  {
+    subj: 'HELE', cat: 'Lesson 4: Caring & Hospitable Family',
+    q: 'Why should you listen when a guest is speaking?',
+    opts: ['It shows respect and makes them feel valued', 'It makes the conversation longer', 'It is required by law', 'It helps you get gifts'],
+    ans: 0,
+    exp: 'Listening attentively is a sign of respect and good manners.'
+  },
+  {
+    subj: 'HELE', cat: 'Lesson 4: Caring & Hospitable Family',
+    q: 'What should you do if you do not know a visitor at the door?',
+    opts: ['Politely ask who they are and call an adult', 'Open the door and let them in alone', 'Shout at them', 'Pretend no one is home forever'],
+    ans: 0,
+    exp: 'Politely asking who they are and calling an adult keeps everyone safe and shows good manners.'
+  },
+
+  // ── Lesson 5: A Clean and Inviting House (13) ──
+  {
+    subj: 'HELE', cat: 'Lesson 5: Clean & Inviting House',
+    q: 'Why should we keep our house clean?',
+    opts: ['To prevent sickness and make the home comfortable', 'To make the house look empty', 'To hide our things from visitors', 'To avoid doing other chores'],
+    ans: 0,
+    exp: 'A clean house removes germs and dirt and gives the family a comfortable place to live.'
+  },
+  {
+    subj: 'HELE', cat: 'Lesson 5: Clean & Inviting House',
+    q: 'Which is proper waste disposal?',
+    opts: ['Segregating trash and putting it in covered bins', 'Throwing garbage out the window', 'Burning plastic in the backyard', 'Leaving trash on the table'],
+    ans: 0,
+    exp: 'Proper waste disposal means sorting garbage and keeping it in covered bins.'
+  },
+  {
+    subj: 'HELE', cat: 'Lesson 5: Clean & Inviting House',
+    q: 'How do you keep the living room inviting?',
+    opts: ['Keep it clean, orderly, and free of clutter', 'Leave toys and clothes on the floor', 'Keep the windows closed all day', 'Store food scraps under the sofa'],
+    ans: 0,
+    exp: 'A clean and orderly living room makes the house welcoming for family and guests.'
+  },
+  {
+    subj: 'HELE', cat: 'Lesson 5: Clean & Inviting House',
+    q: 'What should you do with toys and books after using them?',
+    opts: ['Return them to their proper storage places', 'Leave them on the stairs', 'Throw them on the bed', 'Put them under the dining table'],
+    ans: 0,
+    exp: 'Returning toys and books to their proper places keeps the house neat and prevents accidents.'
+  },
+  {
+    subj: 'HELE', cat: 'Lesson 5: Clean & Inviting House',
+    q: 'Which practice helps keep the house clean?',
+    opts: ['Sweeping and mopping the floors regularly', 'Waiting for dirt to pile up', 'Wiping tables only once a year', 'Keeping the trash bin open'],
+    ans: 0,
+    exp: 'Regular sweeping and mopping remove dust and dirt and keep floors clean.'
+  },
+  {
+    subj: 'HELE', cat: 'Lesson 5: Clean & Inviting House',
+    q: 'How often should household trash be taken out?',
+    opts: ['Regularly, such as every day', 'Once a month', 'Only when it smells very bad', 'Never'],
+    ans: 0,
+    exp: 'Trash should be taken out regularly to prevent bad smells, pests, and germs.'
+  },
+  {
+    subj: 'HELE', cat: 'Lesson 5: Clean & Inviting House',
+    q: 'Why should windows be opened during the day?',
+    opts: ['To let in fresh air and sunlight', 'To let dust inside', 'To make the house darker', 'To keep the room hot'],
+    ans: 0,
+    exp: 'Fresh air and sunlight help keep the house healthy and comfortable.'
+  },
+  {
+    subj: 'HELE', cat: 'Lesson 5: Clean & Inviting House',
+    q: 'How should you clean dusty shelves?',
+    opts: ['Wipe them with a damp cloth', 'Blow the dust into the air', 'Leave the dust on the shelf', 'Pour water on them'],
+    ans: 0,
+    exp: 'Wiping shelves with a damp cloth removes dust without spreading it around.'
+  },
+  {
+    subj: 'HELE', cat: 'Lesson 5: Clean & Inviting House',
+    q: 'What is decluttering?',
+    opts: ['Removing unnecessary items and keeping things organized', 'Adding more things to every room', 'Hiding everything under the bed', 'Buying more storage boxes'],
+    ans: 0,
+    exp: 'Decluttering means removing things you do not need and organizing what you keep.'
+  },
+  {
+    subj: 'HELE', cat: 'Lesson 5: Clean & Inviting House',
+    q: 'Why is a clean kitchen important?',
+    opts: ['It prevents food contamination and keeps food safe', 'It makes food taste sweeter', 'It makes the kitchen look smaller', 'It attracts more insects'],
+    ans: 0,
+    exp: 'A clean kitchen prevents germs from contaminating food and keeps the family safe.'
+  },
+  {
+    subj: 'HELE', cat: 'Lesson 5: Clean & Inviting House',
+    q: 'How can you keep the bathroom clean?',
+    opts: ['Scrub and disinfect it regularly', 'Leave wet towels on the floor', 'Never clean the sink', 'Keep the door closed all the time'],
+    ans: 0,
+    exp: 'Regular scrubbing and disinfecting keep the bathroom free from germs and odors.'
+  },
+  {
+    subj: 'HELE', cat: 'Lesson 5: Clean & Inviting House',
+    q: 'What should you do before sweeping the floor?',
+    opts: ['Pick up large pieces of trash', 'Pour water on the floor', 'Throw more dirt on the floor', 'Close all the windows'],
+    ans: 0,
+    exp: 'Picking up large trash first makes sweeping easier and prevents the broom from clogging.'
+  },
+  {
+    subj: 'HELE', cat: 'Lesson 5: Clean & Inviting House',
+    q: 'Why should cleaning materials be stored safely?',
+    opts: ['To prevent accidents and poisoning, especially among children', 'To make them easier to spill', 'To let children play with them', 'To keep them near food'],
+    ans: 0,
+    exp: 'Cleaning materials can be harmful, so they should be stored safely away from children and food.'
+  }
+];
+
+let activeQuestions = [];
+let activeSubject = 'ALL';
+let cur = 0, score = 0, answered = false;
+
+// The correct option is written first in the question bank. Rotating the
+// options keeps the answer position varied while preserving the answer key.
+function prepareQuizQuestions(pool) {
+  return pool.map((q, i) => {
+    const shift = i % 4;
+    return {
+      ...q,
+      opts: q.opts.slice(shift).concat(q.opts.slice(0, shift)),
+      ans: (q.ans - shift + q.opts.length) % q.opts.length
+    };
+  });
+}
+
+function shuffleQuestions(pool) {
+  const arr = pool.slice();
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
+function selectSubject(subj) {
+  activeSubject = subj;
+  let pool;
+  if (subj === 'ALL') {
+    pool = shuffleQuestions(questions).slice(0, 75);
+    document.getElementById('hdr-mode-chip').textContent = 'All Subjects';
+  } else {
+    pool = questions.filter(q => q.subj === subj);
+    document.getElementById('hdr-mode-chip').textContent = subj;
+  }
+  activeQuestions = prepareQuizQuestions(pool);
+  startQuiz();
+}
+
+
+function startQuiz() {
+  cur = 0; score = 0;
+  document.getElementById('start-screen').classList.remove('active');
+  document.getElementById('results-screen').classList.remove('active');
+  document.getElementById('quiz-screen').classList.add('active');
+  loadQ();
+}
+
+function loadQ() {
+  answered = false;
+  const q = activeQuestions[cur];
+  const letters = ['A','B','C','D'];
+  const color   = badgeColors[cur % badgeColors.length];
+
+  document.getElementById('q-badge').textContent      = `Q${cur+1} / ${activeQuestions.length}`;
+  document.getElementById('q-badge').style.background = color;
+
+  const catEl = document.getElementById('cat-badge');
+  catEl.textContent  = q.cat;
+  catEl.className    = 'cat-badge ' + (catStyles[q.cat] || 'tag-noregroup');
+
+  document.getElementById('q-text').textContent = q.q;
+  document.getElementById('progress-fill').style.width = (cur / activeQuestions.length * 100) + '%';
+
+  const opts = document.getElementById('options');
+  opts.innerHTML = '';
+  q.opts.forEach((o, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'opt-btn';
+    btn.innerHTML = `<span class="opt-letter">${letters[i]}</span>${o}`;
+    btn.onclick = () => pick(i, btn);
+    opts.appendChild(btn);
+  });
+
+  const fb = document.getElementById('feedback');
+  fb.className = 'feedback';
+  fb.innerHTML = '';
+
+  document.getElementById('next-btn').classList.remove('show');
+  document.getElementById('score-chip').textContent = `Score: ${score}`;
+}
+
+let audioCtx = null;
+let soundMuted = false;
+const SOUND_VOLUME = 0.2;
+
+function getAudioCtx() {
+  if (!audioCtx) {
+    const AudioCtxClass = window.AudioContext || window.webkitAudioContext;
+    if (AudioCtxClass) {
+      audioCtx = new AudioCtxClass();
+    }
+  }
+  if (audioCtx && audioCtx.state === 'suspended') {
+    audioCtx.resume();
+  }
+  return audioCtx;
+}
+
+function toggleSound() {
+  soundMuted = !soundMuted;
+  const btn = document.getElementById('sound-btn');
+  if (soundMuted) {
+    btn.textContent = '🔇 Muted';
+    btn.classList.add('muted');
+  } else {
+    btn.textContent = '🔊 Sound ON';
+    btn.classList.remove('muted');
+    playCorrectSound();
+  }
+}
+
+function playCorrectSound() {
+  if (soundMuted) return;
+  const ctx = getAudioCtx();
+  if (!ctx) return;
+
+  const now = ctx.currentTime;
+  const osc1 = ctx.createOscillator();
+  const gain1 = ctx.createGain();
+  osc1.type = 'sine';
+  osc1.frequency.setValueAtTime(659.25, now);
+  gain1.gain.setValueAtTime(SOUND_VOLUME, now);
+  gain1.gain.exponentialRampToValueAtTime(0.001, now + 0.15);
+  osc1.connect(gain1);
+  gain1.connect(ctx.destination);
+  osc1.start(now);
+  osc1.stop(now + 0.15);
+
+  const osc2 = ctx.createOscillator();
+  const gain2 = ctx.createGain();
+  osc2.type = 'sine';
+  osc2.frequency.setValueAtTime(880, now + 0.1);
+  gain2.gain.setValueAtTime(SOUND_VOLUME, now + 0.1);
+  gain2.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
+  osc2.connect(gain2);
+  gain2.connect(ctx.destination);
+  osc2.start(now + 0.1);
+  osc2.stop(now + 0.35);
+}
+
+function playWrongSound() {
+  if (soundMuted) return;
+  const ctx = getAudioCtx();
+  if (!ctx) return;
+
+  const now = ctx.currentTime;
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
+  osc.type = 'triangle';
+  osc.frequency.setValueAtTime(220, now);
+  osc.frequency.exponentialRampToValueAtTime(130.81, now + 0.25);
+  gain.gain.setValueAtTime(SOUND_VOLUME, now);
+  gain.gain.exponentialRampToValueAtTime(0.001, now + 0.28);
+  osc.connect(gain);
+  gain.connect(ctx.destination);
+  osc.start(now);
+  osc.stop(now + 0.28);
+}
+
+function playFanfareSound() {
+  if (soundMuted) return;
+  const ctx = getAudioCtx();
+  if (!ctx) return;
+
+  const now = ctx.currentTime;
+  const notes = [523.25, 659.25, 783.99, 1046.50];
+  notes.forEach((freq, idx) => {
+    const startTime = now + (idx * 0.1);
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(freq, startTime);
+    gain.gain.setValueAtTime(SOUND_VOLUME, startTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, startTime + (idx === 3 ? 0.6 : 0.2));
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.start(startTime);
+    osc.stop(startTime + (idx === 3 ? 0.6 : 0.2));
+  });
+}
+
+function pick(idx, btn) {
+  if (answered) return;
+  answered = true;
+
+  const q = activeQuestions[cur];
+  const allBtns = document.querySelectorAll('.opt-btn');
+  allBtns.forEach(b => b.disabled = true);
+
+  const fb = document.getElementById('feedback');
+
+  if (idx === q.ans) {
+    score++;
+    btn.classList.add('correct');
+    fb.className = 'feedback fb-correct show';
+    fb.innerHTML = `<strong>✅ Correct!</strong>${q.exp}`;
+    playCorrectSound();
+  } else {
+    btn.classList.add('wrong');
+    allBtns[q.ans].classList.add('correct');
+    fb.className = 'feedback fb-wrong show';
+    fb.innerHTML = `<strong>❌ Not quite!</strong>${q.exp}`;
+    playWrongSound();
+  }
+
+  document.getElementById('score-chip').textContent = `Score: ${score}`;
+  document.getElementById('next-btn').classList.add('show');
+}
+
+function nextQ() {
+  cur++;
+  if (cur >= activeQuestions.length) {
+    showResults();
+  } else {
+    loadQ();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+}
+
+// ── HISTORY SYSTEM ──
+const HISTORY_KEY = 'chloe_grade4_quiz_history_records';
+
+function getHistory() {
+  try {
+    const raw = localStorage.getItem(HISTORY_KEY);
+    return raw ? JSON.parse(raw) : [];
+  } catch(e) {
+    return [];
+  }
+}
+
+function saveAttempt(score, total, mode) {
+  const history = getHistory();
+  const pct = Math.round((score / total) * 100);
+  const now = new Date();
+  const dateStr = now.toLocaleDateString('en-US', {
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric'
+  }) + ' at ' + now.toLocaleTimeString('en-US', {
+    hour: 'numeric',
+    minute: '2-digit',
+    hour12: true
+  });
+
+  const record = {
+    id: Date.now(),
+    score: score,
+    total: total,
+    pct: pct,
+    mode: mode,
+    date: dateStr
+  };
+
+  history.unshift(record);
+  if (history.length > 20) history.pop();
+
+  try {
+    localStorage.setItem(HISTORY_KEY, JSON.stringify(history));
+  } catch(e) {}
+
+  renderHistory();
+}
+
+function clearHistory() {
+  const history = getHistory();
+  if (history.length === 0) {
+    alert('History is already empty!');
+    return;
+  }
+  if (confirm('Are you sure you want to clear all recorded quiz scores?')) {
+    localStorage.removeItem(HISTORY_KEY);
+    renderHistory();
+  }
+}
+
+function renderHistory() {
+  const listEl = document.getElementById('history-list');
+  if (!listEl) return;
+
+  const history = getHistory();
+  if (history.length === 0) {
+    listEl.innerHTML = '<div class="history-empty">No quiz history recorded yet. Complete a quiz to track your scores! 🚀</div>';
+    return;
+  }
+
+  let html = '';
+  history.forEach(item => {
+    html += `
+      <div class="history-item">
+        <div class="history-item-left">
+          <div class="history-item-score">Score: <span>${item.score} / ${item.total}</span> (${item.pct}%)</div>
+          <div class="history-item-date">🗓️ ${item.date}</div>
+        </div>
+        <span class="history-badge subject-badge">${item.mode === 'ALL' ? 'All Subjects' : item.mode}</span>
+      </div>
+    `;
+  });
+  listEl.innerHTML = html;
+}
+
+window.addEventListener('DOMContentLoaded', renderHistory);
+renderHistory();
+
+function showResults() {
+  document.getElementById('quiz-screen').classList.remove('active');
+  document.getElementById('results-screen').classList.add('active');
+  document.getElementById('progress-fill').style.width = '100%';
+
+  const total = activeQuestions.length;
+  const pct = Math.round((score / total) * 100);
+  document.getElementById('score-num').textContent = score;
+  document.getElementById('score-out').textContent = `out of ${total} points`;
+  document.getElementById('r-c').textContent = score;
+  document.getElementById('r-w').textContent = total - score;
+  document.getElementById('r-p').textContent = pct + '%';
+
+  let trophy, title, tagline;
+  if (pct >= 90)      { trophy='🏆'; title='Grade 4 Star!';     tagline='Outstanding! You mastered all the 2nd Summative pointers! 🔥'; }
+  else if (pct >= 75) { trophy='🎯'; title='Great Work!';       tagline='Solid review! A quick look at the missed items will make your score perfect.'; }
+  else if (pct >= 60) { trophy='📖'; title='Good Effort!';      tagline='Good job! Review the pointers and try the quiz again.'; }
+  else                { trophy='💪'; title='Keep Practicing!';  tagline='Don\'t give up! Read the reviewer pointers again and retake the quiz!'; }
+
+  document.getElementById('trophy').textContent        = trophy;
+  document.getElementById('result-title').textContent  = title;
+  document.getElementById('result-tagline').textContent = tagline;
+
+  saveAttempt(score, total, activeSubject);
+
+  if (pct >= 75) {
+    launchConfetti();
+    playFanfareSound();
+  }
+}
+
+function restartQuizCurrent() {
+  selectSubject(activeSubject);
+}
+
+function returnToStart() {
+  document.getElementById('quiz-screen').classList.remove('active');
+  document.getElementById('results-screen').classList.remove('active');
+  document.getElementById('start-screen').classList.add('active');
+  document.getElementById('progress-fill').style.width = '0%';
+  renderHistory();
+}
+
+function launchConfetti() {
+  const c = document.getElementById('confetti');
+  c.innerHTML = '';
+  const colors = ['#06d6a0','#ffd93d','#4ecdc4','#a855f7','#ff9a3c','#ff6b9d'];
+  for (let i = 0; i < 60; i++) {
+    const dot = document.createElement('div');
+    dot.className = 'dot-confetti';
+    dot.style.left              = Math.random() * 100 + 'vw';
+    dot.style.background        = colors[Math.floor(Math.random() * colors.length)];
+    dot.style.animationDuration = (1.5 + Math.random() * 2) + 's';
+    dot.style.animationDelay   = Math.random() * 1.2 + 's';
+    dot.style.width = dot.style.height = (6 + Math.random() * 8) + 'px';
+    c.appendChild(dot);
+  }
+  setTimeout(() => c.innerHTML = '', 4000);
+}
+</script>
+</body>
+</html>
